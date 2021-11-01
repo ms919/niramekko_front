@@ -1,5 +1,5 @@
 export default {
-	// backendとのパートバッティング回避
+	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
 	server: {
 		port: 8080,
 	},
@@ -42,11 +42,17 @@ export default {
 	],
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
-	axios: {},
+	axios: {
+		proxy: true,
+	},
 
 	proxy: {
-		"/api": {
-			target: "http://localhost:3000/",
+		// ドメイン決定次第変更する
+		// "/api/": {
+		// 	target: "https://niramekko-sample.herokuapp.com",
+		// },
+		"/api/": {
+			target: "http://localhost:3000",
 		},
 	},
 
@@ -55,5 +61,11 @@ export default {
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {},
+	build: {
+		extend(config, ctx) {
+			config.node = {
+				fs: "empty",
+			};
+		},
+	},
 };
