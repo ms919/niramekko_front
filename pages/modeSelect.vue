@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center display-col">
-    <div class="m-tb-6">
+  <div class="text-center display-col justify-center wrapper-height">
+    <div>
       <NuxtLink to="/play" class="button btn-pink">nomal mode</NuxtLink>
       <p>5つの動画を見て最終スコアを競うモード</p>
     </div>
@@ -10,9 +10,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.m-tb-6 {
-  margin: 6rem 0;
-}
-</style>

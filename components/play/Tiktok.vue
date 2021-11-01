@@ -13,11 +13,8 @@ export default {
 </script>
 
 <style scoped>
-.item {
-	width: 540px;
-	height: 563px;
-}
 .inner-wrapper {
-  width: 540px;
+  width: 324px;
+	margin: 0 auto;
 }
 </style>

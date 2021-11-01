@@ -13,13 +13,15 @@ header {
 	width: 100%;
 	height: 3rem;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 999;
 }
 footer {
 	position: fixed;
 	bottom: 0;
+	z-index: 998;
 }
 a {
-  text-decoration: none;
+	text-decoration: none;
 	cursor: pointer;
 }
 h1 {
@@ -27,41 +29,48 @@ h1 {
 	letter-spacing: 0.02em;
 	color: #e43965;
 	text-shadow: 0px 10px 10px rgba(255, 255, 255, 1);
-	margin: 3rem;
 }
 h2 {
 	font-size: 2.5rem;
 	color: #e43965;
 	text-shadow: 0px 4px 4px rgba(255, 255, 255, 1);
-	margin: 5rem;
 }
 .text-center {
 	text-align: center;
 }
 .display-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.wrapper-height {
+	height: 93vh;
+}
+.justify-space-around {
+	justify-content: space-around;
+}
+.justify-center {
+	justify-content: center;
 }
 .button {
-  display: inline-block;
-  width: 30rem;
+	display: inline-block;
+	width: 30rem;
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 70px;
 	padding: 0.5rem 3rem;
-  margin: 1rem;
+	margin: 1rem;
 	font-size: 2.5rem;
 	font-weight: bold;
 }
 .sm-button {
 	display: inline-block;
-  width: 15rem;
+	width: 15rem;
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 50px;
 	padding: 0.5rem 1rem;
-  margin: 1rem;
+	margin: 1rem;
 	font-size: 1.5rem;
 	font-weight: bold;
 }
@@ -70,7 +79,7 @@ h2 {
 	color: #ffffff;
 }
 .btn-yellow-green {
-	background-color: #A4DB0E;
+	background-color: #a4db0e;
 	color: #ffffff;
 }
 .orange {
@@ -83,5 +92,29 @@ h2 {
 	color: #44beef;
 }
 .yellow-green {
-	color: #A4DB0E;
+	color: #a4db0e;
+}
+@media screen and (max-width: 1024px) {
+	html {
+		font-size: 18px;
+	}
+}
+@media screen and (max-width: 425px) {
+	html {
+		font-size: 12px;
+	}
+	h2 {
+		font-size: 2rem;
+	}
+	.button {
+		width: 28rem;
+	}
+	.wrapper-height {
+		height: 90vh;
+	}
+}
+@media screen and (max-width: 320px) {
+	html {
+		font-size: 10px;
+	}
 }

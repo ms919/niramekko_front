@@ -2,7 +2,7 @@
 	<transition appear>
 		<div @click="closeModal" class="overlay">
 			<div class="window">
-				<div class="content yellow-green">
+				<div class="content yellow-green display-col justify-center">
 					<p class="result-text">SCORE {{ score }}</p>
           <p>称号</p>
 					<p class="result-text">{{ title }}</p>
@@ -75,15 +75,15 @@ export default {
 	background: rgba(0, 0, 0, 0.15);
 }
 .window {
-	height: 40%;
+	height: 400px;
 	width: 40%;
 	overflow: hidden;
 	background-color: #ffffff;
   border-radius: 20px;
 }
 .content {
-  margin: 2rem;
 	text-align: center;
+	height: 90%;
 }
 .mrl-2 {
 	margin: 0 2rem;
@@ -95,5 +95,15 @@ export default {
 .icons-wrapper {
   position: relative;
   bottom: -3rem;
+}
+@media screen and (max-width: 1366px) {
+	.window {
+		width: 60%;
+	}
+}
+@media screen and (max-width: 425px) {
+	.window {
+		width: 90%;
+	}
 }
 </style>
