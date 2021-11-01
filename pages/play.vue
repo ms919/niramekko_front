@@ -13,7 +13,9 @@
 			</div>
 			<PlayResult v-if="modalFlg" @close-modal="closeModal" />
 		</div>
-		<div class="face-api-wrapper"></div>
+		<div class="face-api-wrapper">
+			<PlayFaceApi />
+		</div>
 	</div>
 </template>
 
