@@ -43,6 +43,10 @@ h2 {
 	flex-direction: column;
 	align-items: center;
 }
+.display-row {
+	display: flex;
+	align-items: center;
+}
 .wrapper-height {
 	height: 93vh;
 }

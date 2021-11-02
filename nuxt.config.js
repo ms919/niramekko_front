@@ -57,7 +57,7 @@ export default {
 	},
 
 	fontawesome: {
-		component: "fa",
+		component: "fa"
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build

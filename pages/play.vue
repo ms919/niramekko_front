@@ -54,11 +54,12 @@ export default {
 
 <style scoped>
 .play-wrapper {
-	margin: 3rem auto;
+	height: 93vh;
 }
 @media screen and (max-height: 834px) {
 	.play-wrapper {
 		margin: 1.5rem auto;
+		height: auto;
 	}
 }
 @media screen and (max-width: 425px) {

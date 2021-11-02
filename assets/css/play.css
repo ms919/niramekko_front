@@ -11,7 +11,7 @@
 }
 .face-api-wrapper {
 	width: 30%;
-	height: 200px;
+	height: 240px;
 	background-color: #ffffff;
 	box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
 }
@@ -24,6 +24,11 @@
 }
 .icon-size {
 	font-size: 1.5rem;
+}
+@media screen and (max-height: 768px) {
+	.face-api-wrapper {
+		height: 200px;
+	}
 }
 @media screen and (max-width: 1366px) {
 	.tiktok-wrapper {
