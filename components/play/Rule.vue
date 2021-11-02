@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center rule-wrapper">
+	<div class="text-center section-wrapper">
 		<h3>ルール説明・注意点</h3>
 		<div class="text-wrapper">
 			<p>
@@ -28,10 +28,10 @@ export default {
 </script>
 
 <style scoped>
-.rule-wrapper {
-	padding: 1.5rem 0;
-}
 .text-wrapper {
 	margin: 2rem 0;
+}
+.section-wrapper {
+	padding: 1.5rem 0;
 }
 </style>

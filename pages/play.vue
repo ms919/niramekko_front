@@ -1,5 +1,5 @@
 <template>
-	<div class="display-col justify-center play-wrapper">
+	<div class="display-col justify-center top-wrapper">
 		<div class="tiktok-wrapper">
 			<component :is="currentComponent"></component>
 			<div class="icon-wrapper">
@@ -13,7 +13,7 @@
 			</div>
 			<PlayResult v-if="modalFlg" @close-modal="closeModal" />
 		</div>
-		<div class="face-api-wrapper">
+		<div class="contents-wrapper">
 			<PlayFaceApi />
 		</div>
 	</div>
@@ -51,20 +51,3 @@ export default {
 	},
 };
 </script>
-
-<style scoped>
-.play-wrapper {
-	height: 93vh;
-}
-@media screen and (max-height: 834px) {
-	.play-wrapper {
-		margin: 1.5rem auto;
-		height: auto;
-	}
-}
-@media screen and (max-width: 425px) {
-	.play-wrapper {
-		margin: 0 auto;
-	}
-}
-</style>

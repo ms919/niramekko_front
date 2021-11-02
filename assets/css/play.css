@@ -9,7 +9,7 @@
 	width: 540px;
 	height: 563px;
 }
-.face-api-wrapper {
+.contents-wrapper {
 	width: 30%;
 	height: 240px;
 	background-color: #ffffff;
@@ -26,7 +26,7 @@
 	font-size: 1.5rem;
 }
 @media screen and (max-height: 768px) {
-	.face-api-wrapper {
+	.contents-wrapper {
 		height: 200px;
 	}
 }
@@ -34,7 +34,7 @@
 	.tiktok-wrapper {
 		width: 50%;
 	}
-	.face-api-wrapper {
+	.contents-wrapper {
 		width: 50%;
 	}
 }
@@ -47,7 +47,7 @@
 	.tiktok-wrapper {
 		width: 65%;
 	}
-	.face-api-wrapper {
+	.contents-wrapper {
 		width: 65%;
 	}
 }
@@ -55,7 +55,7 @@
 	.tiktok-wrapper {
 		width: 100%;
 	}
-	.face-api-wrapper {
+	.contents-wrapper {
 		width: 100%;
 	}
 	.icon-size {

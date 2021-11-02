@@ -1,5 +1,5 @@
 <template>
-	<PlayTiktok />
+	<CommonTiktok />
 </template>
 
 <script>
