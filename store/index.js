@@ -23,7 +23,7 @@ export const state = () => ({
 			dataVideoId: "6995542759981452549",
 		},
 	],
-	currentItem: "",
+	currentItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
 });
 
 export const getters = {
@@ -40,8 +40,7 @@ export const mutations = {
 	incrementItemsPointer(state) {
 		++state.itemsPointer;
 	},
-	changeCurrentItem(state, pointer) {
-		const target = state.items[pointer];
+	changeCurrentItem(state, target) {
 		state.currentItem = `<blockquote class='tiktok-embed item' cite=${target.cite} data-video-id=${target.dataVideoId}><section></section></blockquote>`;
 	},
 	clearItem(state) {
@@ -69,7 +68,7 @@ export const mutations = {
 				dataVideoId: "6995542759981452549",
 			},
 		];
-		state.currentItem = "";
+		state.currentItem = "<div class='default-item'><p>NO<br/>VIDEO</p></div>";
 	},
 };
 
@@ -85,13 +84,26 @@ export const actions = {
 		commit("incrementItemsPointer");
 		// 更新したポインタに合わせてCurrentItemを変更
 		const pointer = getters.itemsPointer;
-		commit("changeCurrentItem", pointer);
+		const target = getters.items[pointer];
+		commit("changeCurrentItem", target);
 		// 次のコンポーネントをセット
-		const nextComponent = pointer % 2 == 0 ? "PlayEven" : "PlayOdd";
-		commit("changeCurrentComponent", nextComponent);
+		if (getters.currentComponent != "CommonTiktok") {
+			commit("changeCurrentComponent", "CommonTiktok");
+		}
 	},
-	gotoRetry({ commit }) {    
+	gotoRetry({ commit }) {
 		commit("clearItem");
     this.$router.push('/play');
 	},
+	clearItem({commit}){
+		commit("clearItem");
+	},
+	updateVideoUrl({commit}, url) {
+		const target = {
+			cite: url,
+			dataVideoId: url.slice(url.lastIndexOf("/") - url.length + 1),
+		};
+		commit("changeCurrentItem", target);
+		commit("incrementItemsPointer");
+	}
 };

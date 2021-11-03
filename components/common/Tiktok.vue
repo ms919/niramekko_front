@@ -1,20 +1,28 @@
 <template>
-	<div class="inner-wrapper" v-html="item"></div>
+	<div class="inner-wrapper" v-html="currentItem"></div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 export default {
-	data() {
+	head() {
+		const flg = this.itemsPointer % 2 == 0;
 		return {
-			defaultItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
+			script: [
+				{
+					type: "text/javascript",
+					src: "https://www.tiktok.com/embed.js",
+					async: flg,
+					body: flg,
+				},
+			],
 		};
 	},
 	computed: {
-		...mapGetters(["currentItem"]),
-		item() {
-			return this.currentItem != "" ? this.currentItem : this.defaultItem;
-		},
+		...mapGetters(["currentItem", "itemsPointer"]),
+	},
+	mounted() {
+		console.log("tiktok mouted done!!!!!!!!");
 	},
 };
 </script>

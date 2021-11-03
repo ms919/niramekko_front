@@ -8,7 +8,7 @@
 						>URL&nbsp;
 						<span>共有するtiktok動画のリンクを貼り付けてください。</span></label
 					>
-					<input type="text" v-model.lazy.trim="url" />
+					<input id="url" type="text" v-model="url" @focusout="focusoutUrl" />
 				</div>
 				<fa
 					:icon="faPaperPlane"
@@ -24,22 +24,40 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 export default {
+	data() {
+		return {
+			url: "",
+		};
+	},
 	computed: {
-		// ...mapGetters(["currentComponent", "itemsPointer"]),
 		faPaperPlane: () => faPaperPlane,
 	},
 	methods: {
-		gotoNext() {
-			if (this.itemsPointer < 4) {
-				this.$store.dispatch("gotoNext");
-			} else {
-				this.modalFlg = true;
+		focusoutUrl() {
+			// urlチェック
+			this.checkUrl();
+			if (this.url != "") {
+				// currentItemにセット
+				this.$store.dispatch("updateVideoUrl", this.url);
 			}
 		},
+		checkUrl() {
+			const pattern = /https:\/\/www.tiktok.com\/@[0-9A-Za-z_.]*\/video\/[0-9]*/;
+			if (!pattern.test(this.url)) {
+				confirm("urlが間違っています(ToT)");
+				this.url = "";
+			} else {
+				this.url = this.url.match(pattern)[0];
+			}
+			document.getElementById("url").value = this.url;
+		},
+		submit(){}
+	},
+	mounted() {
+		this.$store.dispatch("clearItem");
 	},
 };
 </script>
