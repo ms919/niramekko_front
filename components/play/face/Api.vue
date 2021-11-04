@@ -11,7 +11,7 @@
 			<PlayFaceChart :chart-data="datacollection" />
 		</div>
 		<div class="right-wrapper display-col">
-			<p class="score">SCORE 88</p>
+			<p class="score">SCORE {{ score }}</p>
 			<div>
 				<video id="video" width="100" height="75" @play="onPlay"></video>
 				<canvas id="canvas" width="100" height="75"></canvas>
@@ -20,6 +20,7 @@
 	</div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import * as faceapi from "face-api.js";
 import {
 	faLaughSquint,
@@ -32,6 +33,7 @@ export default {
 	data() {
 		return {
 			datacollection: null,
+			score: 100,
 		};
 	},
 	computed: {
@@ -40,6 +42,7 @@ export default {
 		faAngry: () => faAngry,
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
+		...mapGetters(["currentComponent"]),
 	},
 	methods: {
 		onPlay() {
@@ -63,26 +66,34 @@ export default {
 				faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
 				if (detections !== undefined) {
 					const expressions = detections.expressions;
-					this.fillData(expressions);
+					this.updateData(expressions);
 				}
 			}, 500);
 		},
-		fillData(expressions) {
+		updateData(expressions) {
 			this.datacollection = {
 				labels: ["sad", "happy", "angry", "surprised", "disgusted"],
 				datasets: [
 					{
 						backgroundColor: "#e43965",
 						data: [
-							expressions.sad * 10,
+							expressions.sad * 5,
 							expressions.happy * 10,
-							expressions.angry * 10,
-							expressions.surprised * 10,
-							(expressions.disgusted + expressions.fearful) * 10,
+							expressions.angry * 5,
+							expressions.surprised * 5,
+							(expressions.disgusted + expressions.fearful) * 5,
 						],
 					},
 				],
 			};
+			if (this.currentComponent == "CommonTiktok") {
+				const total = this.datacollection.datasets[0].data.reduce(
+					(sum, value) => sum + value
+				);
+				if (total > 3) {
+					this.score = Math.floor((this.score - total) * 10) / 10;
+				}
+			}
 		},
 	},
 	mounted() {
