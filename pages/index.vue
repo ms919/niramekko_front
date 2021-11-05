@@ -5,7 +5,7 @@
 			<h1 class="for_sp">笑って、<br/>笑わせて</h1>
 			<h2>Social Niramekko Service</h2>
 		</div>
-		<NuxtLink to="/modeSelect" class="button btn-pink">PLAY</NuxtLink>
+		<NuxtLink to="/modeSelect" class="btn lg-button btn-pink">PLAY</NuxtLink>
 	</div>
 </template>
 <style scoped>

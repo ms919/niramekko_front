@@ -15,7 +15,7 @@
 				texttexttexttexttexttext<br />texttexttexttexttexttexttext
 			</p>
 		</div>
-		<a @click="$store.dispatch('gotoNext')" class="sm-button btn-pink">START</a>
+		<a @click="$store.dispatch('gotoNext')" class="btn sm-button btn-pink">START</a>
 	</div>
 </template>
 

@@ -21,6 +21,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import fixed from "~/const/const.js";
 import * as faceapi from "face-api.js";
 import {
 	faLaughSquint,
@@ -42,7 +43,7 @@ export default {
 		faAngry: () => faAngry,
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
-		...mapGetters(["currentComponent"]),
+		...mapGetters(["currentComponent", "startFlg"]),
 	},
 	methods: {
 		onPlay() {
@@ -68,6 +69,9 @@ export default {
 					const expressions = detections.expressions;
 					this.updateData(expressions);
 				}
+				if (!this.startFlg && document.activeElement.tagName == "IFRAME") {
+					this.$store.dispatch("enableStartFlg");
+				}
 			}, 500);
 		},
 		updateData(expressions) {
@@ -77,11 +81,11 @@ export default {
 					{
 						backgroundColor: "#e43965",
 						data: [
-							expressions.sad * 5,
-							expressions.happy * 10,
-							expressions.angry * 5,
-							expressions.surprised * 5,
-							(expressions.disgusted + expressions.fearful) * 5,
+							expressions.sad,
+							expressions.happy * fixed.HAPPY_MULTIPLICATION,
+							expressions.angry,
+							expressions.surprised,
+							expressions.disgusted + expressions.fearful,
 						],
 					},
 				],
@@ -90,7 +94,7 @@ export default {
 				const total = this.datacollection.datasets[0].data.reduce(
 					(sum, value) => sum + value
 				);
-				if (total > 3) {
+				if (total > fixed.DEDUCTION_TARGET) {
 					this.score = Math.floor((this.score - total) * 10) / 10;
 				}
 			}
