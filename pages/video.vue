@@ -54,7 +54,19 @@ export default {
 			}
 			document.getElementById("url").value = this.url;
 		},
-		submit(){}
+		submit(){
+			const video_user = this.url.match(/@[0-9A-Za-z_.]*/)[0];
+			const data_video_id = this.url.match(/[0-9]*$/)[0];
+			this.$axios
+				.post("/api/v1/videos", { video_user: video_user, data_video_id: data_video_id })
+				.then((res) => {
+					this.url = "";
+					confirm("登録しました");
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	},
 	mounted() {
 		this.$store.dispatch("clearItem");
