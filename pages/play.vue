@@ -63,6 +63,7 @@ export default {
 				this.$store.dispatch("gotoNext", this.$refs.faceApi.score);
 			} else {
 				this.$store.dispatch("calcScore", this.$refs.faceApi.score);
+				this.$store.dispatch("sendResult");
 				this.modalFlg = true;
 			}
 		},

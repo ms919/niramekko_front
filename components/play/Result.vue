@@ -5,7 +5,7 @@
 				<div class="content yellow-green display-col justify-center">
 					<p class="result-text">SCORE {{ score }}</p>
 					<p>称号</p>
-					<p class="result-text">{{ title }}</p>
+					<p class="result-text">{{ title.name }}</p>
 					<div class="icons-wrapper">
 						<fa-layers
 							full-width
@@ -32,22 +32,17 @@
 <script>
 import { faHome, faRedoAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { mapGetters } from "vuex";
 export default {
 	props: {
 		score: { type: Number },
-	},
-	data() {
-		return {
-			title: "",
-			tweet_text: "",
-		}
 	},
 	computed: {
 		tweetContent() {
 			const url = "https://twitter.com/intent/tweet?url=https://niramekko.app";
 			const text =
 				this.score != null
-					? `%0a&text=SCORE:${this.score}【${this.title}】%0a%0a`
+					? `%0a&text=SCORE:${this.score}【${this.title.name}】%0a%0a`
 					: "&text=";
 			const hashtags = "&hashtags=niramekko,tiktok,にらめっこ,お笑い";
 			return `${url}${text}${hashtags}`;
@@ -56,38 +51,12 @@ export default {
 		faPlay: () => faPlay,
 		faHome: () => faHome,
 		faTwitter: () => faTwitter,
+		...mapGetters(["title"]),
 	},
 	methods: {
 		closeModal() {
 			this.$emit("close-modal");
 		},
-	},
-	mounted() {
-		const score = this.score;
-		switch (true) {
-			case score >= 95:
-				this.title = "金城鉄壁真顔人";
-				this.tweet_text = "何を見ても、何を聞いても笑わない。非の打ち所の無い素晴らしい忍耐力の持ち主です。";
-				break;
-			case score >= 75:
-				this.title = "鉄壁の真顔人";
-				this.tweet_text = "かなり笑いを堪えられる体質です。";
-				break;
-			case score >= 65:
-				this.title = "土壁の真顔人";
-				this.tweet_text = "何を見ても、何を聞いても笑わない。素晴らしい真顔の持ち主です。";
-				break;
-			case score >= 40:
-				this.title = "ニッコリさん";
-				this.tweet_text = "何を見ても、何を聞いても笑わない。素晴らしい真顔の持ち主です。";
-				break;
-			case score < 40:
-				this.title = "ゲラゲラ星人";
-				this.tweet_text = "何を見ても、何を聞いても笑わない。素晴らしい真顔の持ち主です。";
-				break;
-			default:
-				this.title = ""
-		}
 	},
 };
 </script>
