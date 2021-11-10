@@ -7,6 +7,8 @@ export const state = () => ({
 	scoreArray: [fixed.PERFECT_SCORE],
 	laughedRecords: [],
 	startFlg: false,
+	modalFlg: false,
+	openResultFlg: false,
 	mode: null,
 	title: {},
 });
@@ -20,6 +22,8 @@ export const getters = {
 	scoreArray: (state) => state.scoreArray,
 	laughedRecords: (state) => state.laughedRecords,
 	startFlg: (state) => state.startFlg,
+	modalFlg: (state) => state.modalFlg,
+	openResultFlg: (state) => state.openResultFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
 };
@@ -41,7 +45,6 @@ export const mutations = {
 		state.laughedRecords = videoIds;
 	},
 	changeCurrentItem(state, target) {
-		state.startFlg = false;
 		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
 	clearItem(state) {
@@ -52,6 +55,8 @@ export const mutations = {
 		state.scoreArray = [fixed.PERFECT_SCORE];
 		state.laughedRecords = [];
 		state.startFlg = false;
+		state.modalFlg = false;
+		state.openResultFlg = false;
 		state.title = {};
 	},
 	addScoreArray(state, score) {
@@ -60,8 +65,14 @@ export const mutations = {
 	addLaughedRecords(state, diff) {
 		state.laughedRecords[state.itemsPointer].score_diff = diff;
 	},
-	enableStartFlg(state) {
-		state.startFlg = true;
+	changeStartFlg(state) {
+		state.startFlg = !state.startFlg;
+	},
+	changeModalFlg(state) {
+		state.modalFlg = !state.modalFlg;
+	},
+	enableOpenResultFlg(state) {
+		state.openResultFlg = true;
 	},
 	changeTitle(state, title) {
 		state.title = title;
@@ -73,7 +84,7 @@ export const actions = {
 		commit("setMode", mode);
 		this.$router.push("/play");
 	},
-	getItems({ commit, getters }) {
+	getItems({ commit }) {
 		// アイテムをクリア
 		commit("clearItem");
 		// rails側のdbから動画を取ってきてセットする
@@ -103,16 +114,17 @@ export const actions = {
 		} else {
 			dispatch("calcScore", score);
 			dispatch("setNextContents");
+			commit("changeStartFlg");
 		}
 	},
-	enableStartFlg({ commit }) {
-		commit("enableStartFlg");
+	changeStartFlg({ commit }) {
+		commit("changeStartFlg");
 	},
 	calcScore({ getters, commit }, score) {
 		const diff = getters.scoreArray.slice(-1)[0] - score;
 		commit("addLaughedRecords", diff);
 		commit("addScoreArray", score);
-		console.log(getters.laughedRecords);
+		// console.log(getters.laughedRecords);
 		// console.log(getters.scoreArray);
 	},
 	setNextContents({ getters, commit }) {
@@ -176,9 +188,12 @@ export const actions = {
 		}
 		commit("changeTitle", title);
 	},
-	gotoRetry({ commit }) {
-		commit("clearItem");
-		this.$router.push("/modeSelect");
+	changeModalFlg({ commit }) {
+		commit("changeModalFlg");
+	},
+	enableOpenResultFlg({ commit }) {
+		commit("enableOpenResultFlg");
+		commit("changeStartFlg");
 	},
 	clearItem({ commit }) {
 		commit("clearItem");

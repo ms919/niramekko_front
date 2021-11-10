@@ -18,6 +18,7 @@ export default {
     this.normal = fixed.MODE.NORMAL;
     this.dojyo = fixed.MODE.DOJYO;
     this.revenge = fixed.MODE.REVENGE;
+    this.$store.dispatch("clearItem");
   }
 }
 </script>

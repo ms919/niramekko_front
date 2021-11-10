@@ -7,21 +7,20 @@
 					<p>称号</p>
 					<p class="result-text">{{ title.name }}</p>
 					<div class="icons-wrapper">
-						<fa-layers
-							full-width
-							@click="$store.dispatch('gotoRetry')"
-							class="icon"
-							><fa :icon="faRedoAlt" class="icon pink" /><fa
-								:icon="faPlay"
-								transform="shrink-8.7 right-1.2 down-0.5"
-								class="pink"
-						/></fa-layers>
+						<NuxtLink to="/modeSelect">
+							<fa-layers
+								full-width
+								class="icon"
+								><fa :icon="faRedoAlt" class="icon pink" /><fa
+									:icon="faPlay"
+									transform="shrink-8.7 right-1.2 down-0.5"
+									class="pink"
+							/></fa-layers>
+						</NuxtLink>
 						<NuxtLink to="/">
 							<fa :icon="faHome" class="orange icon mrl-2" />
 						</NuxtLink>
-						<a :href="tweetContent" target="_blank">
-							<fa :icon="faTwitter" class="light-blue icon" />
-						</a>
+						<fa :icon="faTwitter" @click.stop="openTweet" class="light-blue icon" />
 					</div>
 				</div>
 			</div>
@@ -55,7 +54,10 @@ export default {
 	},
 	methods: {
 		closeModal() {
-			this.$emit("close-modal");
+			this.$store.dispatch("changeModalFlg");
+		},
+		openTweet() {
+			window.open(this.tweetContent, '_blank');
 		},
 	},
 };

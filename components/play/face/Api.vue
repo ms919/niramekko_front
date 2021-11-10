@@ -70,7 +70,7 @@ export default {
 					this.updateData(expressions);
 				}
 				if (!this.startFlg && document.activeElement.tagName == "IFRAME") {
-					this.$store.dispatch("enableStartFlg");
+					this.$store.dispatch("changeStartFlg");
 				}
 			}, 500);
 		},
@@ -90,7 +90,7 @@ export default {
 					},
 				],
 			};
-			if (this.currentComponent == "CommonTiktok") {
+			if (this.startFlg && this.currentComponent == "CommonTiktok") {
 				const total = this.datacollection.datasets[0].data.reduce(
 					(sum, value) => sum + value
 				);
