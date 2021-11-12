@@ -13,8 +13,8 @@
 		<div class="right-wrapper display-col">
 			<p class="score">SCORE {{ score }}</p>
 			<div>
-				<video id="video" width="100" height="75" @play="onPlay"></video>
-				<canvas id="canvas" width="100" height="75"></canvas>
+				<video id="video" @play="onPlay" playsinline autoplay muted></video>
+				<canvas id="canvas"></canvas>
 			</div>
 		</div>
 	</div>
@@ -50,6 +50,12 @@ export default {
 			const video = document.getElementById("video"); // video 要素を取得
 			const canvas = document.getElementById("canvas"); // canvas 要素の取得
 
+			setTimeout(() => {
+				// console.log(video.clientHeight);
+				canvas.width = video.clientWidth;
+				canvas.height = video.clientHeight;
+			}, 1000);
+
 			setInterval(async () => {
 				// ウェブカメラの映像から顔データを取得
 				const detections = await faceapi
@@ -58,8 +64,8 @@ export default {
 					.withFaceExpressions();
 				// 顔データをリサイズ
 				const resizedDetections = faceapi.resizeResults(detections, {
-					width: video.width,
-					height: video.height,
+					width: video.clientWidth,
+					height: video.clientHeight,
 				});
 
 				// キャンバスに描画
@@ -139,6 +145,7 @@ export default {
 	margin: 0 auto;
 	margin-top: 1rem;
 	position: absolute;
+	width: 8%;
 }
 #canvas {
 	transform: scaleX(-1);
