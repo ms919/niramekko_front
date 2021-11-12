@@ -8,26 +8,28 @@ export default {
 	props: {
 		options: {
 			type: Object,
-			default: {
-				legend: {
-					display: false,
-				},
-				scales: {
-					xAxes: [
-						{
-							ticks: {
-								suggestedMin: 0,
-								suggestedMax: 10,
-								stepSize: 1,
+			default() {
+				return {
+					legend: {
+						display: false,
+					},
+					scales: {
+						xAxes: [
+							{
+								ticks: {
+									suggestedMin: 0,
+									suggestedMax: 10,
+									stepSize: 1,
+								},
 							},
-						},
-					],
-					yAxes: [
-						{
-							display: false,
-						},
-					],
-				},
+						],
+						yAxes: [
+							{
+								display: false,
+							},
+						],
+					},
+				};
 			},
 		},
 	},
