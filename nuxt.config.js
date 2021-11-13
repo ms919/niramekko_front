@@ -55,13 +55,12 @@ export default {
 	},
 
 	proxy: {
-		// ドメイン決定次第変更する
-		// "/api/": {
-		// 	target: "https://niramekko-sample.herokuapp.com",
-		// },
 		"/api/": {
-			target: "http://localhost:3000",
+			target: "https://niramekko-api.herokuapp.com",
 		},
+		// "/api/": {
+		// 	target: "http://localhost:3000",
+		// },
 	},
 
 	fontawesome: {
