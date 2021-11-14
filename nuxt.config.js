@@ -32,14 +32,16 @@ export default {
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
-    '@nuxtjs/google-fonts'
-  ],
-
-  googleFonts: {
-    families: {
-			'Yanone+Kaffeesatz': [400]
-		}
-  },
+		[
+			"@nuxtjs/google-fonts",
+			{
+				families: {
+					"Yanone+Kaffeesatz": [400],
+					"Noto+Sans+JP": [400, 700],
+				},
+			},
+		],
+	],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
