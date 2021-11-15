@@ -8,7 +8,7 @@ export default {
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: "front",
+		title: "niramekko",
 		htmlAttrs: {
 			lang: "en",
 		},
@@ -23,6 +23,10 @@ export default {
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
+
+	env: {
+		google_analytics_id: process.env.GOOGLE_ANALYTICS_ID,
+	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
@@ -45,13 +49,13 @@ export default {
 	],
 
 	googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
-  },
-  publicRuntimeConfig: {
-    googleAnalytics: {
-      id: process.env.GOOGLE_ANALYTICS_ID
-    }
-  },
+		id: process.env.google_analytics_id,
+	},
+	publicRuntimeConfig: {
+		googleAnalytics: {
+			id: process.env.google_analytics_id,
+		},
+	},
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
