@@ -25,8 +25,8 @@ export default {
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
 	env: {
-		google_analytics_id: process.env.GOOGLE_ANALYTICS_ID,
-	},
+    ga_id: process.env.GA_ID || ''
+  },
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
@@ -44,18 +44,8 @@ export default {
 					"Noto+Sans+JP": [400, 700],
 				},
 			},
-			"@nuxtjs/google-analytics",
 		],
 	],
-
-	googleAnalytics: {
-		id: process.env.google_analytics_id,
-	},
-	publicRuntimeConfig: {
-		googleAnalytics: {
-			id: process.env.google_analytics_id,
-		},
-	},
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
@@ -63,7 +53,12 @@ export default {
 		"@nuxtjs/axios",
 		"@nuxtjs/proxy",
 		"nuxt-fontawesome",
+		'@nuxtjs/google-gtag',
 	],
+	'google-gtag': {
+    id: process.env.ga_id,
+    debug: true
+  },
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
