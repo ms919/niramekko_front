@@ -40,8 +40,18 @@ export default {
 					"Noto+Sans+JP": [400, 700],
 				},
 			},
+			"@nuxtjs/google-analytics",
 		],
 	],
+
+	googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+  },
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID
+    }
+  },
 
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
@@ -66,7 +76,7 @@ export default {
 	},
 
 	fontawesome: {
-		component: "fa"
+		component: "fa",
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
