@@ -24,9 +24,13 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
-	publicRuntimeConfig: {
-	  ga_id: process.env.GA_ID,
+	env: {
+		ga_id: process.env.GA_ID || '',
 	},
+	// publicRuntimeConfig: {
+	//   ga_id: process.env.GA_ID,
+	// },
+
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
 
