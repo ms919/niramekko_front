@@ -55,7 +55,7 @@ export default {
 		"@nuxtjs/google-gtag",
 		{
 			"google-gtag": {
-				id: process.env.GA_ID,
+				id: process.env.ga_id,
 				debug: true,
 			},
 		},
@@ -70,9 +70,9 @@ export default {
 		"/api": {
 			target: "https://niramekko-api.herokuapp.com",
 		},
-		"/api": {
-			target: "http://localhost:3000",
-		},
+		// "/api": {
+		// 	target: "http://localhost:3000",
+		// },
 	},
 
 	fontawesome: {
