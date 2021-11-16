@@ -25,8 +25,8 @@ export default {
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
 	env: {
-    ga_id: process.env.GA_ID || ''
-  },
+		ga_id: process.env.GA_ID || "",
+	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
@@ -53,12 +53,16 @@ export default {
 		"@nuxtjs/axios",
 		"@nuxtjs/proxy",
 		"nuxt-fontawesome",
-		'@nuxtjs/google-gtag',
+		[
+			"@nuxtjs/google-gtag",
+			{
+				"google-gtag": {
+					id: process.env.ga_id,
+					debug: true,
+				},
+			},
+		],
 	],
-	'google-gtag': {
-    id: process.env.ga_id,
-    debug: true
-  },
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
@@ -66,12 +70,12 @@ export default {
 	},
 
 	proxy: {
-		"/api/": {
+		"/api": {
 			target: "https://niramekko-api.herokuapp.com",
 		},
-		// "/api/": {
-		// 	target: "http://localhost:3000",
-		// },
+		"/api": {
+			target: "http://localhost:3000",
+		},
 	},
 
 	fontawesome: {
