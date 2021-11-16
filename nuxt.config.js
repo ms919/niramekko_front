@@ -1,8 +1,8 @@
 export default {
 	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
-	server: {
-		port: 8080,
-	},
+	// server: {
+	// 	port: 8080,
+	// },
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
 
@@ -55,7 +55,7 @@ export default {
 		"@nuxtjs/google-gtag",
 		{
 			"google-gtag": {
-				id: this.$config.ga_id,
+				id: process.env.GA_ID,
 				debug: true,
 			},
 		},
