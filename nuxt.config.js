@@ -24,9 +24,9 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
-	env: {
-		ga_id: process.env.GA_ID || '',
-	},
+	// env: {
+	// 	ga_id: process.env.GA_ID || '',
+	// },
 	// publicRuntimeConfig: {
 	//   ga_id: process.env.GA_ID,
 	// },
@@ -60,8 +60,7 @@ export default {
 			"@nuxtjs/google-gtag",
 			{
 				"google-gtag": {
-					id: process.env.GA_ID,
-					debug: true,
+					id: "G-PQPDVG6Y32",
 				},
 			},
 		],
@@ -76,9 +75,9 @@ export default {
 		"/api": {
 			target: "https://niramekko-api.herokuapp.com",
 		},
-		"/api": {
-			target: "http://localhost:3000",
-		},
+		// "/api": {
+		// 	target: "http://localhost:3000",
+		// },
 	},
 
 	fontawesome: {
