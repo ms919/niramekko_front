@@ -11,6 +11,7 @@ export const state = () => ({
 	openResultFlg: false,
 	mode: null,
 	title: {},
+	loginFlg: localStorage.getItem("loginFlg"),
 });
 
 export const getters = {
@@ -26,6 +27,7 @@ export const getters = {
 	openResultFlg: (state) => state.openResultFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
+	loginFlg: (state) => state.loginFlg,
 };
 
 export const mutations = {
@@ -77,6 +79,9 @@ export const mutations = {
 	changeTitle(state, title) {
 		state.title = title;
 	},
+	reloadLoginFlg(state, value) {
+		state.loginFlg = value;
+	}
 };
 
 export const actions = {
@@ -99,6 +104,7 @@ export const actions = {
 					new_arr[i] = { video_id: data };
 					return new_arr;
 				}, []);
+				console.log(new_arr);
 				commit("setLaughedRecords", new_arr);
 			})
 			.catch((error) => {
@@ -198,11 +204,10 @@ export const actions = {
 	clearItem({ commit }) {
 		commit("clearItem");
 	},
-	updateVideoUrl({ commit }, url) {
-		const target = {
-			cite: url,
-			dataVideoId: url.slice(url.lastIndexOf("/") - url.length + 1),
-		};
+	reloadLoginFlg({commit}){
+		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
+	},
+	updateVideoUrl({ commit }, target) {
 		commit("changeCurrentItem", target);
 		commit("incrementItemsPointer");
 	},

@@ -34,6 +34,12 @@ export default {
 	},
 	computed: {
 		faPaperPlane: () => faPaperPlane,
+		video_data() {
+			return {
+				video_user: this.url.match(/@[0-9A-Za-z_.]*/)[0],
+				data_video_id: this.url.match(/[0-9]*$/)[0],
+			};
+		},
 	},
 	methods: {
 		focusoutUrl() {
@@ -41,7 +47,7 @@ export default {
 			this.checkUrl();
 			if (this.url != "") {
 				// currentItemにセット
-				this.$store.dispatch("updateVideoUrl", this.url);
+				this.$store.dispatch("updateVideoUrl", this.video_data);
 			}
 		},
 		checkUrl() {
@@ -54,11 +60,9 @@ export default {
 			}
 			document.getElementById("url").value = this.url;
 		},
-		submit(){
-			const video_user = this.url.match(/@[0-9A-Za-z_.]*/)[0];
-			const data_video_id = this.url.match(/[0-9]*$/)[0];
+		submit() {
 			this.$axios
-				.post("/api/v1/videos", { video_user: video_user, data_video_id: data_video_id })
+				.post("/api/v1/videos", this.video_data)
 				.then((res) => {
 					this.url = "";
 					confirm("登録しました");
@@ -66,10 +70,14 @@ export default {
 				.catch((error) => {
 					console.log(error);
 				});
-		}
+		},
 	},
 	mounted() {
-		this.$store.dispatch("clearItem");
+		if (!this.$store.getters.loginFlg) {
+			this.$router.push("/login");
+		} else {
+			this.$store.dispatch("clearItem");
+		}
 	},
 };
 </script>

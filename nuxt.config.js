@@ -1,8 +1,8 @@
 export default {
 	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
-	// server: {
-	// 	port: 8080,
-	// },
+	server: {
+		port: 8080,
+	},
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
 
@@ -10,7 +10,7 @@ export default {
 	head: {
 		title: "niramekko",
 		htmlAttrs: {
-			lang: "en",
+			lang: "ja",
 		},
 		meta: [
 			{ charset: "utf-8" },
@@ -24,9 +24,10 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
-	// env: {
-	// 	ga_id: process.env.GA_ID || '',
-	// },
+	env: {
+		ga_id: process.env.GA_ID || "",
+		google_client_id: process.env.GOOGLE_CLIENT_ID || "",
+	},
 	// publicRuntimeConfig: {
 	//   ga_id: process.env.GA_ID,
 	// },
@@ -55,12 +56,13 @@ export default {
 		// https://go.nuxtjs.dev/axios
 		"@nuxtjs/axios",
 		"@nuxtjs/proxy",
+		// "@nuxtjs/auth-next",
 		"nuxt-fontawesome",
 		[
 			"@nuxtjs/google-gtag",
 			{
 				"google-gtag": {
-					id: "G-PQPDVG6Y32",
+					id: process.env.ga_id,
 				},
 			},
 		],
@@ -72,19 +74,18 @@ export default {
 	},
 
 	proxy: {
-		"/api": {
-			target: "https://niramekko-api.herokuapp.com",
-		},
 		// "/api": {
-		// 	target: "http://localhost:3000",
+		// 	target: "https://niramekko-api.herokuapp.com",
 		// },
+		"/api": {
+			target: "http://localhost:3000",
+		},
 	},
 
 	fontawesome: {
 		component: "fa",
 	},
 
-	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
 		extend(config, ctx) {
 			config.node = {
