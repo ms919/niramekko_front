@@ -5,8 +5,12 @@
 				>niramekko</NuxtLink
 			>
 			<nav>
-				<a v-if="loginFlg" @click="logout" class="white-shadow"
-					>logout</a>
+				<a
+					v-if="loginFlg"
+					@click="$store.dispatch('session/logout')"
+					class="white-shadow"
+					>logout</a
+				>
 				<NuxtLink v-else to="/login" class="white-shadow">login</NuxtLink>
 			</nav>
 		</header>
@@ -18,21 +22,18 @@
 export default {
 	computed: {
 		loginFlg() {
-			return this.$store.getters.loginFlg
+			return this.$store.getters["session/loginFlg"];
 		},
 	},
-	methods:{
-		logout(){
-			this.$axios
-				.get("api/v1/logout")
-				.then((res) => {
-					console.log(res.data);
-          localStorage.removeItem("loginFlg");
-					this.$store.dispatch("reloadLoginFlg");
-					this.$router.push("/");
-				})
-				.catch((e) => console.log(e));
-		}
-	}
+	// methods:{
+	// 	logout(){
+	// 		this.$axios
+	// 			.get("api/v1/logout")
+	// 			.then(() => {
+	// 				this.$store.dispatch("session/removeLoginFlg");
+	// 			})
+	// 			.catch((e) => console.log(e));
+	// 	}
+	// }
 };
 </script>

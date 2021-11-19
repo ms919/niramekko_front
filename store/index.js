@@ -1,4 +1,5 @@
 import fixed from "~/const/const.js";
+
 export const state = () => ({
 	currentComponent: "PlayRule",
 	itemsPointer: -1,
@@ -11,7 +12,6 @@ export const state = () => ({
 	openResultFlg: false,
 	mode: null,
 	title: {},
-	loginFlg: localStorage.getItem("loginFlg"),
 });
 
 export const getters = {
@@ -27,7 +27,6 @@ export const getters = {
 	openResultFlg: (state) => state.openResultFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
-	loginFlg: (state) => state.loginFlg,
 };
 
 export const mutations = {
@@ -79,9 +78,6 @@ export const mutations = {
 	changeTitle(state, title) {
 		state.title = title;
 	},
-	reloadLoginFlg(state, value) {
-		state.loginFlg = value;
-	}
 };
 
 export const actions = {
@@ -203,9 +199,6 @@ export const actions = {
 	},
 	clearItem({ commit }) {
 		commit("clearItem");
-	},
-	reloadLoginFlg({commit}){
-		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
 	},
 	updateVideoUrl({ commit }, target) {
 		commit("changeCurrentItem", target);

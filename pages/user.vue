@@ -19,7 +19,7 @@
 			</div>
 			<div class="profile user_div_style user_height">
 				<p class="orange">name</p>
-				{{ this.name }}
+				{{ this.user.name }}
 			</div>
 		</div>
 		<div class="user_width user_height notification user_div_style">
@@ -34,7 +34,6 @@ import { faMeh } from "@fortawesome/free-solid-svg-icons";
 export default {
 	data() {
 		return {
-			name: "",
 			point: 0,
 			records: {
 				gold: 0,
@@ -48,14 +47,15 @@ export default {
 	},
 	computed: {
 		faMeh: () => faMeh,
+		user() {
+			return this.$store.getters["session/user"];
+		},
 	},
 	mounted() {
 		this.$axios
 			.get("api/v1/users")
 			.then((res) => {
-				this.name = res.data.name;
-				localStorage.setItem("loginFlg", true);
-				this.$store.dispatch("reloadLoginFlg");
+				this.$store.dispatch("session/setUser", res.data);
 			})
 			.catch((e) => {
 				console.log(e);
@@ -91,8 +91,6 @@ export default {
 }
 .profile {
 	width: 39%;
-}
-.notification {
 }
 .hoge {
 	background-color: chartreuse;

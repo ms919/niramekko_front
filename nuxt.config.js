@@ -1,8 +1,8 @@
 export default {
 	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
-	server: {
-		port: 8080,
-	},
+	// server: {
+	// 	port: 8080,
+	// },
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
 
@@ -26,7 +26,6 @@ export default {
 
 	env: {
 		ga_id: process.env.GA_ID || "",
-		google_client_id: process.env.GOOGLE_CLIENT_ID || "",
 	},
 	// publicRuntimeConfig: {
 	//   ga_id: process.env.GA_ID,
@@ -56,7 +55,6 @@ export default {
 		// https://go.nuxtjs.dev/axios
 		"@nuxtjs/axios",
 		"@nuxtjs/proxy",
-		// "@nuxtjs/auth-next",
 		"nuxt-fontawesome",
 		[
 			"@nuxtjs/google-gtag",
@@ -74,12 +72,12 @@ export default {
 	},
 
 	proxy: {
-		// "/api": {
-		// 	target: "https://niramekko-api.herokuapp.com",
-		// },
 		"/api": {
-			target: "http://localhost:3000",
+			target: "https://niramekko-api.herokuapp.com",
 		},
+		// "/api": {
+		// 	target: "http://localhost:3000",
+		// },
 	},
 
 	fontawesome: {

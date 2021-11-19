@@ -63,7 +63,7 @@ export default {
 		submit() {
 			this.$axios
 				.post("/api/v1/videos", this.video_data)
-				.then((res) => {
+				.then(() => {
 					this.url = "";
 					confirm("登録しました");
 				})
@@ -73,11 +73,20 @@ export default {
 		},
 	},
 	mounted() {
-		if (!this.$store.getters.loginFlg) {
+		if (!localStorage.getItem("loginFlg")) {
 			this.$router.push("/login");
-		} else {
-			this.$store.dispatch("clearItem");
 		}
+		this.$axios
+			.get("api/v1/videos/new")
+			.then(() => {
+				this.$store.dispatch("clearItem");
+				this.$store.dispatch("session/setLoginFlg");
+			})
+			.catch((e) => {
+				console.log(e);
+				this.$store.dispatch("session/removeLoginFlg");
+				this.$router.push("/login");
+			});
 	},
 };
 </script>
