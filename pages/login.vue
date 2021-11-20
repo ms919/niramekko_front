@@ -1,8 +1,9 @@
 <template>
   <div class="text-center display-col justify-center wrapper-height">
-    <a class="btn lg-button btn-light-blue" href="http://localhost:3000/api/v1/auth/twitter">LOGIN with <fa :icon="faTwitter"/></a>
+    <a class="btn lg-button btn-light-blue" @click="goToLink('twitter')">LOGIN with <fa :icon="faTwitter"/></a>
     <a class="btn lg-button btn-green">LOGIN with <fa :icon="faGoogle"/></a>
     <a class="btn lg-button btn-pink">LOGIN with <fa :icon="faTiktok"/></a>
+    <FlashMessage :position="'right bottom'"></FlashMessage>
   </div>
 </template>
 
@@ -13,6 +14,11 @@ export default {
     faTwitter: () => faTwitter,
     faGoogle: () => faGoogle,
     faTiktok: () => faTiktok,
+  },
+  methods: {
+    goToLink(provider){
+      window.location.href = `${this.$config.auth_url}/${provider}`
+    }
   },
 }
 </script>

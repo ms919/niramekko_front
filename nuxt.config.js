@@ -1,8 +1,8 @@
 export default {
 	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
-	// server: {
-	// 	port: 8080,
-	// },
+	server: {
+		port: 8080,
+	},
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
 
@@ -26,13 +26,15 @@ export default {
 
 	env: {
 		ga_id: process.env.GA_ID || "",
+		// auth_url: process.env.AUTH_URL || "",
 	},
-	// publicRuntimeConfig: {
-	//   ga_id: process.env.GA_ID,
-	// },
+	publicRuntimeConfig: {
+	  ga_id: process.env.GA_ID,
+		auth_url: process.env.AUTH_URL
+	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: [{ src: '~/plugins/flash-message.js', mode: 'client' }],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -72,12 +74,12 @@ export default {
 	},
 
 	proxy: {
-		"/api": {
-			target: "https://niramekko-api.herokuapp.com",
-		},
 		// "/api": {
-		// 	target: "http://localhost:3000",
+		// 	target: "https://niramekko-api.herokuapp.com",
 		// },
+		"/api": {
+			target: "http://localhost:3000",
+		},
 	},
 
 	fontawesome: {

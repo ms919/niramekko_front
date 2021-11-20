@@ -57,8 +57,11 @@ export default {
 			.then((res) => {
 				this.$store.dispatch("session/setUser", res.data);
 			})
-			.catch((e) => {
-				console.log(e);
+			.catch(() => {
+				this.flashMessage.error({
+					html:
+						"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
+				});
 				this.$router.push("/login");
 			});
 	},

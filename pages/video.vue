@@ -25,6 +25,7 @@
 
 <script>
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+// import flashMsg from "~/common/flashMessage";
 
 export default {
 	data() {
@@ -74,19 +75,28 @@ export default {
 	},
 	mounted() {
 		if (!localStorage.getItem("loginFlg")) {
-			this.$router.push("/login");
-		}
-		this.$axios
-			.get("api/v1/videos/new")
-			.then(() => {
-				this.$store.dispatch("clearItem");
-				this.$store.dispatch("session/setLoginFlg");
-			})
-			.catch((e) => {
-				console.log(e);
-				this.$store.dispatch("session/removeLoginFlg");
-				this.$router.push("/login");
+			this.flashMessage.error({
+				html:
+					"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
 			});
+			// flashMsg.showMsg("error", "ログインしてください。")
+			this.$router.push("/login");
+		} else {
+			this.$axios
+				.get("api/v1/videos/new")
+				.then(() => {
+					this.$store.dispatch("clearItem");
+					this.$store.dispatch("session/setLoginFlg");
+				})
+				.catch(() => {
+					this.$store.dispatch("session/removeLoginFlg");
+					this.flashMessage.error({
+						html:
+							"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+					});
+					this.$router.push("/login");
+				});
+		}
 	},
 };
 </script>
