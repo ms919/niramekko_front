@@ -25,11 +25,12 @@ export default {
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
 	publicRuntimeConfig: {
-		auth_url: process.env.AUTH_URL
+		domain: process.env.API_DOMAIN,
+		auth_url: process.env.AUTH_URL,
 	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [{ src: '~/plugins/flash-message.js', mode: 'client' }],
+	plugins: [{ src: "~/plugins/flash-message.js", mode: "client" }],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -53,17 +54,13 @@ export default {
 		"@nuxtjs/axios",
 		"@nuxtjs/proxy",
 		"nuxt-fontawesome",
-		[
-			"@nuxtjs/google-gtag",
-			{
-				"google-gtag": {
-					id: process.env.GA_ID,
-				},
-			},
-		],
+		"@nuxtjs/google-gtag",
 	],
 
-	// Axios module configuration: https://go.nuxtjs.dev/config-axios
+	"google-gtag": {
+		id: process.env.GA_ID,
+	},
+
 	axios: {
 		proxy: true,
 	},
