@@ -1,8 +1,8 @@
 export default {
 	// backendとのパートバッティング回避 ※デプロイ時コメントアウト
-	// server: {
-	// 	port: 8080,
-	// },
+	server: {
+		port: 8080,
+	},
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
 
@@ -66,6 +66,7 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
 		proxy: true,
+		credentials: true,
 	},
 
 	proxy: {
