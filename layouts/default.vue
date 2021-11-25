@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header>
-			<NuxtLink to="/" class="white-shadow title title-font"
+			<NuxtLink to="/" class="white-shadow app-name app-name-font"
 				>niramekko</NuxtLink
 			>
 			<nav>
@@ -19,7 +19,9 @@
 				<NuxtLink v-else to="/login" class="white-shadow">login</NuxtLink>
 			</nav>
 		</header>
-		<nuxt />
+		<div class="wrapper">
+			<nuxt />
+		</div>
 		<footer></footer>
 	</div>
 </template>
@@ -52,24 +54,3 @@ export default {
 	},
 };
 </script>
-<style>
-.menu {
-	padding: 1rem;
-	background-color: #ffffff;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	margin-left: auto;
-	position: absolute;
-	right: 1rem;
-	border-radius: 10px;
-}
-li {
-	margin: 0.5rem 0;
-}
-li a {
-	display: inline-block;
-	width: 100%;
-}
-li a:hover {
-	color: #e43965;
-}
-</style>

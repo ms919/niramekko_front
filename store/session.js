@@ -1,20 +1,21 @@
 export const state = () => ({
 	loginFlg: localStorage.getItem("loginFlg"),
-  user: {},
+	user: {},
 });
 
 export const getters = {
 	loginFlg: (state) => state.loginFlg,
-  user: (state) => state.user,
+	user: (state) => state.user,
+	userImg: (state) => state.user.image_url,
 };
 
 export const mutations = {
 	reloadLoginFlg(state, value) {
 		state.loginFlg = value;
 	},
-  setUser(state, userData) {
-    state.user = userData;
-  },
+	setUser(state, userData) {
+		state.user = userData;
+	},
 };
 
 export const actions = {
@@ -27,7 +28,7 @@ export const actions = {
 		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
 	},
 	setUser({ commit, dispatch }, userData) {
-    commit("setUser", userData);
+		commit("setUser", userData);
 		dispatch("setLoginFlg");
 	},
 	logout({ dispatch }) {

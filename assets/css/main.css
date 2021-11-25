@@ -23,17 +23,36 @@ header nav {
 	margin: 0 0 0 auto;
 	padding-right: 1.5rem;
 }
-.img-circle{
+.menu {
+	padding: 1rem;
+	background-color: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-left: auto;
+	position: absolute;
+	right: 1rem;
+	border-radius: 10px;
+}
+li {
+	margin: 0.5rem 0;
+}
+li a {
+	display: inline-block;
+	width: 100%;
+}
+li a:hover {
+	color: #e43965;
+}
+.img-circle {
 	width: 2rem;
 	height: 2rem;
 	border-radius: 50%;
 	margin-bottom: 0.3rem;
 }
-.title {
+.app-name {
 	font-size: 2.2rem;
 	padding: 1rem;
 }
-.title-font {
+.app-name-font {
 	font-family: "Yanone Kaffeesatz";
 }
 footer {
@@ -138,7 +157,7 @@ h2 {
 	color: #ffffff;
 }
 .btn-green {
-	background-color: #4CAF50;
+	background-color: #4caf50;
 	color: #ffffff;
 }
 .btn-light-blue {
@@ -184,6 +203,9 @@ h2 {
 	.top-wrapper {
 		margin: 1.5rem auto;
 		height: auto;
+	}
+	.wrapper {
+		padding: 4.5rem 0;
 	}
 }
 @media screen and (max-width: 1024px) {
