@@ -21,7 +21,13 @@ header {
 }
 header nav {
 	margin: 0 0 0 auto;
-	padding: 1.5rem;
+	padding-right: 1.5rem;
+}
+.img-circle{
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	margin-bottom: 0.3rem;
 }
 .title {
 	font-size: 2.2rem;
@@ -38,6 +44,7 @@ footer {
 a {
 	text-decoration: none;
 	cursor: pointer;
+	color: #898989;
 }
 h1 {
 	font-size: 4.5rem;
