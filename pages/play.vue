@@ -3,7 +3,7 @@
 		<div class="tiktok-wrapper">
 			<component :is="currentComponent"></component>
 			<div class="icon-wrapper">
-				<template v-if="startFlg || openResultFlg">
+				<template v-if="startFlg || gameFinFlg">
 					<fa :icon="faEyeSlash" transform="right-2" class="orange icon" />
 					<br /><br />
 					<fa
@@ -45,20 +45,23 @@ export default {
 			"itemsLength",
 			"startFlg",
 			"modalFlg",
-			"openResultFlg"
+			"gameFinFlg",
+			"gameOverFlg"
 		]),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,
 	},
 	methods: {
 		gotoNext() {
+			if (this.gameOverFlg) {
+				this.$store.dispatch("changeModalFlg");
+				return;
+			}
 			if (this.itemsPointer < this.itemsLength - 1) {
 				this.$store.dispatch("gotoNext", this.$refs.faceApi.score);
 			} else {
-				if (!this.openResultFlg) {
-					this.$store.dispatch("calcScore", this.$refs.faceApi.score);
-					this.$store.dispatch("sendResult");
-					this.$store.dispatch("enableOpenResultFlg");
+				if (!this.gameFinFlg) {
+					this.$store.dispatch("afterGame", this.$refs.faceApi.score);
 				}
 				this.$store.dispatch("changeModalFlg");
 			}

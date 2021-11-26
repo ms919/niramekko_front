@@ -34,7 +34,7 @@ export default {
 	data() {
 		return {
 			datacollection: { labels:[], datasets: [] },
-			score: 100,
+			score: fixed.PERFECT_SCORE,
 		};
 	},
 	computed: {
@@ -43,15 +43,14 @@ export default {
 		faAngry: () => faAngry,
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
-		...mapGetters(["currentComponent", "startFlg"]),
+		...mapGetters(["currentComponent", "startFlg", "mode", "gameOverFlg"]),
 	},
 	methods: {
 		onPlay() {
-			const video = document.getElementById("video"); // video 要素を取得
-			const canvas = document.getElementById("canvas"); // canvas 要素の取得
+			const video = document.getElementById("video");
+			const canvas = document.getElementById("canvas");
 
 			setTimeout(() => {
-				// console.log(video.clientHeight);
 				canvas.width = video.clientWidth;
 				canvas.height = video.clientHeight;
 			}, 1000);
@@ -75,7 +74,7 @@ export default {
 					const expressions = detections.expressions;
 					this.updateData(expressions);
 				}
-				if (!this.startFlg && document.activeElement.tagName == "IFRAME") {
+				if (!this.startFlg && !this.gameOverFlg && document.activeElement.tagName == "IFRAME") {
 					this.$store.dispatch("changeStartFlg");
 				}
 			}, 500);
@@ -97,11 +96,17 @@ export default {
 				],
 			};
 			if (this.startFlg && this.currentComponent == "CommonTiktok") {
-				const total = this.datacollection.datasets[0].data.reduce(
+				const diff = this.datacollection.datasets[0].data.reduce(
 					(sum, value) => sum + value
 				);
-				if (total > fixed.DEDUCTION_TARGET) {
-					this.score = Math.floor((this.score - total) * 10) / 10;
+				if (diff > fixed.DEDUCTION_TARGET) {
+					this.score = Math.floor((this.score - diff) * 10) / 10;
+				}
+				// 道場破り or リベンジモードで diff が笑った判定に引っかかる場合
+				if (this.mode != fixed.MODE.NORMAL && diff >= fixed.LAUGHED_DIFF) {
+					this.$store.dispatch("afterGame", this.score);
+					this.$store.dispatch("changeModalFlg");
+					this.$store.dispatch("enableGameOverFlg");
 				}
 			}
 		},

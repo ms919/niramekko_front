@@ -9,7 +9,8 @@ export const state = () => ({
 	laughedRecords: [],
 	startFlg: false,
 	modalFlg: false,
-	openResultFlg: false,
+	gameFinFlg: false,
+	gameOverFlg: false,
 	mode: null,
 	title: {},
 });
@@ -24,7 +25,8 @@ export const getters = {
 	laughedRecords: (state) => state.laughedRecords,
 	startFlg: (state) => state.startFlg,
 	modalFlg: (state) => state.modalFlg,
-	openResultFlg: (state) => state.openResultFlg,
+	gameFinFlg: (state) => state.gameFinFlg,
+	gameOverFlg: (state) => state.gameOverFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
 };
@@ -57,7 +59,8 @@ export const mutations = {
 		state.laughedRecords = [];
 		state.startFlg = false;
 		state.modalFlg = false;
-		state.openResultFlg = false;
+		state.gameFinFlg = false;
+		state.gameOverFlg = false;
 		state.title = {};
 	},
 	addScoreArray(state, score) {
@@ -72,8 +75,11 @@ export const mutations = {
 	changeModalFlg(state) {
 		state.modalFlg = !state.modalFlg;
 	},
-	enableOpenResultFlg(state) {
-		state.openResultFlg = true;
+	enableGameFinFlg(state) {
+		state.gameFinFlg = true;
+	},
+	enableGameOverFlg(state) {
+		state.gameOverFlg = true;
 	},
 	changeTitle(state, title) {
 		state.title = title;
@@ -147,7 +153,7 @@ export const actions = {
 		};
 		// laughed_videos登録対象を抽出
 		const laughed_videos = getters.laughedRecords.filter(
-			(x) => x.score_diff >= 10
+			(x) => x.score_diff >= fixed.LAUGHED_DIFF
 		);
 		// railsへ送信
 		this.$axios
@@ -193,9 +199,17 @@ export const actions = {
 	changeModalFlg({ commit }) {
 		commit("changeModalFlg");
 	},
-	enableOpenResultFlg({ commit }) {
-		commit("enableOpenResultFlg");
+	enableGameFinFlg({ commit }) {
+		commit("enableGameFinFlg");
 		commit("changeStartFlg");
+	},
+	enableGameOverFlg({ commit }) {
+		commit("enableGameOverFlg");
+	},
+	afterGame({ dispatch }, score) {
+		dispatch("calcScore", score);
+		dispatch("sendResult");
+		dispatch("enableGameFinFlg");
 	},
 	clearItem({ commit }) {
 		commit("clearItem");
