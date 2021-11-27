@@ -7,7 +7,8 @@
 			<nav>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
-						<img :src="`${userImg}`" class="img-circle" />
+						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
+						<img v-else src="userDefo.jpg" class="img-circle"/>
 					</a>
 					<ul class="menu" v-show="menuFlg">
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
@@ -21,6 +22,7 @@
 		</header>
 		<div class="wrapper">
 			<nuxt />
+			<FlashMessage :position="'right bottom'"></FlashMessage>
 		</div>
 		<footer></footer>
 	</div>
