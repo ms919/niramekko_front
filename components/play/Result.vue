@@ -3,14 +3,20 @@
 		<div @click="closeModal" class="overlay">
 			<div class="window">
 				<div class="content yellow-green display-col justify-center">
-					<p class="result-text">SCORE {{ score }}</p>
-					<p>称号</p>
-					<p class="result-text">{{ title.name }}</p>
+					<template v-if="!gameOverFlg">
+						<p class="result-text">SCORE {{ score }}</p>
+						<p>称号</p>
+						<p class="result-text">{{ title.name }}</p>
+					</template>
+					<template v-else>
+						<p class="result-text">GAME OVER</p>
+						<fa :icon="faSkull" /><fa :icon="faBone" />
+						<p>SCORE {{ score }}</p>
+						<p class="gameOver-title-text">称号 {{ title.name }}</p>
+					</template>
 					<div class="icons-wrapper">
 						<NuxtLink to="/modeSelect">
-							<fa-layers
-								full-width
-								class="icon"
+							<fa-layers full-width class="icon"
 								><fa :icon="faRedoAlt" class="icon pink" /><fa
 									:icon="faPlay"
 									transform="shrink-8.7 right-1.2 down-0.5"
@@ -20,7 +26,11 @@
 						<NuxtLink to="/">
 							<fa :icon="faHome" class="orange icon mrl-2" />
 						</NuxtLink>
-						<fa :icon="faTwitter" @click.stop="openTweet" class="light-blue icon" />
+						<fa
+							:icon="faTwitter"
+							@click.stop="openTweet"
+							class="light-blue icon"
+						/>
 					</div>
 				</div>
 			</div>
@@ -29,7 +39,13 @@
 </template>
 
 <script>
-import { faHome, faRedoAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+	faHome,
+	faRedoAlt,
+	faPlay,
+	faSkull,
+	faBone,
+} from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { mapGetters } from "vuex";
 export default {
@@ -38,7 +54,7 @@ export default {
 	},
 	computed: {
 		tweetContent() {
-			const url = "https://twitter.com/intent/tweet?url=https://niramekko.app";
+			const url = `https://twitter.com/intent/tweet?url=${this.$config.domain}`;
 			const text =
 				this.score != null
 					? `%0a&text=SCORE:${this.score}【${this.title.name}】%0a%0a`
@@ -50,14 +66,16 @@ export default {
 		faPlay: () => faPlay,
 		faHome: () => faHome,
 		faTwitter: () => faTwitter,
-		...mapGetters(["title"]),
+		faSkull: () => faSkull,
+		faBone: () => faBone,
+		...mapGetters(["title", "gameOverFlg"]),
 	},
 	methods: {
 		closeModal() {
 			this.$store.dispatch("changeModalFlg");
 		},
 		openTweet() {
-			window.open(this.tweetContent, '_blank');
+			window.open(this.tweetContent, "_blank");
 		},
 	},
 };
@@ -106,6 +124,9 @@ export default {
 @media screen and (max-width: 425px) {
 	.window {
 		width: 90%;
+	}
+	.gameOver-title-text {
+		font-size: 1.5rem;
 	}
 }
 </style>
