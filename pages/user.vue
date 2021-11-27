@@ -94,7 +94,7 @@ export default {
 	},
 	mounted() {
 		this.$axios
-			.get("api/v1/users")
+			.get("api/v1/user")
 			.then((res) => {
 				this.$store.dispatch("session/setUser", res.data);
 			})
