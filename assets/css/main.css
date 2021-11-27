@@ -204,9 +204,6 @@ h2 {
 		margin: 1.5rem auto;
 		height: auto;
 	}
-	.wrapper {
-		padding: 4.5rem 0;
-	}
 }
 @media screen and (max-width: 1024px) {
 	html {

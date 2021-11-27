@@ -119,6 +119,11 @@
 		margin-bottom: 1rem;
 	}
 }
+@media screen and (max-height: 834px) {
+  .wrapper {
+		padding: 4.5rem 0;
+	}
+}
 @media screen and (max-width: 425px) {
 	.user-width {
 		width: 95%;
