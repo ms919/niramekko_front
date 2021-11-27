@@ -91,14 +91,15 @@ export const actions = {
 		commit("setMode", mode);
 		this.$router.push("/play");
 	},
-	getItems({ commit }) {
+	getItems({ getters, commit }) {
 		// アイテムをクリア
 		commit("clearItem");
 		// rails側のdbから動画を取ってきてセットする
 		this.$axios
-			.get("/api/v1/playlists")
+			.get("/api/v1/playlists", { params: { mode: getters.mode } })
 			.then((res) => {
 				// プレイリストセット
+				console.log(res.data);
 				commit("setItems", res.data);
 				// 結果記録用配列準備
 				const arr = res.data.map((obj) => obj.id);
