@@ -1,5 +1,5 @@
 export const state = () => ({
-	loginFlg: localStorage.getItem("loginFlg"),
+	loginFlg: false,
 	user: {},
 });
 
@@ -19,6 +19,20 @@ export const mutations = {
 };
 
 export const actions = {
+	init({ commit, dispatch }) {
+		if (localStorage.getItem("loginFlg")) {
+			commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
+			this.$axios.get("api/v1/user").then((res) => {
+				commit("setUser", res.data);
+			}).catch(()=> {
+				dispatch("removeLoginFlg");
+				this._vm.flashMessage.error({
+					html:
+						"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+				});
+			});
+		}
+	},
 	removeLoginFlg({ commit }) {
 		localStorage.removeItem("loginFlg");
 		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
