@@ -1,10 +1,12 @@
 export const state = () => ({
 	loginFlg: false,
+	revengeFlg: false,
 	user: {},
 });
 
 export const getters = {
 	loginFlg: (state) => state.loginFlg,
+	revengeFlg: (state) => state.revengeFlg,
 	user: (state) => state.user,
 	userImg: (state) => state.user.image_url,
 };
@@ -12,6 +14,9 @@ export const getters = {
 export const mutations = {
 	reloadLoginFlg(state, value) {
 		state.loginFlg = value;
+	},
+	setRevengeFlg(state, value){
+		state.revengeFlg = value;
 	},
 	setUser(state, userData) {
 		state.user = userData;
@@ -41,9 +46,13 @@ export const actions = {
 		localStorage.setItem("loginFlg", true);
 		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
 	},
-	setUser({ commit, dispatch }, userData) {
-		commit("setUser", userData);
+	setRevengeFlg({commit}, data){
+		commit("setRevengeFlg", data.revenge_flg);
+	},
+	setUser({ commit, dispatch }, data) {
+		commit("setUser", data.user);
 		dispatch("setLoginFlg");
+		dispatch("setRevengeFlg", data);
 	},
 	logout({ dispatch }) {
 		this.$axios

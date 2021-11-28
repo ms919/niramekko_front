@@ -16,7 +16,7 @@
 			>
 			<p>最新ベスト5に挑むモード</p>
 		</div>
-		<div v-if="loginFlg">
+		<div v-if="revengeFlg">
 			<a
 				@click="$store.dispatch('setMode', revenge)"
 				class="btn lg-button btn-pink"
@@ -28,12 +28,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import fixed from "~/const/const.js";
 export default {
 	computed: {
-		loginFlg() {
-			return this.$store.getters["session/loginFlg"];
-		},
+    ...mapGetters({
+			revengeFlg: "session/revengeFlg",
+		}),
 	},
 	mounted() {
 		this.normal = fixed.MODE.NORMAL;
