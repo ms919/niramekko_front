@@ -200,6 +200,9 @@ h2 {
 	border-radius: 8px 8px 0px 0px;
 }
 @media screen and (max-height: 834px) {
+	 .wrapper {
+		padding: 4.5rem 0;
+	}
 	.top-wrapper {
 		margin: 1.5rem auto;
 		height: auto;
@@ -216,6 +219,9 @@ h2 {
 	}
 	h2 {
 		font-size: 2rem;
+	}
+	.wrapper {
+		padding: 0;
 	}
 	.lg-button {
 		width: 28rem;
