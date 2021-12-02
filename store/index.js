@@ -99,7 +99,6 @@ export const actions = {
 			.get("/api/v1/playlists", { params: { mode: getters.mode } })
 			.then((res) => {
 				// プレイリストセット
-				console.log(res.data);
 				commit("setItems", res.data);
 				// 結果記録用配列準備
 				const arr = res.data.map((obj) => obj.id);
@@ -107,7 +106,6 @@ export const actions = {
 					new_arr[i] = { video_id: data };
 					return new_arr;
 				}, []);
-				console.log(new_arr);
 				commit("setLaughedRecords", new_arr);
 			})
 			.catch((error) => {
@@ -143,12 +141,11 @@ export const actions = {
 		const target = getters.items[getters.itemsPointer];
 		commit("changeCurrentItem", target);
 	},
-	sendResult({ getters, dispatch }) {
+	sendResult({ getters, commit }) {
 		// game_results
 		const score = getters.scoreArray.slice(-1)[0];
-		dispatch("calcTitle", score);
 		const game_results = {
-			title_id: getters.title.id,
+			// title_id: getters.title.id,
 			mode: getters.mode,
 			score: score,
 		};
@@ -160,7 +157,7 @@ export const actions = {
 		this.$axios
 			.post("/api/v1/game_results", game_results)
 			.then((res) => {
-				console.log(res);
+				commit("changeTitle", res.data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -168,34 +165,11 @@ export const actions = {
 		this.$axios
 			.post("/api/v1/laughed_videos", laughed_videos)
 			.then((res) => {
-				console.log(res);
+				commit("session/setRevengeFlg", res.data.revenge_flg)
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-	},
-	calcTitle({ commit }, score) {
-		let title;
-		switch (true) {
-			case score >= fixed.SCORE_LEVELS.GOLD:
-				title = fixed.TITLES.GOLD;
-				break;
-			case score >= fixed.SCORE_LEVELS.IRON:
-				title = fixed.TITLES.IRON;
-				break;
-			case score >= fixed.SCORE_LEVELS.SOIL:
-				title = fixed.TITLES.SOIL;
-				break;
-			case score >= fixed.SCORE_LEVELS.SMILE:
-				title = fixed.TITLES.SMILE;
-				break;
-			case score < fixed.SCORE_LEVELS.SMILE:
-				title = fixed.TITLES.LAUGH;
-				break;
-			default:
-				title = {};
-		}
-		commit("changeTitle", title);
 	},
 	changeModalFlg({ commit }) {
 		commit("changeModalFlg");

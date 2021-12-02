@@ -57,7 +57,7 @@ export default {
 			const url = `https://twitter.com/intent/tweet?url=${this.$config.domain}`;
 			const text =
 				this.score != null
-					? `%0a&text=SCORE:${this.score}【${this.title.name}】%0a%0a`
+					? `%0a&text=SCORE:${this.score}【${this.title.name}】%0a${this.title.tweet_text}%0a%0a`
 					: "&text=";
 			const hashtags = "&hashtags=niramekko,tiktok,にらめっこ,お笑い";
 			return `${url}${text}${hashtags}`;
