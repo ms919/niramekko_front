@@ -10,7 +10,7 @@
 			</div>
 			<PlayFaceChart :chart-data="datacollection" />
 		</div>
-		<div class="right-wrapper display-col">
+		<div class="right-wrapper display-col justify-center">
 			<p class="score">SCORE {{ score }}</p>
 			<div>
 				<video id="video" @play="onPlay" playsinline autoplay muted></video>
@@ -33,8 +33,8 @@ import {
 export default {
 	data() {
 		return {
-			datacollection: { labels:[], datasets: [] },
-			score: fixed.PERFECT_SCORE,
+			datacollection: { labels: [], datasets: [] },
+			score: 0,
 		};
 	},
 	computed: {
@@ -74,7 +74,11 @@ export default {
 					const expressions = detections.expressions;
 					this.updateData(expressions);
 				}
-				if (!this.startFlg && !this.gameOverFlg && document.activeElement.tagName == "IFRAME") {
+				if (
+					!this.startFlg &&
+					!this.gameOverFlg &&
+					document.activeElement.tagName == "IFRAME"
+				) {
 					this.$store.dispatch("changeStartFlg");
 				}
 			}, 500);
@@ -102,7 +106,7 @@ export default {
 				if (diff > fixed.DEDUCTION_TARGET) {
 					this.score = Math.floor((this.score - diff) * 10) / 10;
 				}
-				// 道場破り or リベンジモードで diff が笑った判定に引っかかる場合
+				// 道場破り or リベンジモードで diff が笑った判定に引っかかる場合、ゲームオーバー
 				if (this.mode != fixed.MODE.NORMAL && diff >= fixed.LAUGHED_DIFF) {
 					this.$store.dispatch("afterGame", this.score);
 					this.$store.dispatch("changeModalFlg");
@@ -110,8 +114,12 @@ export default {
 				}
 			}
 		},
+		AddScore(){
+			this.score += 20;
+		}
 	},
 	mounted() {
+		this.score = this.mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : 20;
 		// 顔モデルロード
 		Promise.all([
 			faceapi.loadTinyFaceDetectorModel("/weights"),
@@ -120,6 +128,7 @@ export default {
 		]).then(() => {
 			// ウェブカメラへアクセス
 			navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+				// const video = document.getElementById("video");
 				video.srcObject = stream;
 				video.play();
 			});
@@ -159,6 +168,21 @@ export default {
 	background-color: #44beef;
 	opacity: 0.7;
 }
+@media screen and (max-width: 1366px) {
+	#video {
+		width: 10%;
+	}
+}
+@media screen and (max-width: 1112px) {
+	#video {
+		width: 15%;
+	}
+}
+@media screen and (max-width: 800px) {
+	#video {
+		width: 17%;
+	}
+}
 @media screen and (max-width: 425px) {
 	.emotions-wrapper {
 		height: 9.5rem;
@@ -167,6 +191,9 @@ export default {
 	}
 	.score {
 		font-size: 1.5rem;
+	}
+	#video {
+		width: 30%;
 	}
 }
 </style>

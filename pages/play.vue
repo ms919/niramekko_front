@@ -32,6 +32,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import fixed from "~/const/const.js";
 import {
 	faEyeSlash,
 	faArrowCircleRight,
@@ -46,16 +47,21 @@ export default {
 			"startFlg",
 			"modalFlg",
 			"gameFinFlg",
-			"gameOverFlg"
+			"gameOverFlg",
+			"mode",
 		]),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,
 	},
 	methods: {
 		gotoNext() {
-			if (this.gameOverFlg) {
-				this.$store.dispatch("changeModalFlg");
-				return;
+			if (this.mode != fixed.MODE.NORMAL) {
+				if (this.gameOverFlg) {
+					this.$store.dispatch("changeModalFlg");
+					return;
+				} else {
+					this.$refs.faceApi.AddScore();
+				}
 			}
 			if (this.itemsPointer < this.itemsLength - 1) {
 				this.$store.dispatch("gotoNext", this.$refs.faceApi.score);
