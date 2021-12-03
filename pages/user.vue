@@ -3,7 +3,7 @@
 		<div class="user-upper justify-between user-width">
 			<div class="display-row record user-div-style">
 				<p class="record-left pink text-center">
-					<span class="score-font">580</span><br />score
+					<span class="score-font">{{ total_score }}</span><br />score
 				</p>
 				<div class="display-col justify-center record-right pink">
 					<div class="record-right-width display-row justify-space-around">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import {
 	faMeh,
 	faSmile,
@@ -65,14 +66,6 @@ import {
 export default {
 	data() {
 		return {
-			point: 0,
-			records: {
-				gold: 0,
-				iron: 0,
-				soil: 0,
-				smile: 0,
-				laugh: 0,
-			},
 			notifications: ["hoge", "fuga"],
 		};
 	},
@@ -83,9 +76,11 @@ export default {
 		faLaughBeam: () => faLaughBeam,
 		faLaughSquint: () => faLaughSquint,
 		faCog: () => faCog,
-		user() {
-			return this.$store.getters["session/user"];
-		},
+		...mapGetters({
+			user: "session/user",
+			records: "session/records",
+			total_score: "session/total_score"
+		}),
 	},
 	methods: {
 		noticeDelete() {
@@ -96,7 +91,7 @@ export default {
 		this.$axios
 			.get("api/v1/user")
 			.then((res) => {
-				this.$store.dispatch("session/setUser", res.data);
+				this.$store.dispatch("session/setUserInfo", res.data);
 			})
 			.catch(() => {
 				this.flashMessage.error({
