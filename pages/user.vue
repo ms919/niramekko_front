@@ -43,11 +43,16 @@
 		</div>
 		<div class="user-width notification user-div-style">
 			<p class="orange">notification</p>
-			<div class="display-row" v-for="item in this.notifications" :key="item">
-				<div class="notice">
-					<p>{{ item }}</p>
+			<template v-if="notifications">
+				<div class="display-row" v-for="item in this.notifications" :key="item.message">
+					<div class="notice">
+						<p>{{ item.message }}</p>
+					</div>
+					<span @click="noticeDelete" class="notice-delete">×</span>
 				</div>
-				<span @click="noticeDelete" class="notice-delete">×</span>
+			</template>
+			<div v-else>
+				<p>There aren't notifications ...</p>
 			</div>
 		</div>
 	</div>
@@ -64,11 +69,6 @@ import {
 	faCog,
 } from "@fortawesome/free-solid-svg-icons";
 export default {
-	data() {
-		return {
-			notifications: ["hoge", "fuga"],
-		};
-	},
 	computed: {
 		faMeh: () => faMeh,
 		faSmile: () => faSmile,
@@ -79,7 +79,8 @@ export default {
 		...mapGetters({
 			user: "session/user",
 			records: "session/records",
-			total_score: "session/total_score"
+			total_score: "session/total_score",
+			notifications: "session/notifications"
 		}),
 	},
 	methods: {

@@ -4,6 +4,7 @@ export const state = () => ({
 	user: {},
 	records: {},
 	total_score: 0,
+	notifications: null,
 });
 
 export const getters = {
@@ -13,6 +14,7 @@ export const getters = {
 	userImg: (state) => state.user.image_url,
 	records: (state) => state.records,
 	total_score: (state) => state.total_score,
+	notifications: (state) => state.notifications,
 };
 
 export const mutations = {
@@ -30,6 +32,9 @@ export const mutations = {
 	},
 	setTotalScore(state, value) {
 		state.total_score = value;
+	},
+	setNotifications(state, notifications) {
+		state.notifications = notifications;
 	}
 };
 
@@ -60,6 +65,7 @@ export const actions = {
 		commit("setUser", data.user);
 		commit("setRecords", data.game_results);
 		commit("setTotalScore", data.total_score);
+		commit("setNotifications", data.notifications);
 		dispatch("setLoginFlg");
 		commit("setRevengeFlg", data.revenge_flg);
 	},
