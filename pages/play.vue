@@ -4,7 +4,14 @@
 			<component :is="currentComponent"></component>
 			<div class="icon-wrapper">
 				<template v-if="startFlg || gameFinFlg">
-					<fa :icon="faEyeSlash" transform="right-2" class="orange icon" />
+					<template v-if="loginFlg">
+						<fa
+							:icon="faEyeSlash"
+							@click="$store.dispatch('changeHiddenFlg')"
+							transform="right-2"
+							class="orange icon"
+						/>
+					</template>
 					<br /><br />
 					<fa
 						:icon="faArrowCircleRight"
@@ -13,11 +20,13 @@
 					/>
 				</template>
 				<template v-else>
-					<fa
-						:icon="faEyeSlash"
-						transform="right-2"
-						class="orange icon disabled"
-					/>
+					<template v-if="loginFlg">
+						<fa
+							:icon="faEyeSlash"
+							transform="right-2"
+							class="orange icon disabled"
+						/>
+					</template>
 					<br /><br />
 					<fa :icon="faArrowCircleRight" class="orange icon disabled" />
 				</template>
@@ -48,8 +57,12 @@ export default {
 			"modalFlg",
 			"gameFinFlg",
 			"gameOverFlg",
+			"hiddenFlg",
 			"mode",
 		]),
+		...mapGetters({
+			loginFlg: "session/loginFlg",
+		}),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,
 	},
