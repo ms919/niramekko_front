@@ -61,6 +61,8 @@ export default {
 					.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
 					.withFaceLandmarks()
 					.withFaceExpressions();
+				if (detections == undefined) return;
+
 				// 顔データをリサイズ
 				const resizedDetections = faceapi.resizeResults(detections, {
 					width: video.clientWidth,
@@ -70,17 +72,18 @@ export default {
 				// キャンバスに描画
 				canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 				faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-				if (detections !== undefined) {
-					const expressions = detections.expressions;
-					this.updateData(expressions);
-				}
+
+				// 取得した表情データを渡してグラフやスコア計算をアップデート
+				this.updateData(detections.expressions);
+
+				// コンポーネントが変わり、video再生が始まっていたらstartFlgをtrueにする(ボタン制御)
 				if (
+					document.activeElement.tagName == "IFRAME" &&
 					!this.startFlg &&
-					!this.gameOverFlg &&
-					document.activeElement.tagName == "IFRAME"
-				) {
+					!this.gameOverFlg
+				)
 					this.$store.dispatch("changeStartFlg");
-				}
+
 			}, 500);
 		},
 		updateData(expressions) {
@@ -114,12 +117,12 @@ export default {
 				}
 			}
 		},
-		AddScore(){
-			this.score += 20;
-		}
+		AddScore() {
+			this.score += fixed.ADDITIONAL_SCORE;
+		},
 	},
 	mounted() {
-		this.score = this.mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : 20;
+		this.score = this.mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : fixed.ADDITIONAL_SCORE;
 		// 顔モデルロード
 		Promise.all([
 			faceapi.loadTinyFaceDetectorModel("/weights"),
@@ -128,7 +131,6 @@ export default {
 		]).then(() => {
 			// ウェブカメラへアクセス
 			navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-				// const video = document.getElementById("video");
 				video.srcObject = stream;
 				video.play();
 			});

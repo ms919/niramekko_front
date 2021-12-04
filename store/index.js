@@ -51,9 +51,6 @@ export const mutations = {
 	setLaughedRecords(state, videoIds) {
 		state.laughedRecords = videoIds;
 	},
-	// setHiddenVideos(state, videoIds) {
-	// 	state.hiddenVideos = videoIds;
-	// },
 	changeCurrentItem(state, target) {
 		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
@@ -122,7 +119,6 @@ export const actions = {
 					return new_arr;
 				}, []);
 				commit("setLaughedRecords", new_arr);
-				// commit("setHiddenVideos", new_arr);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -166,7 +162,6 @@ export const actions = {
 		// game_results
 		const score = getters.scoreArray.slice(-1)[0];
 		const game_results = {
-			// title_id: getters.title.id,
 			mode: getters.mode,
 			score: score,
 		};
@@ -175,11 +170,9 @@ export const actions = {
 			(x) => x.score_diff >= fixed.LAUGHED_DIFF
 		);
 		// hidden_videos登録対象を抽出
-		// const hidden_videos = getters.hiddenVideos.filter((x) => x.hidden_flg);
 		const hidden_videos = getters.hiddenVideos;
 		hidden_videos.map((x) => delete x.score_diff);
 
-		console.log(hidden_videos);
 		// railsへ送信
 		this.$axios
 			.post("/api/v1/game_results", game_results)

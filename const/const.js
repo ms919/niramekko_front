@@ -2,6 +2,7 @@ export default Object.freeze({
   HAPPY_MULTIPLICATION: 15,
   DEDUCTION_TARGET: 1,
   PERFECT_SCORE: 100,
+  ADDITIONAL_SCORE: 20,
   LAUGHED_DIFF: 10,
   MODE: {
     NORMAL: 0,
