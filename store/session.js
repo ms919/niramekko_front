@@ -71,7 +71,7 @@ export const actions = {
 	},
 	logout({ dispatch }) {
 		this.$axios
-			.get("api/v1/logout")
+			.delete("api/v1/logout")
 			.then(() => {
 				dispatch("removeLoginFlg");
 				location.reload();
