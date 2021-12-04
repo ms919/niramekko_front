@@ -7,10 +7,12 @@ export const state = () => ({
 	currentItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
 	scoreArray: [fixed.PERFECT_SCORE],
 	laughedRecords: [],
+	hiddenVideos: [],
 	startFlg: false,
 	modalFlg: false,
 	gameFinFlg: false,
 	gameOverFlg: false,
+	hiddenFlg: false,
 	mode: null,
 	title: {},
 });
@@ -23,10 +25,12 @@ export const getters = {
 	currentItem: (state) => state.currentItem,
 	scoreArray: (state) => state.scoreArray,
 	laughedRecords: (state) => state.laughedRecords,
+	hiddenVideos: (state) => state.hiddenVideos,
 	startFlg: (state) => state.startFlg,
 	modalFlg: (state) => state.modalFlg,
 	gameFinFlg: (state) => state.gameFinFlg,
 	gameOverFlg: (state) => state.gameOverFlg,
+	hiddenFlg: (state) => state.hiddenFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
 };
@@ -47,6 +51,9 @@ export const mutations = {
 	setLaughedRecords(state, videoIds) {
 		state.laughedRecords = videoIds;
 	},
+	// setHiddenVideos(state, videoIds) {
+	// 	state.hiddenVideos = videoIds;
+	// },
 	changeCurrentItem(state, target) {
 		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
@@ -57,10 +64,12 @@ export const mutations = {
 		state.currentItem = "<div class='default-item'><p>NO<br/>VIDEO</p></div>";
 		state.scoreArray = [fixed.PERFECT_SCORE];
 		state.laughedRecords = [];
+		state.hiddenVideos = [];
 		state.startFlg = false;
 		state.modalFlg = false;
 		state.gameFinFlg = false;
 		state.gameOverFlg = false;
+		state.hiddenFlg = false;
 		state.title = {};
 	},
 	addScoreArray(state, score) {
@@ -69,11 +78,17 @@ export const mutations = {
 	addLaughedRecords(state, diff) {
 		state.laughedRecords[state.itemsPointer].score_diff = diff;
 	},
+	addHiddenVideos(state, videoObj) {
+		state.hiddenVideos.push(videoObj);
+	},
 	changeStartFlg(state) {
 		state.startFlg = !state.startFlg;
 	},
 	changeModalFlg(state) {
 		state.modalFlg = !state.modalFlg;
+	},
+	changeHiddenFlg(state) {
+		state.hiddenFlg = !state.hiddenFlg;
 	},
 	enableGameFinFlg(state) {
 		state.gameFinFlg = true;
@@ -100,13 +115,14 @@ export const actions = {
 			.then((res) => {
 				// プレイリストセット
 				commit("setItems", res.data);
-				// 結果記録用配列準備
+				// laughed_videos/hidden_videos用配列準備
 				const arr = res.data.map((obj) => obj.id);
 				const new_arr = arr.reduce((new_arr, data, i) => {
 					new_arr[i] = { video_id: data };
 					return new_arr;
 				}, []);
 				commit("setLaughedRecords", new_arr);
+				// commit("setHiddenVideos", new_arr);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -120,6 +136,7 @@ export const actions = {
 			// play中ならスコア処理後に次コンテンツをセット
 		} else {
 			dispatch("calcScore", score);
+			dispatch("processHiddenVideos");
 			dispatch("setNextContents");
 			commit("changeStartFlg");
 		}
@@ -131,8 +148,12 @@ export const actions = {
 		const diff = getters.scoreArray.slice(-1)[0] - score;
 		commit("addLaughedRecords", diff);
 		commit("addScoreArray", score);
-		// console.log(getters.laughedRecords);
-		// console.log(getters.scoreArray);
+	},
+	processHiddenVideos({ getters, commit }) {
+		if (getters.hiddenFlg) {
+			commit("addHiddenVideos", getters.laughedRecords[getters.itemsPointer]);
+			commit("changeHiddenFlg");
+		}
 	},
 	setNextContents({ getters, commit }) {
 		// ポインタをインクリメント
@@ -153,6 +174,12 @@ export const actions = {
 		const laughed_videos = getters.laughedRecords.filter(
 			(x) => x.score_diff >= fixed.LAUGHED_DIFF
 		);
+		// hidden_videos登録対象を抽出
+		// const hidden_videos = getters.hiddenVideos.filter((x) => x.hidden_flg);
+		const hidden_videos = getters.hiddenVideos;
+		hidden_videos.map((x) => delete x.score_diff);
+
+		console.log(hidden_videos);
 		// railsへ送信
 		this.$axios
 			.post("/api/v1/game_results", game_results)
@@ -162,17 +189,32 @@ export const actions = {
 			.catch((error) => {
 				console.log(error);
 			});
-		this.$axios
-			.post("/api/v1/laughed_videos", laughed_videos)
-			.then((res) => {
-				commit("session/setRevengeFlg", res.data.revenge_flg)
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (laughed_videos.length > 0) {
+			this.$axios
+				.post("/api/v1/laughed_videos", laughed_videos)
+				.then((res) => {
+					commit("session/setRevengeFlg", res.data.revenge_flg);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+		if (hidden_videos.length > 0) {
+			this.$axios
+				.post("/api/v1/hidden_videos", hidden_videos)
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	},
 	changeModalFlg({ commit }) {
 		commit("changeModalFlg");
+	},
+	changeHiddenFlg({ getters, commit }) {
+		const res = getters.hiddenFlg
+			? confirm("このビデオの非表示設定を解除します。よろしいですか？")
+			: confirm("このビデオを今後表示させないようにします。よろしいですか？");
+		if (res) commit("changeHiddenFlg");
 	},
 	enableGameFinFlg({ commit }) {
 		commit("enableGameFinFlg");
@@ -183,6 +225,7 @@ export const actions = {
 	},
 	afterGame({ dispatch }, score) {
 		dispatch("calcScore", score);
+		dispatch("processHiddenVideos");
 		dispatch("sendResult");
 		dispatch("enableGameFinFlg");
 	},
