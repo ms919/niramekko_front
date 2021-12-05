@@ -93,8 +93,11 @@ export const mutations = {
 	enableGameOverFlg(state) {
 		state.gameOverFlg = true;
 	},
-	changeTitle(state, title) {
-		state.title = title;
+	changeTitle(state, title_id) {
+		state.title = {
+			name: fixed.TITLE_NAMES[title_id],
+			tweet_text: fixed.TWEET_TEXTS[title_id],
+		};
 	},
 };
 
@@ -178,6 +181,7 @@ export const actions = {
 		this.$axios
 			.post("/api/v1/game_results", game_results)
 			.then((res) => {
+				console.log(res.data);
 				commit("changeTitle", res.data);
 			})
 			.catch((error) => {
