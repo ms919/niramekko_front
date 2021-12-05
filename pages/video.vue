@@ -37,7 +37,7 @@ export default {
 		faPaperPlane: () => faPaperPlane,
 		video_data() {
 			return {
-				video_user: this.url.match(/@[0-9A-Za-z_.]*/)[0],
+				video_user: this.url.match(/@[0-9A-Za-z_.]*/)[0].slice(1),
 				data_video_id: this.url.match(/[0-9]*$/)[0],
 			};
 		},

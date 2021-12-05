@@ -52,7 +52,7 @@ export const mutations = {
 		state.laughedRecords = videoIds;
 	},
 	changeCurrentItem(state, target) {
-		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
+		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/@${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
 	clearItem(state) {
 		state.currentComponent = "PlayRule";
