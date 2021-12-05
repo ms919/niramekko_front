@@ -141,7 +141,8 @@ export const actions = {
 		commit("changeStartFlg");
 	},
 	calcScore({ getters, commit }, score) {
-		const diff = getters.scoreArray.slice(-1)[0] - score;
+		const diff =
+			Math.floor((getters.scoreArray.slice(-1)[0] - score) * 10) / 10;
 		commit("addLaughedRecords", diff);
 		commit("addScoreArray", score);
 	},
