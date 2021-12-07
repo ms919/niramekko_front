@@ -8,13 +8,20 @@
 						>URL&nbsp;
 						<span>共有するtiktok動画のリンクを貼り付けてください。</span></label
 					>
-					<input id="url" type="text" v-model="url" @focusout="focusoutUrl" />
+					<input id="url" type="text" :value="url" @input="inputUrl" />
 				</div>
-				<fa
-					:icon="faPaperPlane"
-					@click="submit"
-					class="white-shadow send-icon"
-				/>
+				<template v-if="sendFlg">
+					<fa :icon="faCheckCircle" class="green is-checked-icon" />
+					<fa
+						:icon="faPaperPlane"
+						@click="submit"
+						class="white-shadow send-icon"
+					/>
+				</template>
+				<template v-else>
+					<fa :icon="faBan" class="red is-checked-icon" />
+					<fa :icon="faPaperPlane" class="white-shadow send-icon disabled" />
+				</template>
 			</form>
 		</div>
 		<div class="tiktok-wrapper">
@@ -24,52 +31,91 @@
 </template>
 
 <script>
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { mapGetters } from "vuex";
+import {
+	faPaperPlane,
+	faCheckCircle,
+	faBan,
+} from "@fortawesome/free-solid-svg-icons";
 // import flashMsg from "~/common/flashMessage";
 
 export default {
 	data() {
 		return {
 			url: "",
+			sendFlg: false,
 		};
 	},
 	computed: {
 		faPaperPlane: () => faPaperPlane,
+		faCheckCircle: () => faCheckCircle,
+		faBan: () => faBan,
 		video_data() {
 			return {
 				video_user: this.url.match(/@[0-9A-Za-z_.]*/)[0].slice(1),
 				data_video_id: this.url.match(/[0-9]*$/)[0],
 			};
 		},
+		...mapGetters(["currentItem"]),
+		can_send_flg() {
+			if (this.currentItem == "") return;
+		},
 	},
 	methods: {
-		focusoutUrl() {
+		inputUrl() {
+			this.sendFlg = false;
+			this.url = document.getElementById("url").value;
 			// urlチェック
 			this.checkUrl();
 			if (this.url != "") {
 				// currentItemにセット
 				this.$store.dispatch("updateVideoUrl", this.video_data);
+				this.checkVideo();
 			}
 		},
 		checkUrl() {
 			const pattern = /https:\/\/www.tiktok.com\/@[0-9A-Za-z_.]*\/video\/[0-9]*/;
 			if (!pattern.test(this.url)) {
-				confirm("urlが間違っています(ToT)");
+				this.flashMessage.error({
+					html:
+						"<div class='flash-msg'><p>Error</p><p>URLが間違っています(T0T)</p></div>",
+				});
 				this.url = "";
 			} else {
 				this.url = this.url.match(pattern)[0];
 			}
 			document.getElementById("url").value = this.url;
 		},
+		checkVideo() {
+			const pattern = /[0-9]*px/;
+			let count = 0;
+			const timerId = setInterval(() => {
+				count++;
+				const maxHeight = window
+					.getComputedStyle(document.getElementsByTagName("iframe")[0])
+					.getPropertyValue("max-height");
+				this.sendFlg = pattern.test(maxHeight);
+				if (this.sendFlg || count == 10) {
+					clearInterval(timerId);
+				}
+			}, 1000);
+		},
 		submit() {
 			this.$axios
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
 					this.url = "";
-					confirm("登録しました");
+					this.flashMessage.success({
+						html:
+							"<div class='flash-msg'><p>Success</p><p>ビデオを登録しました。</p></div>",
+					});
 				})
 				.catch((error) => {
 					console.log(error);
+					this.flashMessage.error({
+						html:
+							"<div class='flash-msg'><p>Error</p><p>ビデオ登録に失敗しました。</p></div>",
+					});
 				});
 		},
 	},
@@ -107,6 +153,10 @@ export default {
 	display: block;
 	cursor: pointer;
 	margin-top: 2rem;
+}
+.is-checked-icon {
+	display: block;
+	margin: 2rem 0.5rem 0 -0.5rem;
 }
 @media screen and (max-width: 425px) {
 	.tiktok-wrapper {

@@ -183,6 +183,12 @@ h2 {
 .yellow-green {
 	color: #a4db0e;
 }
+.green {
+	color: #4caf50;
+}
+.red {
+	color: #ff3d00;
+}
 .disabled {
 	opacity: 0.5;
 }
