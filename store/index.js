@@ -5,7 +5,7 @@ export const state = () => ({
 	itemsPointer: -1,
 	items: [],
 	currentItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
-	scoreArray: [fixed.PERFECT_SCORE],
+	scoreArray: [],
 	laughedRecords: [],
 	hiddenVideos: [],
 	startFlg: false,
@@ -59,7 +59,7 @@ export const mutations = {
 		state.itemsPointer = -1;
 		state.items = [];
 		state.currentItem = "<div class='default-item'><p>NO<br/>VIDEO</p></div>";
-		state.scoreArray = [fixed.PERFECT_SCORE];
+		state.scoreArray = [];
 		state.laughedRecords = [];
 		state.hiddenVideos = [];
 		state.startFlg = false;
@@ -104,6 +104,8 @@ export const mutations = {
 export const actions = {
 	setMode({ commit }, mode) {
 		commit("setMode", mode);
+		const score = mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : fixed.ADDITIONAL_SCORE;
+		commit("addScoreArray", score);
 		this.$router.push("/play");
 	},
 	getItems({ getters, commit }) {
@@ -181,7 +183,6 @@ export const actions = {
 		this.$axios
 			.post("/api/v1/game_results", game_results)
 			.then((res) => {
-				console.log(res.data);
 				commit("changeTitle", res.data);
 			})
 			.catch((error) => {
