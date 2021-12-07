@@ -42,6 +42,7 @@
 	display: block;
 	margin-left: auto;
   font-size: 1.5rem;
+	cursor: pointer;
 }
 .notice-delete {
 	font-weight: 900;

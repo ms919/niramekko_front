@@ -4,7 +4,7 @@ export const state = () => ({
 	user: {},
 	records: {},
 	total_score: 0,
-	notifications: null,
+	notifications: {},
 });
 
 export const getters = {
@@ -12,6 +12,7 @@ export const getters = {
 	revengeFlg: (state) => state.revengeFlg,
 	user: (state) => state.user,
 	userImg: (state) => state.user.image_url,
+	userName: (state) => state.user.name,
 	records: (state) => state.records,
 	total_score: (state) => state.total_score,
 	notifications: (state) => state.notifications,
@@ -69,11 +70,19 @@ export const actions = {
 		dispatch("setLoginFlg");
 		commit("setRevengeFlg", data.revenge_flg);
 	},
+	clearUserInfo({ commit, dispatch }){
+		commit("setUser", {});
+		commit("setRecords", {});
+		commit("setTotalScore", 0);
+		commit("setNotifications", {});
+		dispatch("removeLoginFlg");
+		commit("setRevengeFlg", false);
+	},
 	logout({ dispatch }) {
 		this.$axios
 			.delete("api/v1/logout")
 			.then(() => {
-				dispatch("removeLoginFlg");
+				dispatch("clearUserInfo");
 				location.reload();
 			})
 			.catch((e) => console.log(e));
