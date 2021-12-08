@@ -12,9 +12,9 @@
 					</a>
 					<ul class="menu" v-show="menuFlg">
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
-						<li><a @click="$store.dispatch('session/logout')">logout</a></li>
-						<li><NuxtLink to="/modeSelect">play</NuxtLink></li>
+						<li><NuxtLink to="/modeSelect">play game</NuxtLink></li>
 						<li><NuxtLink to="/video">share video</NuxtLink></li>
+						<li><a @click="$store.dispatch('session/logout')">logout</a></li>
 					</ul>
 				</div>
 				<NuxtLink v-else to="/login" class="white-shadow">login</NuxtLink>
