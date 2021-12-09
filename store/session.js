@@ -4,7 +4,7 @@ export const state = () => ({
 	user: {},
 	records: {},
 	total_score: 0,
-	notifications: {},
+	notifications: null,
 });
 
 export const getters = {
@@ -74,7 +74,7 @@ export const actions = {
 		commit("setUser", {});
 		commit("setRecords", {});
 		commit("setTotalScore", 0);
-		commit("setNotifications", {});
+		commit("setNotifications", null);
 		dispatch("removeLoginFlg");
 		commit("setRevengeFlg", false);
 	},

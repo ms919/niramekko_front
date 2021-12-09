@@ -44,9 +44,9 @@
 		<div class="user-width notification user-div-style">
 			<p class="orange">notification</p>
 			<template v-if="notifications">
-				<div class="display-row" v-for="item in this.notifications" :key="item.message">
+				<div class="display-row" v-for="item in notifications" :key="item">
 					<div class="notice">
-						<p>{{ item.message }}</p>
+						<p>{{ item }}</p>
 					</div>
 					<span @click="noticeDelete" class="notice-delete">×</span>
 				</div>
