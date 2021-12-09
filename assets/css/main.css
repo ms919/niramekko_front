@@ -148,6 +148,13 @@ h2 {
 	margin: 1rem;
 	font-size: 1.5rem;
 }
+.xs-button {
+	width: 5rem;
+	border-radius: 30px;
+	padding: 0.5rem 0.5rem;
+	margin: 0.5rem;
+	font-size: 1rem;
+}
 .btn-pink {
 	background-color: #e43965;
 	color: #ffffff;
@@ -162,6 +169,10 @@ h2 {
 }
 .btn-light-blue {
 	background-color: #44beef;
+	color: #ffffff;
+}
+.btn-grey {
+	background-color: #898989;
 	color: #ffffff;
 }
 .white-shadow {
@@ -204,6 +215,17 @@ h2 {
 	text-align: center;
 	font-size: 3.5rem;
 	border-radius: 8px 8px 0px 0px;
+}
+table {
+  border-collapse: collapse;
+	border: solid 3px #898989;
+	background-color: #ffffff;
+	margin: 2rem auto;
+  width: 90%;
+}
+th, td {
+  border: dotted 1px #898989;
+	padding: 0.5rem 1rem;
 }
 @media screen and (max-height: 834px) {
 	 .wrapper {
