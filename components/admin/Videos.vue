@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CommonPagination :current-page="currentPage" :total-pages="totalPages" @getPage="getPage"/>
+    <CommonPagination :current-page="currentPage" :total-pages="totalPages" @getPage="getPage" class="pagination-wrapper"/>
     <table>
       <tr>
         <th>id</th>
@@ -87,3 +87,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.pagination-wrapper {
+  position: sticky;
+  top: 0;
+}
+</style>

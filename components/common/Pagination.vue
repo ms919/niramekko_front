@@ -49,6 +49,10 @@ export default {
       this.$emit("getPage", page);
 		},
 	},
+  mounted(){
+    if (!this.currentPage) return;
+    document.getElementById(this.currentPage).classList.add("selected");
+  },
 	updated() {
     document.getElementById(this.currentPage).classList.add("selected");
 	},
@@ -59,7 +63,6 @@ export default {
 .pagination {
 	align-items: center;
 	display: flex;
-	justify-content: center;
 	margin: 1rem auto;
 }
 .pagination a {
