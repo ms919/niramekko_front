@@ -1,7 +1,7 @@
 <template>
 	<div class="display-col justify-center wrapper-height">
 		<div class="user-upper justify-between user-width">
-			<div class="display-row record user-div-style">
+			<div class="display-row record user-div-style user-div-wrapper">
 				<p class="record-left pink text-center">
 					<span class="score-font">{{ total_score }}</span><br />score
 				</p>
@@ -33,15 +33,24 @@
 					</div>
 				</div>
 			</div>
-			<div class="display-row profile user-div-style">
-				<div>
-					<p class="orange">name</p>
-					{{ this.user.name }}
-				</div>
-        <fa :icon="faCog" @click="changeComponent" class="orange cog" />
-			</div>
+      <div class="user-div-wrapper user-right-wrapper">
+        <div class="display-row user-div-style profile">
+          <div>
+            <p class="orange">name</p>
+            {{ this.user.name }}
+          </div>
+          <fa :icon="faCog" @click="changeComponent('UserSettings')" class="user-icon cog" />
+        </div>
+        <div class="user-div-style video display-row justify-between">
+          <p class="orange">video</p>
+          <div class="display-row justify-between video-icons">
+            <fa :icon="faListUl" @click="changeComponent('UserVideos')" class="user-icon"/>
+            <NuxtLink to="/video"><fa :icon="faPlus" class="user-icon"/></NuxtLink>
+          </div>
+        </div>
+      </div>
 		</div>
-		<div class="user-width notification user-div-style">
+		<div class="user-width notification user-div-style user-div-wrapper">
 			<p class="orange">notification</p>
 			<template v-if="notifications">
 				<div class="display-row" v-for="item in notifications" :key="item">
@@ -67,6 +76,8 @@ import {
 	faLaughBeam,
 	faLaughSquint,
 	faCog,
+  faListUl,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 export default {
 	computed: {
@@ -76,6 +87,8 @@ export default {
 		faLaughBeam: () => faLaughBeam,
 		faLaughSquint: () => faLaughSquint,
 		faCog: () => faCog,
+    faListUl: () => faListUl,
+    faPlus: () => faPlus,
 		...mapGetters({
 			user: "session/user",
 			records: "session/records",
@@ -87,8 +100,8 @@ export default {
 		noticeDelete() {
 			console.log("noticeDelete");
 		},
-    changeComponent() {
-      this.$emit("changeComponent", "UserSettings");
+    changeComponent(component) {
+      this.$emit("changeComponent", component);
     }
 	},
   mounted() {
