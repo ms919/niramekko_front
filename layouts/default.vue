@@ -13,7 +13,7 @@
 					<ul class="menu" v-show="menuFlg">
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
 						<li><NuxtLink to="/modeSelect">play game</NuxtLink></li>
-						<li><NuxtLink to="/video">share video</NuxtLink></li>
+						<li><a @click="$store.dispatch('goToVideo', 'VideoNew')">share video</a></li>
 						<li><a @click="$store.dispatch('session/logout')">logout</a></li>
 					</ul>
 				</div>

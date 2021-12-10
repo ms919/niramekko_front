@@ -86,5 +86,8 @@ export default {
 			}
 		},
 	},
+	beforeDestroy(){
+		this.$store.dispatch("clearItem");
+	}
 };
 </script>

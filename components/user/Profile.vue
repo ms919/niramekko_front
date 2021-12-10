@@ -44,8 +44,8 @@
         <div class="user-div-style video display-row justify-between">
           <p class="orange">video</p>
           <div class="display-row justify-between video-icons">
-            <fa :icon="faListUl" @click="changeComponent('UserVideos')" class="user-icon"/>
-            <NuxtLink to="/video"><fa :icon="faPlus" class="user-icon"/></NuxtLink>
+            <fa :icon="faListUl" @click="$store.dispatch('goToVideo', 'Video')" class="user-icon"/>
+            <fa :icon="faPlus" @click="$store.dispatch('goToVideo', 'VideoNew')" class="user-icon"/>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default {
 		},
     changeComponent(component) {
       this.$emit("changeComponent", component);
-    }
+    },
 	},
   mounted() {
 		this.$axios

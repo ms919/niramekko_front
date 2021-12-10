@@ -231,6 +231,13 @@ export const actions = {
 	clearItem({ commit }) {
 		commit("clearItem");
 	},
+	changeCurrentComponent({ commit }, component){
+		commit("changeCurrentComponent", component);
+	},
+	goToVideo({commit}, component){
+		commit("changeCurrentComponent", component);
+		this.$router.push("/video")
+	},
 	updateVideoUrl({ commit }, target) {
 		commit("changeCurrentItem", target);
 		commit("incrementItemsPointer");
