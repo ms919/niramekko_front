@@ -5,7 +5,7 @@
 				<h3 class="white-shadow">Settings</h3>
 				<fa
 					:icon="faChevronLeft"
-					@click="changeComponent"
+					@click="$emit('changeComponent', 'UserProfile')"
 					class="back-icon left"
 				/>
 			</div>
@@ -54,11 +54,7 @@ export default {
 				});
 			}
 		},
-		changeComponent() {
-			this.$emit("changeComponent", "UserProfile");
-		},
 		deleteAccount() {
-			// const res = confirm("アカウントを削除します。よろしいですか？");
 			if (confirm("アカウントを削除します。よろしいですか？")) {
 				this.$axios
 					.delete("api/v1/user")
