@@ -2,13 +2,6 @@
   <div class="display-col justify-center videos-wrapper">
     <template v-if="videoData.length > 0">
       <div class="display-row justify-center upper-wrapper">
-        <!-- <div class="back-icon-wrapper">
-          <fa
-              :icon="faChevronLeft"
-              @click="$emit('changeComponent', 'UserProfile')"
-              class="back-icon"
-            />
-        </div> -->
         <div class="pagination-wrapper"><CommonPagination :current-page="currentPage" :total-pages="totalPages" @getPage="getPage"/></div>
       </div>
       <table class="text-center">
@@ -23,7 +16,7 @@
       </table>
     </template>
     <div v-else class="text-center">
-      <p class="top-wrapper">投稿ビデオがありません。</p>
+      <p class="nothing-wrapper">投稿ビデオがありません。</p>
     </div>
   </div>
 </template>
@@ -122,5 +115,9 @@ export default {
   text-align: left;
   color: #e43965;
   cursor: pointer;
+}
+.nothing-wrapper {
+  margin: 3rem;
+  height: 95vh;
 }
 </style>
