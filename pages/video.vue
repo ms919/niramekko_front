@@ -6,6 +6,11 @@
 		></component>
 		<div class="video-icon-wrapper">
 			<fa
+				:icon="faEyeSlash"
+				@click="$store.dispatch('changeCurrentComponent', 'VideoHidden')"
+				class="video-icon btn btn-yellow-green"
+			/>
+			<fa
 				:icon="faListUl"
 				@click="$store.dispatch('changeCurrentComponent', 'Video')"
 				class="video-icon btn btn-yellow-green"
@@ -21,11 +26,16 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { faListUl, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+	faListUl,
+	faPlus,
+	faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 export default {
 	computed: {
 		faListUl: () => faListUl,
 		faPlus: () => faPlus,
+		faEyeSlash: () => faEyeSlash,
 		...mapGetters(["currentComponent"]),
 	},
 	methods: {

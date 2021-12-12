@@ -1,0 +1,17 @@
+.videos-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+.upper-wrapper {
+  width: 100%;
+  position: sticky;
+  top: 3rem;
+  z-index: 1;
+}
+.pagination-wrapper {
+  width: 95%;
+}
+.nothing-wrapper {
+  margin: 3rem;
+  height: 95vh;
+}
