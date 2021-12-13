@@ -14,7 +14,7 @@
 				class="btn lg-button btn-pink"
 				>道場破りmode</a
 			>
-			<p>最新ベスト5に挑むモード</p>
+			<p>最新ベストに挑むモード</p>
 		</div>
 		<div v-if="revengeFlg">
 			<a
