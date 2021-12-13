@@ -195,7 +195,7 @@ export default {
 		font-size: 1.5rem;
 	}
 	#video {
-		width: 30%;
+		width: 20%;
 	}
 }
 </style>

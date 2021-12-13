@@ -4,7 +4,8 @@
 		<div class="text-wrapper">
 			<p v-html="text"></p>
 			<br>
-			<p><fa v-if="loginFlg" :icon='faEyeSlash' transform="left-2" class="orange"/> 動画を非表示リストに登録<br/><fa :icon='faArrowCircleRight' class="orange"/> &nbsp;次の動画に進む</p>
+			<p v-if="loginFlg"><fa :icon='faEyeSlash' transform="left-2" class="orange"/> 動画を非表示リストに登録</p>
+			<p><fa :icon='faArrowCircleRight' class="orange"/> &nbsp;次の動画に進む</p>
 		</div>
 		<a v-if="ruleFlg" @click="$store.dispatch('gotoNext')" class="btn sm-button btn-pink">START</a>
 		<a v-else @click="changeFlg" class="btn sm-button btn-pink">次へ</a>
@@ -70,5 +71,10 @@ export default {
 }
 .section-wrapper {
 	padding: 1.5rem 0;
+}
+@media screen and (max-width: 425px) {
+	.text-wrapper {
+		font-size: 1.2rem;
+	}
 }
 </style>
