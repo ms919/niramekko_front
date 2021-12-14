@@ -1,0 +1,24 @@
+.term-wrapper {
+  background-color: #ffffff;
+  margin: 3rem auto;
+  padding: 1rem;
+  width: 95%;
+}
+h4 {
+  line-height: 2rem;
+}
+.list-style {
+	list-style: square;
+	margin: 0.5rem 1rem;
+	font-size: 0.8rem;
+}
+.list-number {
+  list-style: decimal;
+  margin: 0.5rem 1rem;
+	font-size: 0.8rem;
+}
+@media screen and (max-width: 425px) {
+  p {
+    font-size: 0.8rem;
+  }
+}

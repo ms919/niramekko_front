@@ -8,3 +8,13 @@
 		<NuxtLink to="/modeSelect" class="btn lg-button btn-pink">PLAY</NuxtLink>
 	</div>
 </template>
+<script>
+export default {
+	mounted(){
+		this.$store.dispatch("changeFooterFlg");
+	},
+	beforeDestroy(){
+		this.$store.dispatch("changeFooterFlg");
+	}
+}
+</script>

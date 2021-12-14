@@ -24,7 +24,11 @@
 			<nuxt />
 			<FlashMessage :position="'right bottom'"></FlashMessage>
 		</div>
-		<footer></footer>
+		<footer v-if="footerFlg">
+			<NuxtLink to="/terms" class="footer-link white-shadow">利用規約</NuxtLink>
+			<NuxtLink to="/privacyPolicy" class="footer-link white-shadow">プライバシーポリシー</NuxtLink>
+			<div class="copyright"><span class="white-shadow">© 2021 niramekko</span></div>
+		</footer>
 	</div>
 </template>
 <script>
@@ -36,6 +40,7 @@ export default {
 		};
 	},
 	computed: {
+		...mapGetters(["footerFlg"]),
 		...mapGetters({
 			loginFlg: "session/loginFlg",
 			userImg: "session/userImg",

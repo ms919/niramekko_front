@@ -15,6 +15,7 @@ export const state = () => ({
 	hiddenFlg: false,
 	mode: null,
 	title: {},
+	footerFlg: false,
 });
 
 export const getters = {
@@ -33,6 +34,7 @@ export const getters = {
 	hiddenFlg: (state) => state.hiddenFlg,
 	mode: (state) => state.mode,
 	title: (state) => state.title,
+	footerFlg: (state) => state.footerFlg,
 };
 
 export const mutations = {
@@ -98,6 +100,9 @@ export const mutations = {
 			name: fixed.TITLE_NAMES[title_id],
 			tweet_text: fixed.TWEET_TEXTS[title_id],
 		};
+	},
+	changeFooterFlg(state) {
+		state.footerFlg = !state.footerFlg;
 	},
 };
 
@@ -242,4 +247,7 @@ export const actions = {
 		commit("changeCurrentItem", target);
 		commit("incrementItemsPointer");
 	},
+	changeFooterFlg({commit}){
+		commit("changeFooterFlg");
+	}
 };
