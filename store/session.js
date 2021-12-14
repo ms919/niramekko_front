@@ -22,7 +22,7 @@ export const mutations = {
 	reloadLoginFlg(state, value) {
 		state.loginFlg = value;
 	},
-	setRevengeFlg(state, value){
+	setRevengeFlg(state, value) {
 		state.revengeFlg = value;
 	},
 	setUser(state, userData) {
@@ -36,22 +36,25 @@ export const mutations = {
 	},
 	setNotifications(state, notifications) {
 		state.notifications = notifications;
-	}
+	},
 };
 
 export const actions = {
 	init({ commit, dispatch }) {
 		if (localStorage.getItem("loginFlg")) {
 			commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
-			this.$axios.get("api/v1/user").then((res) => {
-				dispatch("setUserInfo", res.data);
-			}).catch(()=> {
-				dispatch("removeLoginFlg");
-				this._vm.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+			this.$axios
+				.get("api/v1/user")
+				.then((res) => {
+					dispatch("setUserInfo", res.data);
+				})
+				.catch(() => {
+					dispatch("removeLoginFlg");
+					this._vm.flashMessage.error({
+						html:
+							"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+					});
 				});
-			});
 		}
 	},
 	removeLoginFlg({ commit }) {
@@ -70,13 +73,16 @@ export const actions = {
 		dispatch("setLoginFlg");
 		commit("setRevengeFlg", data.revenge_flg);
 	},
-	clearUserInfo({ commit, dispatch }){
+	clearUserInfo({ commit, dispatch }) {
 		commit("setUser", {});
 		commit("setRecords", {});
 		commit("setTotalScore", 0);
 		commit("setNotifications", null);
 		dispatch("removeLoginFlg");
 		commit("setRevengeFlg", false);
+	},
+	setNotifications({ commit }, notifications) {
+		commit("setNotifications", notifications);
 	},
 	logout({ dispatch }) {
 		this.$axios
