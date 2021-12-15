@@ -69,7 +69,7 @@ export const actions = {
 		commit("setUser", data.user);
 		commit("setRecords", data.game_results);
 		commit("setTotalScore", data.total_score);
-		commit("setNotifications", data.notifications);
+		dispatch("setNotifications", data.notifications);
 		dispatch("setLoginFlg");
 		commit("setRevengeFlg", data.revenge_flg);
 	},
@@ -82,6 +82,13 @@ export const actions = {
 		commit("setRevengeFlg", false);
 	},
 	setNotifications({ commit }, notifications) {
+		if (notifications.length == 0) {
+			notifications = null
+		} else {
+			notifications.map((item) => {
+				item.message = item.format == "latest_top" ? `あなたの投稿したビデオが最新ベスト入りしました！${item.message}スコアが付与されます。` : item.message;
+			});
+		}
 		commit("setNotifications", notifications);
 	},
 	logout({ dispatch }) {
