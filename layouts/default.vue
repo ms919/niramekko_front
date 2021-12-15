@@ -4,7 +4,8 @@
 			<NuxtLink to="/" class="white-shadow app-name app-name-font"
 				>niramekko</NuxtLink
 			>
-			<nav>
+			<nav class="display-row">
+				<NuxtLink to="/contact" class="white-shadow contact">contact</NuxtLink>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
@@ -61,3 +62,9 @@ export default {
 	},
 };
 </script>
+
+<style scoped>
+.contact {
+	margin-right: 1rem;
+}
+</style>
