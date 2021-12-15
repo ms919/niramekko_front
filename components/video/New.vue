@@ -56,9 +56,6 @@ export default {
 			};
 		},
 		...mapGetters(["currentItem"]),
-		can_send_flg() {
-			if (this.currentItem == "") return;
-		},
 	},
 	methods: {
 		inputUrl() {
