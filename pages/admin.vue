@@ -4,6 +4,7 @@
     <div class="admin-wrapper text-center">
       <a @click="changeComponent('AdminVideos')" class="btn sm-button btn-grey">Videos</a>
       <a @click="changeComponent('AdminUsers')" class="btn sm-button btn-grey">Users</a>
+      <a @click="changeComponent('AdminContacts')" class="btn sm-button btn-grey">Contacts</a>
       <component :is="currentComponent" @changeComponent="changeComponent"></component>
     </div>
   </div>
