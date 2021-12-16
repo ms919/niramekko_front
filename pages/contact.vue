@@ -1,5 +1,5 @@
 <template>
-  <div class="display-col justify-center top-wrapper">
+  <div class="display-col justify-center top-wrapper section-wrapper">
     <h3>ご意見・ご要望等、お待ちしています。</h3>
     <form class="display-col">
       <div class="form-group">
@@ -74,8 +74,28 @@ export default {
 }
 .form-group {
   align-items: start;
+  width: 50%;
+}
+form {
+  width: 100%;
 }
 select {
   width: 7rem;
+  border:none;
+  border-radius:10px;
+  font-size: 0.8rem;
+  box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+textarea {
+  border:none;
+  border-radius:10px;
+  box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0.5rem;
+  width: 100%;
+}
+@media screen and (max-width: 425px) {
+  .form-group {
+    width: 70%;
+  }
 }
 </style>

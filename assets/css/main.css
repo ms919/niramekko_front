@@ -275,6 +275,9 @@ th, td {
 	.top-wrapper {
 		margin: 0 auto;
 	}
+	.section-wrapper {
+		padding: 1.5rem 0;
+	}
 }
 @media screen and (max-width: 320px) {
 	html {

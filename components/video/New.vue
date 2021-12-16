@@ -107,11 +107,11 @@ export default {
 							"<div class='flash-msg'><p>Success</p><p>ビデオを登録しました。</p></div>",
 					});
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch(() => {
+					this.url = "";
 					this.flashMessage.error({
 						html:
-							"<div class='flash-msg'><p>Error</p><p>ビデオ登録に失敗しました。</p></div>",
+							"<div class='flash-msg'><p>このビデオは既に登録済みでした…</p></div>",
 					});
 				});
 		},
@@ -159,9 +159,6 @@ export default {
 @media screen and (max-width: 425px) {
 	.tiktok-wrapper {
 		box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.25);
-	}
-	.section-wrapper {
-		padding: 1.5rem 0;
 	}
 }
 @media screen and (max-width: 320px) {

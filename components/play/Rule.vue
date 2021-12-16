@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center section-wrapper">
+	<div class="text-center rule-wrapper">
 		<h3>事前準備・ルール説明</h3>
 		<div class="text-wrapper">
 			<p v-html="text"></p>
@@ -69,7 +69,7 @@ export default {
 	text-align: left;
 	font-size: 0.8rem;
 }
-.section-wrapper {
+.rule-wrapper {
 	padding: 1.5rem 0;
 }
 @media screen and (max-width: 425px) {
