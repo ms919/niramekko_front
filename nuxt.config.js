@@ -23,7 +23,7 @@ export default {
 			{
 				hid: "og:url",
 				property: "og:url",
-				content: "https://niramekko.herokuapp.com",
+				content: process.env.DOMAIN,
 			},
 			{ hid: "og:title", property: "og:title", content: "niramekko" },
 			{
@@ -34,19 +34,19 @@ export default {
 			{
 				hid: "og:image",
 				property: "og:image",
-				content: "https://niramekko.herokuapp.com/ogp.png",
+				content: process.env.DOMAIN + "/ogp.png",
 			},
 			{ name: "twitter:card", content: "summary_large_image" },
 			{ name: "twitter:creator", content: "@sakkkkup" },
 		],
-		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }, { rel: "canonical", href: "https://niramekko.herokuapp.com" }],
+		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }, { rel: "canonical", href: process.env.DOMAIN }],
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
 
 	publicRuntimeConfig: {
-		domain: process.env.API_DOMAIN,
+		domain: process.env.DOMAIN,
 		auth_url: process.env.AUTH_URL,
 	},
 
