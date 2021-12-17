@@ -81,6 +81,11 @@ export default {
 			this.$axios
 				.patch("api/v1/user", { name: this.name })
 				.then(() => {
+					this.$axios
+						.get("api/v1/user")
+						.then((res) => {
+							this.$store.dispatch("session/setUserInfo", res.data);
+						});
 					this.flashMessage.success({
 						html:
 							"<div class='flash-msg'><p>Success</p><p>nameを更新しました。</p></div>",
