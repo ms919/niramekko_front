@@ -3,8 +3,7 @@
 		<div class="user-upper justify-between user-width">
 			<div class="display-row record user-div-style user-div-wrapper">
 				<p class="record-left pink text-center">
-					<span class="score-font">{{ total_score }}</span
-					><br />score
+					<span class="score-font">{{ total_score }}</span><br />score
 				</p>
 				<div class="display-col justify-center record-right pink">
 					<div class="record-right-width display-row justify-space-around">
