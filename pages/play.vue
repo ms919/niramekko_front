@@ -1,6 +1,9 @@
 <template>
 	<div class="display-col justify-center top-wrapper">
 		<div class="tiktok-wrapper">
+			<p v-if="currentComponent == 'CommonTiktok'" class="pointer orange">
+				{{ itemsPointer + 1 }}/{{ itemsLength }}
+			</p>
 			<component :is="currentComponent"></component>
 			<div class="icon-wrapper">
 				<template v-if="startFlg || gameFinFlg">
@@ -86,8 +89,8 @@ export default {
 			}
 		},
 	},
-	beforeDestroy(){
+	beforeDestroy() {
 		this.$store.dispatch("clearItem");
-	}
+	},
 };
 </script>

@@ -26,6 +26,11 @@
 	font-size: 1.5rem;
 	cursor: pointer;
 }
+.pointer {
+	position: absolute;
+	margin: 1rem 0 0 2rem;
+	font-weight: bold;
+}
 @media screen and (max-height: 768px) {
 	.contents-wrapper {
 		height: 200px;
@@ -68,16 +73,27 @@
 		bottom: 22%;
 		z-index: 99;
 	}
+	.pointer {
+		z-index: 99;
+		font-size: 2rem;
+		margin: 2rem 0 0 5rem;
+	}
 }
 @media screen and (max-width: 375px) {
 	.icon-wrapper {
 		right: 6%;
 		bottom: 15%;
 	}
+	.pointer {
+		margin: 2rem 0 0 4rem;
+	}
 }
 @media screen and (max-width: 320px) {
 	.icon-wrapper {
 		right: 0%;
 		bottom: 0%;
+	}
+	.pointer {
+		margin: 2rem 0 0 2rem;
 	}
 }
