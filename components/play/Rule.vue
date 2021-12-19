@@ -30,7 +30,7 @@ export default {
 		...mapGetters({loginFlg: "session/loginFlg"}),
 		text() {
 			if (!this.ruleFlg) {
-				return "①カメラを許可してください<br/>②右下に自分の顔が写るようにカメラを調節します<br/>③自分の顔の輪郭、各パーツ上に線が表示されていることを確認します<br/>④表情を動かしたときに左下のグラフが動くことを確認してください"
+				return "①カメラを許可してください<br/>②下部に自分の顔が写るようにカメラを調節します<br/>③自分の顔の輪郭、各パーツ上に線が表示されていることを確認します<br/>④表情を動かしたときに左下のグラフが動くことを確認してください"
 			}
 			switch (this.mode) {
 				case fixed.MODE.NORMAL:
@@ -75,6 +75,9 @@ export default {
 @media screen and (max-width: 425px) {
 	.text-wrapper {
 		font-size: 1.2rem;
+	}
+	.rule-wrapper {
+		margin-bottom: auto;
 	}
 }
 </style>

@@ -1,17 +1,20 @@
 <template>
-	<div class="display-row justify-center wrapper">
-		<div class="display-row">
-			<div class="display-col justify-space-around emotions-wrapper">
-				<fa :icon="faSadTear" class="pink" />
-				<fa :icon="faLaughSquint" class="pink" />
-				<fa :icon="faAngry" class="pink" />
-				<fa :icon="faSurprise" class="pink" />
-				<fa :icon="faDizzy" class="pink" />
+	<div class="api-wrapper">
+		<div class="display-col justify-center">
+			<p v-if="spFlg" class="score">SCORE {{ score }}</p>
+			<div class="display-row">
+				<div class="display-col justify-space-around emotions-wrapper">
+					<fa :icon="faSadTear" class="pink for-pc" />
+					<fa :icon="faLaughSquint" class="pink" />
+					<fa :icon="faAngry" class="pink for-pc" />
+					<fa :icon="faSurprise" class="pink for-pc" />
+					<fa :icon="faDizzy" class="pink for-pc" />
+				</div>
+				<PlayFaceChart :chart-data="datacollection" />
 			</div>
-			<PlayFaceChart :chart-data="datacollection" />
 		</div>
 		<div class="right-wrapper display-col justify-center">
-			<p class="score">SCORE {{ score }}</p>
+			<p v-if="!spFlg" class="score">SCORE {{ score }}</p>
 			<div>
 				<video id="video" @play="onPlay" playsinline autoplay muted></video>
 				<canvas id="canvas"></canvas>
@@ -35,6 +38,7 @@ export default {
 		return {
 			datacollection: { labels: [], datasets: [] },
 			score: 0,
+			spFlg: false,
 		};
 	},
 	computed: {
@@ -87,20 +91,34 @@ export default {
 			}, 500);
 		},
 		updateData(expressions) {
-			this.datacollection = {
-				labels: ["sad", "happy", "angry", "surprised", "disgusted"],
-				datasets: [
-					{
-						backgroundColor: "#e43965",
-						data: [
-							expressions.sad,
-							expressions.happy * fixed.HAPPY_MULTIPLICATION,
-							expressions.angry,
-							expressions.surprised,
-							expressions.disgusted + expressions.fearful,
-						],
-					},
-				],
+			if (this.spFlg) {
+				this.datacollection = {
+					labels: ["happy"],
+					datasets: [
+						{
+							backgroundColor: "#e43965",
+							data: [
+								expressions.happy * fixed.HAPPY_MULTIPLICATION,
+							],
+						},
+					],
+				}
+			} else {
+				this.datacollection = {
+					labels: ["sad", "happy", "angry", "surprised", "disgusted"],
+					datasets: [
+						{
+							backgroundColor: "#e43965",
+							data: [
+								expressions.sad,
+								expressions.happy * fixed.HAPPY_MULTIPLICATION,
+								expressions.angry,
+								expressions.surprised,
+								expressions.disgusted + expressions.fearful,
+							],
+						},
+					],
+				}
 			};
 			if (this.startFlg && this.currentComponent == "CommonTiktok") {
 				const diff = this.datacollection.datasets[0].data.reduce(
@@ -135,6 +153,7 @@ export default {
 				video.play();
 			});
 		});
+		this.spFlg = window.innerWidth <= 425;
 	},
 };
 </script>
@@ -145,8 +164,11 @@ export default {
 .right-wrapper {
 	width: 40%;
 }
-.wrapper {
-	height: 100%;
+.api-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 .score {
 	background-color: #a4db0e;
@@ -186,16 +208,25 @@ export default {
 	}
 }
 @media screen and (max-width: 425px) {
+	.api-wrapper {
+		justify-content: space-around;
+	}
+	.right-wrapper {
+		height: 100%;
+	}
 	.emotions-wrapper {
-		height: 9.5rem;
-		margin-bottom: 1rem;
+		height: 1.5rem;
 		font-size: 1.5rem;
 	}
 	.score {
-		font-size: 1.5rem;
+		font-size: 1.2rem;
 	}
 	#video {
-		width: 20%;
+		width: 30%;
+		margin-top: 0;
+	}
+	#canvas {
+		margin-top: 0;
 	}
 }
 </style>

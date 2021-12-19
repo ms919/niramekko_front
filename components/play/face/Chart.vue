@@ -34,8 +34,6 @@ export default {
 		},
 	},
 	mounted() {
-		// this.chartData is created in the mixin.
-		// If you want to pass options please create a local options object
 		this.renderChart(this.chartData, this.options);
 	},
 };
@@ -48,8 +46,8 @@ export default {
 }
 @media screen and (max-width: 425px) {
 	#horizontalbar-chart {
-		width: 12rem !important;
-		height: 12rem !important;
+		width: 7rem !important;
+		height: 5rem !important;
 	}
 }
 </style>

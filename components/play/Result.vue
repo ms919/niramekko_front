@@ -95,7 +95,7 @@ export default {
 	background: rgba(0, 0, 0, 0.15);
 }
 .window {
-	height: 400px;
+	height: 50%;
 	width: 40%;
 	overflow: hidden;
 	background-color: #ffffff;
@@ -124,6 +124,7 @@ export default {
 @media screen and (max-width: 425px) {
 	.window {
 		width: 90%;
+		height: 40%;
 	}
 	.gameOver-title-text {
 		font-size: 1.5rem;
