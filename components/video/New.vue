@@ -71,11 +71,19 @@ export default {
 		},
 		checkUrl() {
 			const pattern = /https:\/\/www.tiktok.com\/@[0-9A-Za-z_.]*\/video\/[0-9]*/;
+			const sp_pattern = /https:\/\/vt.tiktok.com\/[0-9A-Za-z_.]*/;
 			if (!pattern.test(this.url)) {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>URLが間違っています(T0T)</p></div>",
-				});
+				if (sp_pattern.test(this.url)){
+					this.flashMessage.error({
+						html:
+							"<div class='flash-msg'><p>Error</p><p>アプリ版URL未対応ですorZ</p></div>",
+					});
+				} else {
+					this.flashMessage.error({
+						html:
+							"<div class='flash-msg'><p>Error</p><p>URLが間違っています(T0T)</p></div>",
+					});
+				}
 				this.url = "";
 			} else {
 				this.url = this.url.match(pattern)[0];
