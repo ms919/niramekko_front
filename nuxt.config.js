@@ -90,7 +90,6 @@ export default {
 
 	sitemap: {
 		hostname: process.env.DOMAIN,
-		gzip: true,
 		exclude: ['/admin', '/callback', '/user', '/video']
 	},
 
