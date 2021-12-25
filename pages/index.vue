@@ -18,7 +18,7 @@
 export default {
 	head() {
 		return {
-			script: [
+			meta: [
 				{
 					name: "google-site-verification",
 					content: this.$config.search_console_content,
