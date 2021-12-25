@@ -16,6 +16,7 @@ export default {
 		meta: [
 			{ charset: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
+			{ name: "google-site-verification", content: process.env.SEARCH_CONSOLE_CONTENT },
 			{ hid: "description", name: "description", content: "おもしろTikTok動画とにらめっこするゲーム" },
 			{ name: "format-detection", content: "telephone=no,address=no,email=no" },
 			{ hid: "og:site_name", property: "og:site_name", content: "niramekko" },
@@ -48,7 +49,6 @@ export default {
 	publicRuntimeConfig: {
 		domain: process.env.DOMAIN,
 		auth_url: process.env.AUTH_URL,
-		search_console_content: process.env.SEARCH_CONSOLE_CONTENT,
 	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
