@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin
+Disallow: /callback
+Disallow: /user
+Disallow: /video
+Sitemap: https://niramekko.herokuapp.com/sitemap.xml.gz

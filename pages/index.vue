@@ -16,6 +16,16 @@
 
 <script>
 export default {
+	head() {
+		return {
+			script: [
+				{
+					name: "google-site-verification",
+					content: this.$config.search_console_content,
+				},
+			],
+		};
+	},
 	mounted(){
 		this.$store.dispatch("changeFooterFlg");
 	},

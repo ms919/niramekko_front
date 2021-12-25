@@ -16,7 +16,7 @@ export default {
 		meta: [
 			{ charset: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ hid: "description", name: "description", content: "social niramekko game" },
+			{ hid: "description", name: "description", content: "おもしろTikTok動画とにらめっこするゲーム" },
 			{ name: "format-detection", content: "telephone=no,address=no,email=no" },
 			{ hid: "og:site_name", property: "og:site_name", content: "niramekko" },
 			{ hid: "og:type", property: "og:type", content: "website" },
@@ -29,7 +29,7 @@ export default {
 			{
 				hid: "og:description",
 				property: "og:description",
-				content: "social niramekko game",
+				content: "おもしろTikTok動画とにらめっこするゲーム",
 			},
 			{
 				hid: "og:image",
@@ -48,6 +48,7 @@ export default {
 	publicRuntimeConfig: {
 		domain: process.env.DOMAIN,
 		auth_url: process.env.AUTH_URL,
+		search_console_content: process.env.SEARCH_CONSOLE_CONTENT,
 	},
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -79,10 +80,18 @@ export default {
 		"@nuxtjs/proxy",
 		"nuxt-fontawesome",
 		"@nuxtjs/google-gtag",
+		// sitemapは必ずarrayの最後
+		"@nuxtjs/sitemap"
 	],
 
 	"google-gtag": {
 		id: process.env.GA_ID,
+	},
+
+	sitemap: {
+		hostname: process.env.DOMAIN,
+		gzip: true,
+		exclude: ['/admin', '/callback', '/user', '/video']
 	},
 
 	axios: {
