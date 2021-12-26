@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 export default {
   head() {
 		return {
@@ -36,9 +35,6 @@ export default {
 			],
 		};
 	},
-  // computed: {
-	// 	faChevronLeft: () => faChevronLeft,
-	// },
   data(){
     return {
       scriptFlg: false,

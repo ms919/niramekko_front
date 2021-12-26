@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<component
-			:is="currentComponent"
-			@changeComponent="changeComponent"
-		></component>
+		<component :is="currentComponent"></component>
 		<div class="video-icon-wrapper">
 			<fa
 				:icon="faEyeSlash"
@@ -37,11 +34,6 @@ export default {
 		faPlus: () => faPlus,
 		faEyeSlash: () => faEyeSlash,
 		...mapGetters(["currentComponent"]),
-	},
-	methods: {
-		changeComponent(component) {
-			this.$store.dispatch("changeCurrentComponent", component);
-		},
 	},
 	mounted() {
 		if (!localStorage.getItem("loginFlg")) {
