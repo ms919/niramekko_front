@@ -63,7 +63,7 @@ export default {
 				// ウェブカメラの映像から顔データを取得
 				const detections = await faceapi
 					.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
-					.withFaceLandmarks()
+					.withFaceLandmarks(true)
 					.withFaceExpressions();
 				if (detections == undefined) return;
 
@@ -144,7 +144,7 @@ export default {
 		// 顔モデルロード
 		Promise.all([
 			faceapi.loadTinyFaceDetectorModel("/weights"),
-			faceapi.loadFaceLandmarkModel("/weights"),
+			faceapi.loadFaceLandmarkTinyModel("/weights"),
 			faceapi.loadFaceExpressionModel("/weights"),
 		]).then(() => {
 			// ウェブカメラへアクセス
