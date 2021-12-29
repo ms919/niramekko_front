@@ -1,6 +1,9 @@
 .user-width {
 	width: 70%;
 }
+.user-wrapper {
+	margin: 2rem 0;
+}
 .user-div-style {
 	background: rgba(255, 255, 255, 0.6);
 	border-radius: 50px;

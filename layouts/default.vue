@@ -22,7 +22,7 @@
 				<NuxtLink v-else to="/login" class="white-shadow">login</NuxtLink>
 			</nav>
 		</header>
-		<div class="wrapper">
+		<div>
 			<nuxt />
 			<FlashMessage :position="'right bottom'"></FlashMessage>
 		</div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="display-col justify-center wrapper-height">
+	<div class="display-col justify-center user-wrapper">
 		<div class="user-upper justify-between user-width">
 			<div class="display-row record user-div-style user-div-wrapper">
 				<p class="record-left pink text-center">

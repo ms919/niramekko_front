@@ -250,9 +250,6 @@ th, td {
 	padding: 0.5rem 1rem;
 }
 @media screen and (max-height: 834px) {
-	 .wrapper {
-		padding: 4.5rem 0;
-	}
 	.top-wrapper {
 		margin: 1.5rem auto;
 		height: auto;
@@ -269,9 +266,6 @@ th, td {
 	}
 	h2 {
 		font-size: 2rem;
-	}
-	.wrapper {
-		padding: 0;
 	}
 	.lg-button {
 		width: 28rem;
