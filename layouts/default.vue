@@ -5,7 +5,8 @@
 				>niramekko</NuxtLink
 			>
 			<nav class="display-row">
-				<NuxtLink to="/contact" class="white-shadow contact">contact</NuxtLink>
+				<NuxtLink to="/guide" class="white-shadow">guide</NuxtLink>
+				<NuxtLink to="/contact" class="white-shadow menu-item">contact</NuxtLink>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
@@ -34,6 +35,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+
 export default {
 	data() {
 		return {
@@ -64,7 +66,7 @@ export default {
 </script>
 
 <style scoped>
-.contact {
-	margin-right: 1rem;
+.menu-item {
+	margin: 0 1.5rem;
 }
 </style>
