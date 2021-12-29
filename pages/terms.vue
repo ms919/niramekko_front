@@ -1,5 +1,5 @@
 <template>
-  <div class="display-col justify-center term-wrapper">
+  <div class="display-col justify-center white-wrapper">
     <h3>利用規約</h3>
     <div>
       <p>

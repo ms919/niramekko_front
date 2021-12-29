@@ -1,5 +1,5 @@
 <template>
-  <div class="display-col justify-center term-wrapper">
+  <div class="display-col justify-center white-wrapper">
     <h3>プライバシーポリシー</h3>
     <div>
       <h4>お客様から取得する情報</h4>
