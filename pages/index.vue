@@ -30,4 +30,9 @@ p {
 	font-size: 0.8rem;
 	margin-top: 5rem;
 }
+@media screen and (max-height: 834px) {
+	.lg-button {
+		margin-bottom: 3rem;
+	}
+}
 </style>
