@@ -125,11 +125,7 @@ export default {
 				this.$store.dispatch("session/setUserInfo", res.data);
 			})
 			.catch(() => {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
-				});
-				this.$router.push("/login");
+				this.needLoginMsg();
 			});
 	},
 };

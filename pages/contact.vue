@@ -38,26 +38,17 @@ export default {
   methods: {
     sendMessage(){
       if (this.message.length < 10 || this.message.length > 500) {
-        this.flashMessage.error({
-          html:
-            "<div class='flash-msg'><p>Error</p><p>メッセージは10文字以上、500文字未満で記載してください。</p></div>",
-        });
+        this.showFlashMsg('error', 'メッセージは10文字以上、500文字未満で記載してください。');
       } else {
         this.$axios
         .post("/api/v1/contacts", {contact_type: this.type, message: this.message})
 				.then(() => {
 					this.message = "";
-					this.flashMessage.success({
-						html:
-							"<div class='flash-msg'><p>Success</p><p>メッセージを送信しました。</p></div>",
-					});
+          this.showFlashMsg('success', 'メッセージを送信しました。');
 				})
 				.catch((error) => {
 					console.log(error);
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>Error</p><p>メッセージの送信に失敗しました。</p></div>",
-					});
+          this.showFlashMsg('error', 'メッセージの送信に失敗しました。');
 				});
       }
     }

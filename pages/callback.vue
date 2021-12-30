@@ -9,11 +9,7 @@ export default {
         this.$router.push("/user");
 			})
 			.catch(() => {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
-				});
-				this.$router.push("/login");
+				this.needLoginMsg();
 			});
   }
 }

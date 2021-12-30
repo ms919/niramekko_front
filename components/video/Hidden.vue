@@ -60,11 +60,7 @@ export default {
         this.scriptFlg = !this.scriptFlg;
 			})
 			.catch(() => {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
-				});
-				this.$router.push("/login");
+        this.needLoginMsg();
 			});
     },
     videoDelete(id){
@@ -75,17 +71,11 @@ export default {
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.flashMessage.success({
-              html:
-                "<div class='flash-msg'><p>Success</p><p>非表示設定を解除しました。</p></div>",
-            });
+            this.showFlashMsg('success', '非表示設定を解除しました。');
           })
           .catch((e) => {
             console.log(e);
-            this.flashMessage.error({
-              html:
-                "<div class='flash-msg'><p>Error</p><p>非表示設定解除に失敗しました。</p></div>",
-            });
+            this.showFlashMsg('error', '非表示設定解除に失敗しました。');
           });
       }
     }

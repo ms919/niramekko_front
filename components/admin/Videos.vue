@@ -52,10 +52,7 @@ export default {
         this.scriptFlg = !this.scriptFlg;
 			})
 			.catch(() => {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>アクセス権限がありません。</p></div>",
-				});
+        this.showFlashMsg('error', 'アクセス権限がありません。');
 				this.$router.push("/login");
 			});
     },
@@ -67,17 +64,11 @@ export default {
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.flashMessage.success({
-              html:
-                "<div class='flash-msg'><p>Success</p><p>ビデオを削除しました。</p></div>",
-            });
+            this.showFlashMsg('success', 'ビデオを削除しました。');
           })
           .catch((e) => {
             console.log(e);
-            this.flashMessage.error({
-              html:
-                "<div class='flash-msg'><p>Error</p><p>ビデオ削除に失敗しました。</p></div>",
-            });
+            this.showFlashMsg('error', 'ビデオ削除に失敗しました。');
           });
       }
     }

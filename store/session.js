@@ -52,7 +52,7 @@ export const actions = {
 					dispatch("removeLoginFlg");
 					this._vm.flashMessage.error({
 						html:
-							"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+							"<div class='flash-msg'><p>error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
 					});
 				});
 		}

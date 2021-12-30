@@ -35,10 +35,7 @@ export default {
         this.currentPage = page;
 			})
 			.catch(() => {
-				this.flashMessage.error({
-					html:
-						"<div class='flash-msg'><p>Error</p><p>アクセス権限がありません。</p></div>",
-				});
+        this.showFlashMsg('error', 'アクセス権限がありません。');
 				this.$router.push("/login");
 			});
     },
@@ -49,17 +46,11 @@ export default {
           .delete(`api/v1/admin/users/${id}`)
           .then(() => {
             this.getPage(page);
-            this.flashMessage.success({
-              html:
-                "<div class='flash-msg'><p>Success</p><p>ユーザーを削除しました。</p></div>",
-            });
+            this.showFlashMsg('success', 'ユーザーを削除しました。');
           })
           .catch((e) => {
             console.log(e);
-            this.flashMessage.error({
-              html:
-                "<div class='flash-msg'><p>Error</p><p>ユーザー削除に失敗しました。</p></div>",
-            });
+            this.showFlashMsg('error', 'ユーザー削除に失敗しました。');
           });
       }
 		},

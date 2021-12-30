@@ -37,11 +37,7 @@ export default {
 	},
 	mounted() {
 		if (!localStorage.getItem("loginFlg")) {
-			this.flashMessage.error({
-				html:
-					"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
-			});
-			this.$router.push("/login");
+			this.needLoginMsg();
 		}
 		if (this.currentComponent == "PlayRule") {
 			this.$store.dispatch("changeCurrentComponent", "VideoNew");

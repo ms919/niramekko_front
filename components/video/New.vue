@@ -74,15 +74,9 @@ export default {
 			const sp_pattern = /https:\/\/vt.tiktok.com\/[0-9A-Za-z_.]*/;
 			if (!pattern.test(this.url)) {
 				if (sp_pattern.test(this.url)){
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>Error</p><p>アプリ版URL未対応ですorZ</p></div>",
-					});
+					this.showFlashMsg('error', 'アプリ版URL未対応ですorz。');
 				} else {
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>Error</p><p>URLが間違っています(T0T)</p></div>",
-					});
+					this.showFlashMsg('error', 'URLが間違っています(ToT)');
 				}
 				this.url = "";
 			} else {
@@ -110,27 +104,17 @@ export default {
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
 					this.url = "";
-					this.flashMessage.success({
-						html:
-							"<div class='flash-msg'><p>Success</p><p>ビデオを登録しました。</p></div>",
-					});
+					this.showFlashMsg('success', 'ビデオを登録しました。');
 				})
 				.catch(() => {
 					this.url = "";
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>このビデオは既に登録済みでした…</p></div>",
-					});
+					this.showFlashMsg('error', 'このビデオは既に登録済みでした(>_<)');
 				});
 		},
 	},
 	mounted() {
 		if (!localStorage.getItem("loginFlg")) {
-			this.flashMessage.error({
-				html:
-					"<div class='flash-msg'><p>Error</p><p>ログインしてください。</p></div>",
-			});
-			this.$router.push("/login");
+			this.needLoginMsg();
 		} else {
 			this.$axios
 				.get("api/v1/videos/new")
@@ -139,10 +123,7 @@ export default {
 				})
 				.catch(() => {
 					this.$store.dispatch("session/removeLoginFlg");
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>Error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
-					});
+					this.showFlashMsg('error', 'セッションの有効期限が切れています。ログインしなおしてください。');
 					this.$router.push("/login");
 				});
 		}

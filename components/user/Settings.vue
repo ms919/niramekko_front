@@ -49,9 +49,7 @@ export default {
 			const len = this.name.length;
 			// 64はgoogleの最大値
 			if (len > 64) {
-				this.flashMessage.error({
-					html: `<div class='flash-msg'><p>Error</p><p>nameが${len}文字です。64文字以内で設定してください。</p></div>`,
-				});
+				this.showFlashMsg('error', `nameが${len}文字です。64文字以内で設定してください。`);
 			}
 		},
 		deleteAccount() {
@@ -61,16 +59,10 @@ export default {
 					.then(() => {
 						this.$store.dispatch("session/clearUserInfo");
 						this.$router.push("/");
-						this.flashMessage.success({
-							html:
-								"<div class='flash-msg'><p>Success</p><p>アカウントを削除しました。</p></div>",
-						});
+						this.showFlashMsg('success', 'アカウントを削除しました。');
 					})
 					.catch(() => {
-						this.flashMessage.error({
-							html:
-								"<div class='flash-msg'><p>Error</p><p>アカウントの削除に失敗しました。</p></div>",
-						});
+						this.showFlashMsg('error', 'アカウントの削除に失敗しました。');
 					});
 			}
 		},
@@ -86,16 +78,10 @@ export default {
 						.then((res) => {
 							this.$store.dispatch("session/setUserInfo", res.data);
 						});
-					this.flashMessage.success({
-						html:
-							"<div class='flash-msg'><p>Success</p><p>nameを更新しました。</p></div>",
-					});
+					this.showFlashMsg('success', 'nameを更新しました。');
 				})
 				.catch(() => {
-					this.flashMessage.error({
-						html:
-							"<div class='flash-msg'><p>Error</p><p>nameの更新に失敗しました。</p></div>",
-					});
+					this.showFlashMsg('error', 'nameの更新に失敗しました。');
 				});
 		}
 	},
