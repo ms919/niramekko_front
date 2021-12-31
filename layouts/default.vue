@@ -10,7 +10,10 @@
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
-						<img v-else src="userDefo.jpg" class="img-circle"/>
+						<fa-layers v-else full-width class="user-icon-wrapper">
+							<fa :icon="faCircle" />
+							<fa :icon="faUser" class="user-icon"/>
+						</fa-layers>
 					</a>
 					<ul class="menu" v-show="menuFlg">
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
@@ -35,6 +38,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { faCircle,faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default {
 	data() {
@@ -48,6 +52,8 @@ export default {
 			loginFlg: "session/loginFlg",
 			userImg: "session/userImg",
 		}),
+		faCircle: () => faCircle,
+		faUser: () => faUser,
 	},
 	mounted() {
 		window.addEventListener(
@@ -68,5 +74,13 @@ export default {
 <style scoped>
 .bar-item {
 	margin: 0 1.5rem;
+}
+.user-icon-wrapper {
+	font-size: 2rem;
+	margin-bottom: 0.3rem;
+}
+.user-icon {
+	color: #ffffff;
+	font-size: 1.2rem;
 }
 </style>
