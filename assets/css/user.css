@@ -1,8 +1,10 @@
-.user-width {
-	width: 70%;
-}
 .user-wrapper {
-	margin: 2rem 0;
+	margin: 2rem auto;
+	padding: 1rem;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+	gap: 1rem;
 }
 .user-div-style {
 	background: rgba(255, 255, 255, 0.6);
@@ -10,18 +12,17 @@
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 	padding: 2rem;
 }
-.user-div-wrapper {
-	margin: 0.5rem 0;
-}
-.user-upper {
-	display: flex;
-	align-items: center;
-}
 .record-left {
 	width: 30%;
 	height: 100%;
 	padding-top: 3rem;
 	line-height: 2.5rem;
+}
+.user-right-wrapper {
+	display: grid;
+	grid-template-rows: 1.5fr 1fr;
+  grid-template-columns: 1fr;
+	gap: 1rem;
 }
 .score-font {
 	font-size: 2.5rem;
@@ -32,28 +33,11 @@
 	margin-left: auto;
 }
 .record {
-	width: 73%;
-	height: 40vh;
 	font-size: 2rem;
+	grid-row: 1/2;
 }
 .record-right-width {
 	width: 100%;
-}
-.profile {
-	width: 100%;
-	height: 25vh;
-}
-.video {
-	width: 100%;
-	height: 13vh;
-}
-.user-right-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	height: 40vh;
-	width: 25%;
 }
 .cog {
 	margin-left: auto;
@@ -88,9 +72,11 @@
 .bg-orange {
 	background-color: #fdcf3d;
 }
-.notice {
+.notification {
+	grid-column: 1/3;
+}
+.notice-item {
 	background-color: #ffffff;
-	width: 95%;
 	padding: 1rem;
 	margin: 0.5rem 0.5rem 0.5rem 0;
 	border-radius: 1rem;
@@ -125,41 +111,14 @@
 		#7e5737 90% 100%
 	);
 }
-@media screen and (max-width: 1366px) {
-	.user-upper {
-		display: block;
+@media screen and (max-width: 425px) {
+	.record {
+		grid-column: 1/3;
 	}
 	.user-right-wrapper {
-		width: 100%;
-		height: 30%;
-		flex-direction: row;
-		/* background-color: aqua; */
-	}
-	.profile {
-		width: 63%;
-		height: 100%;
-	}
-	.video {
-		width: 35%;
-		height: 100%;
-	}
-	.record {
-		width: 100%;
-		height: auto;
-	}
-	.notification {
-		margin: 0;
-		margin-bottom: 1rem;
-	}
-}
-@media screen and (max-width: 1112px) {
-	.video-icons {
-		width: 40%;
-	}
-}
-@media screen and (max-width: 425px) {
-	.user-width {
-		width: 95%;
+		grid-column: 1/3;
+		grid-template-rows: 1fr;
+  	grid-template-columns: 2fr 1fr;
 	}
   .user-div-style {
     border-radius: 30px;
@@ -167,7 +126,4 @@
   .cog {
     font-size: 2rem;
   }
-	.video-icons {
-		width: 50%;
-	}
 }
