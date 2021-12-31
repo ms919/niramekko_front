@@ -6,7 +6,7 @@
 			>
 			<nav class="display-row">
 				<NuxtLink to="/guide" class="white-shadow">guide</NuxtLink>
-				<NuxtLink to="/contact" class="white-shadow menu-item">contact</NuxtLink>
+				<NuxtLink to="/contact" class="white-shadow bar-item">contact</NuxtLink>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style scoped>
-.menu-item {
+.bar-item {
 	margin: 0 1.5rem;
 }
 </style>

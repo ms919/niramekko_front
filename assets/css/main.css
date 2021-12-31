@@ -280,6 +280,18 @@ th, td {
 		padding: 1.5rem 0;
 	}
 }
+@media screen and (max-width: 425px) and (min-height: 400px) {
+	.menu {
+		font-size: 2.5rem;
+		width: 70%;
+		height: 95vh;
+		right: 0rem;
+		padding: 2.5rem;
+	}
+	.menu li {
+		margin: 4rem 0;
+	}
+}
 @media screen and (max-width: 320px) {
 	html {
 		font-size: 10px;
