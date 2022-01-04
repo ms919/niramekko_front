@@ -44,7 +44,7 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: ["~/assets/css/main", "~/assets/css/reset", "~/assets/css/play"],
+	css: ["~/assets/css/reset", "~/assets/css/main"],
 
 	publicRuntimeConfig: {
 		domain: process.env.DOMAIN,
