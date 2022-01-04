@@ -153,10 +153,12 @@ export default {
 				video.play();
 			});
 		});
-		this.spFlg = window.innerWidth <= 425;
+		this.spFlg = window.innerHeight <= 800;
 	},
 };
 </script>
+
+<style scoped src="@/assets/css/play.css"></style>
 <style scoped>
 .emotions-wrapper {
 	height: 7rem;
@@ -197,9 +199,9 @@ export default {
 		width: 10%;
 	}
 }
-@media screen and (max-width: 1112px) {
+@media screen and (max-width: 1024px) {
 	#video {
-		width: 15%;
+		width: 25%;
 	}
 }
 @media screen and (max-width: 800px) {
@@ -208,6 +210,14 @@ export default {
 	}
 }
 @media screen and (max-width: 425px) {
+	#video {
+		width: 30%;
+	}
+	.score {
+		font-size: 1.2rem;
+	}
+}
+@media screen and (max-height: 800px) {
 	.api-wrapper {
 		justify-content: space-around;
 	}
@@ -218,11 +228,13 @@ export default {
 		height: 1.5rem;
 		font-size: 1.5rem;
 	}
+	.for-pc {
+		display: none;
+	}
 	.score {
-		font-size: 1.2rem;
+		margin: 0.5rem 0;
 	}
 	#video {
-		width: 30%;
 		margin-top: 0;
 	}
 	#canvas {

@@ -1,25 +1,25 @@
 <template>
 	<div class="display-col justify-center top-wrapper">
 		<div class="tiktok-wrapper">
-			<p v-if="currentComponent == 'CommonTiktok'" class="pointer orange">
+			<p v-if="currentComponent == 'CommonTiktok'" class="pointer-num orange">
 				{{ itemsPointer + 1 }}/{{ itemsLength }}
 			</p>
 			<component :is="currentComponent"></component>
-			<div class="icon-wrapper">
+			<div class="play-icon-wrapper">
 				<template v-if="startFlg || gameFinFlg">
 					<template v-if="loginFlg">
 						<fa
 							:icon="faEyeSlash"
 							@click="$store.dispatch('changeHiddenFlg')"
 							transform="right-2"
-							class="orange icon"
+							class="orange play-icon"
 						/>
 					</template>
 					<br /><br />
 					<fa
 						:icon="faArrowCircleRight"
 						@click="gotoNext"
-						class="orange icon"
+						class="orange play-icon"
 					/>
 				</template>
 				<template v-else>
@@ -27,11 +27,11 @@
 						<fa
 							:icon="faEyeSlash"
 							transform="right-2"
-							class="orange icon disabled"
+							class="orange play-icon disabled"
 						/>
 					</template>
 					<br /><br />
-					<fa :icon="faArrowCircleRight" class="orange icon disabled" />
+					<fa :icon="faArrowCircleRight" class="orange play-icon disabled" />
 				</template>
 			</div>
 			<PlayResult v-if="modalFlg" :score="$refs.faceApi.score" />
@@ -94,3 +94,12 @@ export default {
 	},
 };
 </script>
+
+<style scoped src="@/assets/css/play.css"></style>
+<style scoped>
+@media screen and (max-height: 800px) {
+	.top-wrapper {
+		position: relative;
+	}
+}
+</style>

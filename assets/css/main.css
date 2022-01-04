@@ -7,31 +7,6 @@ body {
 	font-weight: 400;
 	color: #898989;
 }
-header {
-	position: sticky;
-	top: 0;
-	background-color: #44beef;
-	width: 100%;
-	height: 3rem;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	z-index: 998;
-	display: flex;
-	align-items: center;
-	padding-top: 0.5rem;
-}
-header nav {
-	margin: 0 0 0 auto;
-	padding-right: 1.5rem;
-}
-.menu {
-	padding: 1rem;
-	background-color: #ffffff;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	margin-left: auto;
-	position: absolute;
-	right: 1rem;
-	border-radius: 10px;
-}
 li {
 	margin: 0.5rem 0;
 }
@@ -42,36 +17,8 @@ li a {
 li a:hover {
 	color: #e43965;
 }
-.img-circle {
-	width: 2rem;
-	height: 2rem;
-	border-radius: 50%;
-	margin-bottom: 0.3rem;
-}
-.app-name {
-	font-size: 2.2rem;
-	padding: 1rem;
-}
 .app-name-font {
 	font-family: "Yanone Kaffeesatz";
-}
-footer {
-	z-index: 997;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	text-align: right;
-	font-size: 0.6rem;
-	padding: 0.5rem 1.5rem;
-	background-color: #44beef;
-	box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
-}
-.footer-link {
-	margin: 0 0.3rem;
-}
-.copyright {
-	display: inline;
-	margin-left: 1.5rem;
 }
 a {
 	text-decoration: none;
@@ -144,6 +91,14 @@ h2 {
   padding: 1rem;
   width: 95%;
 	box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.tiktok-wrapper {
+	width: 30%;
+	height: 600px;
+	background-color: #ffffff;
+	box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
+	z-index: 1;
+	position: relative;
 }
 .btn {
 	display: inline-block;
@@ -238,6 +193,10 @@ h2 {
 	font-size: 3.5rem;
 	border-radius: 8px 8px 0px 0px;
 }
+.item {
+	width: 540px;
+	height: 563px;
+}
 table {
   border-collapse: collapse;
 	border: solid 3px #898989;
@@ -251,8 +210,28 @@ th, td {
 }
 @media screen and (max-height: 834px) {
 	.top-wrapper {
-		margin: 1.5rem auto;
+		margin: 3rem auto;
 		height: auto;
+	}
+}
+@media screen and (max-height: 568px) {
+	.tiktok-wrapper {
+		height: 600px;
+	}
+}
+@media screen and (max-width: 425px) and (min-height: 568px) {
+	.tiktok-wrapper {
+		height: 95.5vh;
+	}
+}
+@media screen and (max-width: 1366px) {
+	.tiktok-wrapper {
+		width: 50%;
+	}
+}
+@media screen and (max-width: 800px) {
+	.tiktok-wrapper {
+		width: 65%;
 	}
 }
 @media screen and (max-width: 1024px) {
@@ -276,20 +255,13 @@ th, td {
 	.top-wrapper {
 		margin: 0 auto;
 	}
+	.tiktok-wrapper {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
 	.section-wrapper {
 		padding: 1.5rem 0;
-	}
-}
-@media screen and (max-width: 425px) and (min-height: 400px) {
-	.menu {
-		font-size: 2.5rem;
-		width: 70%;
-		height: 95vh;
-		right: 0rem;
-		padding: 2.5rem;
-	}
-	.menu li {
-		margin: 4rem 0;
 	}
 }
 @media screen and (max-width: 320px) {

@@ -1,100 +1,79 @@
-.tiktok-wrapper {
-	width: 30%;
-	height: 600px;
-	background-color: #ffffff;
-	box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
-	z-index: 1;
-	position: relative;
-}
-.item {
-	width: 540px;
-	height: 563px;
-}
 .contents-wrapper {
 	width: 30%;
 	height: 240px;
 	background-color: #ffffff;
 	box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
 }
-.icon-wrapper {
+.play-icon-wrapper {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	margin-top: -8rem;
 	margin-right: 2rem;
+	z-index: 99;
+	position: absolute;
+	right: 0%;
+	bottom: 16%;
 }
-.icon {
+.play-icon {
 	font-size: 1.5rem;
 	cursor: pointer;
 }
-.pointer {
+.pointer-num {
 	position: absolute;
 	top: 1rem;
 	left: 2rem;
 	z-index: 99;
 	font-weight: bold;
 }
-@media screen and (max-height: 768px) {
-	.contents-wrapper {
-		height: 200px;
-	}
-}
 @media screen and (max-width: 1366px) {
-	.tiktok-wrapper {
-		width: 50%;
-	}
 	.contents-wrapper {
 		width: 50%;
 	}
 }
 @media screen and (max-width: 1024px) {
-	.icon {
+	.play-icon {
 		font-size: 2rem;
 	}
 }
-@media screen and (max-width: 800px) {
-	.tiktok-wrapper {
-		width: 65%;
+@media screen and (max-width: 1024px) and (max-height: 800px) {
+	.contents-wrapper {
+		width: 30%;
 	}
+}
+@media screen and (max-width: 800px) and (min-height: 800px) {
 	.contents-wrapper {
 		width: 65%;
 	}
 }
-@media screen and (max-width: 425px) {
-	.tiktok-wrapper {
-		width: 100%;
-		height: 95.5vh;
-		display: flex;
-		align-items: center;
-	}
+@media screen and (max-height: 800px) {
 	.contents-wrapper {
-		width: 55%;
 		height: auto;
 		position: absolute;
-		bottom: 8%;
-		left: 12%;
+		top: 400px;
 		z-index: 90;
 		background-color: transparent;
 		box-shadow: none;
 	}
-	.icon {
+}
+@media screen and (max-width: 425px) {
+	.contents-wrapper {
+		width: 55%;
+		top: 450px;
+		left: 12%;
+	}
+	.play-icon {
 		font-size: 3.5rem;
 	}
-	.icon-wrapper {
-		position: absolute;
+	.play-icon-wrapper {
 		right: 10%;
-		bottom: 16%;
-		z-index: 99;
 	}
-	.pointer {
+	.pointer-num {
 		font-size: 2rem;
-	}
-	.for-pc {
-		display: none;
 	}
 }
 @media screen and (max-width: 375px) {
-	.icon-wrapper {
+	.play-icon-wrapper {
 		right: 6%;
 		bottom: 12%;
 	}
@@ -105,7 +84,7 @@
 	}
 }
 @media screen and (max-width: 320px) {
-	.icon-wrapper {
+	.play-icon-wrapper {
 		right: 0%;
 		bottom: 10%;
 	}
@@ -114,7 +93,7 @@
 		bottom: -5%;
 		left: 3%;
 	}
-	.pointer {
+	.pointer-num {
 		top: 1rem;
 		left: 2rem;
 	}

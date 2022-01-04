@@ -16,20 +16,20 @@
 					</template>
 					<div class="icons-wrapper">
 						<NuxtLink to="/modeSelect">
-							<fa-layers full-width class="icon"
-								><fa :icon="faRedoAlt" class="icon pink" /><fa
+							<fa-layers full-width class="play-icon"
+								><fa :icon="faRedoAlt" class="play-icon pink" /><fa
 									:icon="faPlay"
 									transform="shrink-8.7 right-1.2 down-0.5"
 									class="pink"
 							/></fa-layers>
 						</NuxtLink>
 						<NuxtLink to="/">
-							<fa :icon="faHome" class="orange icon mrl-2" />
+							<fa :icon="faHome" class="orange play-icon mrl-2" />
 						</NuxtLink>
 						<fa
 							:icon="faTwitter"
 							@click.stop="openTweet"
-							class="light-blue icon"
+							class="light-blue play-icon"
 						/>
 					</div>
 				</div>
@@ -81,6 +81,7 @@ export default {
 };
 </script>
 
+<style scoped src="@/assets/css/play.css"></style>
 <style scoped>
 .overlay {
 	display: flex;

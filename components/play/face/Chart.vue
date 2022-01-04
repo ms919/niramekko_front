@@ -44,6 +44,12 @@ export default {
 	height: 8rem !important;
 	margin-top: 1rem;
 }
+@media screen and (max-height: 800px) {
+	#horizontalbar-chart {
+		width: 5rem !important;
+		height: 3rem !important;
+	}
+}
 @media screen and (max-width: 425px) {
 	#horizontalbar-chart {
 		width: 7rem !important;

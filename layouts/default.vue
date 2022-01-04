@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header>
-			<NuxtLink to="/" class="white-shadow app-name app-name-font"
+			<NuxtLink to="/" class="white-shadow header-app-name app-name-font"
 				>niramekko</NuxtLink
 			>
 			<nav class="display-row">
@@ -72,8 +72,34 @@ export default {
 </script>
 
 <style scoped>
+header {
+	position: sticky;
+	top: 0;
+	background-color: #44beef;
+	width: 100%;
+	height: 3rem;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	z-index: 998;
+	display: flex;
+	align-items: center;
+	padding-top: 0.5rem;
+}
+header nav {
+	margin: 0 0 0 auto;
+	padding-right: 1.5rem;
+}
+.header-app-name {
+	font-size: 2.2rem;
+	padding: 1rem;
+}
 .bar-item {
 	margin: 0 1.5rem;
+}
+.img-circle {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	margin-bottom: 0.3rem;
 }
 .user-icon-wrapper {
 	font-size: 2rem;
@@ -82,5 +108,44 @@ export default {
 .user-icon {
 	color: #ffffff;
 	font-size: 1.2rem;
+}
+.menu {
+	padding: 1rem;
+	background-color: #ffffff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	margin-left: auto;
+	position: absolute;
+	right: 1rem;
+	border-radius: 10px;
+}
+footer {
+	z-index: 997;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	text-align: right;
+	font-size: 0.6rem;
+	padding: 0.5rem 1.5rem;
+	background-color: #44beef;
+	box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
+}
+.footer-link {
+	margin: 0 0.3rem;
+}
+.copyright {
+	display: inline;
+	margin-left: 1.5rem;
+}
+@media screen and (max-width: 425px) and (min-height: 400px) {
+	.menu {
+		font-size: 2.5rem;
+		width: 70%;
+		height: 95vh;
+		right: 0rem;
+		padding: 2.5rem;
+	}
+	.menu li {
+		margin: 4rem 0;
+	}
 }
 </style>

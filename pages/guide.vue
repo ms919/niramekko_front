@@ -2,17 +2,17 @@
   <div class="grid text-center">
     <a class="grid-item" @click="gotoGuide('GuidePlay')">
       <p>にらめっこゲームの<br>遊び方</p>
-      <fa :icon="faPlayCircle" class="icon pink"/>
+      <fa :icon="faPlayCircle" class="guide-icon pink"/>
     </a>
     <a class="grid-item disabled">
       <p>ログインすると<br>できること</p>
-      <fa :icon="faUserCircle" class="icon orange"/>
+      <fa :icon="faUserCircle" class="guide-icon orange"/>
       <p>準備中です</p>
     </a>
     <a class="grid-item disabled">
       <p>ビデオ登録</p>
       <br>
-      <fa :icon="faVideo" class="icon yellow-green"/>
+      <fa :icon="faVideo" class="guide-icon yellow-green"/>
       <p>準備中です</p>
     </a>
   </div>
@@ -48,7 +48,7 @@ export default {
   background-color: #ffffff;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.icon {
+.guide-icon {
   font-size: 2rem;
   margin: 2rem 0;
 }
