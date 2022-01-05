@@ -10,7 +10,7 @@
 					>
 					<input id="url" type="text" :value="url" @input="inputUrl" />
 				</div>
-				<template v-if="sendFlg">
+				<template v-if="canPlayFlg">
 					<fa :icon="faCheckCircle" class="green is-checked-icon" />
 					<fa
 						:icon="faPaperPlane"
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import ShowVideo from '~/mixins/show-video.js'
 import { mapGetters } from "vuex";
 import {
 	faPaperPlane,
@@ -39,10 +40,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default {
+	mixins: [ ShowVideo ],
 	data() {
 		return {
 			url: "",
-			sendFlg: false,
+			canPlayFlg: false,
 		};
 	},
 	computed: {
@@ -59,14 +61,14 @@ export default {
 	},
 	methods: {
 		inputUrl() {
-			this.sendFlg = false;
+			this.canPlayFlg = false;
 			this.url = document.getElementById("url").value;
 			// urlチェック
 			this.checkUrl();
 			if (this.url != "") {
 				// currentItemにセット
 				this.$store.dispatch("updateVideoUrl", this.video_data);
-				this.checkVideo();
+				this.canPlayFlg = this.checkVideo;
 			}
 		},
 		checkUrl() {
@@ -84,22 +86,8 @@ export default {
 			}
 			document.getElementById("url").value = this.url;
 		},
-		checkVideo() {
-			const pattern = /[0-9]*px/;
-			let count = 0;
-			const timerId = setInterval(() => {
-				count++;
-				const maxHeight = window
-					.getComputedStyle(document.getElementsByTagName("iframe")[0])
-					.getPropertyValue("max-height");
-				this.sendFlg = pattern.test(maxHeight);
-				if (this.sendFlg || count == 10) {
-					clearInterval(timerId);
-				}
-			}, 1000);
-		},
 		submit() {
-      this.sendFlg = false;
+			this.canPlayFlg = false;
 			this.$axios
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
