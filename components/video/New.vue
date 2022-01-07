@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import ShowVideo from '~/mixins/show-video.js'
 import { mapGetters } from "vuex";
 import {
 	faPaperPlane,
@@ -40,11 +39,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-	mixins: [ ShowVideo ],
 	data() {
 		return {
 			url: "",
-			canPlayFlg: false,
 		};
 	},
 	computed: {
@@ -58,27 +55,30 @@ export default {
 			};
 		},
 		...mapGetters(["currentItem"]),
+		...mapGetters({
+			canPlayFlg: "video/canPlayFlg",
+		}),
 	},
 	methods: {
 		inputUrl() {
-			this.canPlayFlg = false;
+			this.$store.dispatch("video/changeCanPlayFlg", false);
 			this.url = document.getElementById("url").value;
 			// urlチェック
 			this.checkUrl();
 			if (this.url != "") {
 				// currentItemにセット
 				this.$store.dispatch("updateVideoUrl", this.video_data);
-				this.canPlayFlg = this.checkVideo;
+				this.$store.dispatch("video/checkVideo", window);
 			}
 		},
 		checkUrl() {
 			const pattern = /https:\/\/www.tiktok.com\/@[0-9A-Za-z_.]*\/video\/[0-9]*/;
 			const sp_pattern = /https:\/\/vt.tiktok.com\/[0-9A-Za-z_.]*/;
 			if (!pattern.test(this.url)) {
-				if (sp_pattern.test(this.url)){
-					this.showFlashMsg('error', 'アプリ版URL未対応ですorz。');
+				if (sp_pattern.test(this.url)) {
+					this.showFlashMsg("error", "アプリ版URL未対応ですorz。");
 				} else {
-					this.showFlashMsg('error', 'URLが間違っています(ToT)');
+					this.showFlashMsg("error", "URLが間違っています(ToT)");
 				}
 				this.url = "";
 			} else {
@@ -87,16 +87,16 @@ export default {
 			document.getElementById("url").value = this.url;
 		},
 		submit() {
-			this.canPlayFlg = false;
+			this.$store.dispatch("video/changeCanPlayFlg", false);
 			this.$axios
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
 					this.url = "";
-					this.showFlashMsg('success', 'ビデオを登録しました。');
+					this.showFlashMsg("success", "ビデオを登録しました。");
 				})
 				.catch(() => {
 					this.url = "";
-					this.showFlashMsg('error', 'このビデオは既に登録済みでした(>_<)');
+					this.showFlashMsg("error", "このビデオは既に登録済みでした(>_<)");
 				});
 		},
 	},
@@ -111,7 +111,10 @@ export default {
 				})
 				.catch(() => {
 					this.$store.dispatch("session/removeLoginFlg");
-					this.showFlashMsg('error', 'セッションの有効期限が切れています。ログインしなおしてください。');
+					this.showFlashMsg(
+						"error",
+						"セッションの有効期限が切れています。ログインしなおしてください。"
+					);
 					this.$router.push("/login");
 				});
 		}
@@ -131,7 +134,7 @@ export default {
 	margin: 2rem 0.5rem 0 -0.5rem;
 }
 .tiktok-wrapper {
-  z-index: auto;
+	z-index: auto;
 }
 @media screen and (max-width: 425px) {
 	.tiktok-wrapper {
