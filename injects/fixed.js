@@ -1,4 +1,4 @@
-export default Object.freeze({
+const fixed = Object.freeze({
 	HAPPY_MULTIPLICATION: 10,
 	DEDUCTION_TARGET: 1,
 	PERFECT_SCORE: 500,
@@ -24,3 +24,7 @@ export default Object.freeze({
     "よく笑いましたで笑！"
 	],
 });
+
+export default(context, inject) => {
+  inject('fixed', fixed);
+}

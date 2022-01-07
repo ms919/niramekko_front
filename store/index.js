@@ -1,5 +1,3 @@
-import fixed from "~/const/const.js";
-
 export const state = () => ({
 	currentComponent: "PlayRule",
 	itemsPointer: -1,
@@ -97,8 +95,8 @@ export const mutations = {
 	},
 	changeTitle(state, title_id) {
 		state.title = {
-			name: fixed.TITLE_NAMES[title_id],
-			tweet_text: fixed.TWEET_TEXTS[title_id],
+			name: this.$fixed.TITLE_NAMES[title_id],
+			tweet_text: this.$fixed.TWEET_TEXTS[title_id],
 		};
 	},
 	changeFooterFlg(state) {
@@ -109,7 +107,10 @@ export const mutations = {
 export const actions = {
 	setMode({ commit }, mode) {
 		commit("setMode", mode);
-		const score = mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : fixed.ADDITIONAL_SCORE;
+		const score =
+			mode == this.$fixed.MODE.NORMAL
+				? this.$fixed.PERFECT_SCORE
+				: this.$fixed.ADDITIONAL_SCORE;
 		commit("addScoreArray", score);
 		this.$router.push("/play");
 	},
@@ -176,7 +177,7 @@ export const actions = {
 		};
 		// laughed_videos登録対象を抽出
 		const laughed_videos = getters.laughedRecords.filter(
-			(x) => x.score_diff >= fixed.LAUGHED_DIFF
+			(x) => x.score_diff >= this.$fixed.LAUGHED_DIFF
 		);
 		// hidden_videos登録対象を抽出
 		const hidden_videos = getters.hiddenVideos;
@@ -234,18 +235,18 @@ export const actions = {
 	clearItem({ commit }) {
 		commit("clearItem");
 	},
-	changeCurrentComponent({ commit }, component){
+	changeCurrentComponent({ commit }, component) {
 		commit("changeCurrentComponent", component);
 	},
-	goToVideo({commit}, component){
+	goToVideo({ commit }, component) {
 		commit("changeCurrentComponent", component);
-		this.$router.push("/video")
+		this.$router.push("/video");
 	},
 	updateVideoUrl({ commit }, target) {
 		commit("changeCurrentItem", target);
 		commit("incrementItemsPointer");
 	},
-	changeFooterFlg({commit}){
+	changeFooterFlg({ commit }) {
 		commit("changeFooterFlg");
-	}
+	},
 };

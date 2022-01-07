@@ -29,17 +29,16 @@
 
 <script>
 import { mapGetters } from "vuex";
-import fixed from "~/const/const.js";
 export default {
 	computed: {
-    ...mapGetters({
+		...mapGetters({
 			revengeFlg: "session/revengeFlg",
 		}),
 	},
 	mounted() {
-		this.normal = fixed.MODE.NORMAL;
-		this.dojyo = fixed.MODE.DOJYO;
-		this.revenge = fixed.MODE.REVENGE;
+		this.normal = this.$fixed.MODE.NORMAL;
+		this.dojyo = this.$fixed.MODE.DOJYO;
+		this.revenge = this.$fixed.MODE.REVENGE;
 		this.$store.dispatch("clearItem");
 	},
 };

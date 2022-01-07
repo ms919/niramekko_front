@@ -44,7 +44,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import fixed from "~/const/const.js";
 import {
 	faEyeSlash,
 	faArrowCircleRight,
@@ -71,7 +70,7 @@ export default {
 	},
 	methods: {
 		gotoNext() {
-			if (this.mode != fixed.MODE.NORMAL) {
+			if (this.mode != this.$fixed.MODE.NORMAL) {
 				if (this.gameOverFlg) {
 					this.$store.dispatch("changeModalFlg");
 					return;

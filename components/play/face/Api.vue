@@ -24,7 +24,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import fixed from "~/const/const.js";
 import * as faceapi from "face-api.js";
 import {
 	faLaughSquint,
@@ -87,7 +86,6 @@ export default {
 					!this.gameOverFlg
 				)
 					this.$store.dispatch("changeStartFlg");
-
 			}, 500);
 		},
 		updateData(expressions) {
@@ -97,12 +95,10 @@ export default {
 					datasets: [
 						{
 							backgroundColor: "#e43965",
-							data: [
-								expressions.happy * fixed.HAPPY_MULTIPLICATION,
-							],
+							data: [expressions.happy * this.$fixed.HAPPY_MULTIPLICATION],
 						},
 					],
-				}
+				};
 			} else {
 				this.datacollection = {
 					labels: ["sad", "happy", "angry", "surprised", "disgusted"],
@@ -111,24 +107,27 @@ export default {
 							backgroundColor: "#e43965",
 							data: [
 								expressions.sad,
-								expressions.happy * fixed.HAPPY_MULTIPLICATION,
+								expressions.happy * this.$fixed.HAPPY_MULTIPLICATION,
 								expressions.angry,
 								expressions.surprised,
 								expressions.disgusted + expressions.fearful,
 							],
 						},
 					],
-				}
-			};
+				};
+			}
 			if (this.startFlg && this.currentComponent == "CommonTiktok") {
 				const diff = this.datacollection.datasets[0].data.reduce(
 					(sum, value) => sum + value
 				);
-				if (diff > fixed.DEDUCTION_TARGET) {
+				if (diff > this.$fixed.DEDUCTION_TARGET) {
 					this.score = Math.floor((this.score - diff) * 10) / 10;
 				}
 				// 道場破り or リベンジモードで diff が笑った判定に引っかかる場合、ゲームオーバー
-				if (this.mode != fixed.MODE.NORMAL && diff >= fixed.LAUGHED_DIFF) {
+				if (
+					this.mode != this.$fixed.MODE.NORMAL &&
+					diff >= this.$fixed.LAUGHED_DIFF
+				) {
 					this.$store.dispatch("afterGame", this.score);
 					this.$store.dispatch("changeModalFlg");
 					this.$store.dispatch("enableGameOverFlg");
@@ -136,11 +135,14 @@ export default {
 			}
 		},
 		AddScore() {
-			this.score += fixed.ADDITIONAL_SCORE;
+			this.score += this.$fixed.ADDITIONAL_SCORE;
 		},
 	},
 	mounted() {
-		this.score = this.mode == fixed.MODE.NORMAL ? fixed.PERFECT_SCORE : fixed.ADDITIONAL_SCORE;
+		this.score =
+			this.mode == this.$fixed.MODE.NORMAL
+				? this.$fixed.PERFECT_SCORE
+				: this.$fixed.ADDITIONAL_SCORE;
 		// 顔モデルロード
 		Promise.all([
 			faceapi.loadTinyFaceDetectorModel("/weights"),
