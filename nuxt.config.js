@@ -55,8 +55,8 @@ export default {
 	plugins: [
 		{ src: "~/plugins/flash-message.js" },
 		{ src: "~/plugins/init.js" },
-		{ src: "~/mixins/call-flash-message.js" },
-		{ src: "~/injects/fixed.js" },
+		{ src: "~/plugins/mixins/call-flash-message.js" },
+		{ src: "~/plugins/injects/fixed.js" },
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
