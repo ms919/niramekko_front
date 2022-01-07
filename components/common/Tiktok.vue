@@ -21,9 +21,6 @@ export default {
 	computed: {
 		...mapGetters(["currentItem", "itemsPointer"]),
 	},
-	mounted() {
-		console.log("tiktok mouted done!!!!!!!!");
-	},
 };
 </script>
 
