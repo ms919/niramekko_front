@@ -118,7 +118,11 @@ export default {
 					this.$router.push("/login");
 				});
 		}
+		this.$store.dispatch("video/changeNewVideoFlg", true);
 	},
+	beforeDestroy(){
+		this.$store.dispatch("video/changeNewVideoFlg", false);
+	}
 };
 </script>
 

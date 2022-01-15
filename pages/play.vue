@@ -4,7 +4,7 @@
 			<p v-if="currentComponent == 'CommonTiktok'" class="pointer-num orange">
 				{{ itemsPointer + 1 }}/{{ itemsLength }}
 			</p>
-			<component :is="currentComponent"></component>
+			<component :is="currentComponent" @gotoNext="gotoNext"></component>
 			<div class="play-icon-wrapper">
 				<template v-if="startFlg || gameFinFlg">
 					<template v-if="loginFlg">
@@ -67,10 +67,12 @@ export default {
 		}),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,
+		firstItemFlg() { return this.itemsPointer < 0 },
+		lastItemFlg() { return this.itemsPointer == this.itemsLength - 1 }
 	},
 	methods: {
 		gotoNext() {
-			if (this.mode != this.$fixed.MODE.NORMAL) {
+			if (this.mode != this.$fixed.MODE.NORMAL && !this.firstItemFlg && !this.lastItemFlg) {
 				if (this.gameOverFlg) {
 					this.$store.dispatch("changeModalFlg");
 					return;
@@ -78,8 +80,11 @@ export default {
 					this.$refs.faceApi.AddScore();
 				}
 			}
-			if (this.itemsPointer < this.itemsLength - 1) {
-				this.$store.dispatch("gotoNext", this.$refs.faceApi.score);
+			if (!this.lastItemFlg) {
+				this.$store.dispatch("gotoNext", {
+					score: this.$refs.faceApi.score,
+					window: window,
+				});
 			} else {
 				if (!this.gameFinFlg) {
 					this.$store.dispatch("afterGame", this.$refs.faceApi.score);

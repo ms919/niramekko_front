@@ -25,6 +25,7 @@ export const getters = {
 	scoreArray: (state) => state.scoreArray,
 	laughedRecords: (state) => state.laughedRecords,
 	hiddenVideos: (state) => state.hiddenVideos,
+	videoIds: (state) => state.laughedRecords.map((x) => x.video_id),
 	startFlg: (state) => state.startFlg,
 	modalFlg: (state) => state.modalFlg,
 	gameFinFlg: (state) => state.gameFinFlg,
@@ -135,7 +136,7 @@ export const actions = {
 				console.log(error);
 			});
 	},
-	gotoNext({ commit, getters, dispatch }, score) {
+	gotoNext({ commit, getters, dispatch }, { score, window }) {
 		// PlayRule画面ならTiktokコンポーネントに変更
 		if (getters.currentComponent == "PlayRule") {
 			dispatch("setNextContents");
@@ -145,11 +146,13 @@ export const actions = {
 			dispatch("calcScore", score);
 			dispatch("processHiddenVideos");
 			dispatch("setNextContents");
-			commit("changeStartFlg");
+			dispatch("changeStartFlg", false);
+			dispatch("video/changeCanPlayFlg", false);
 		}
+		dispatch("video/checkVideo", window);
 	},
-	changeStartFlg({ commit }) {
-		commit("changeStartFlg");
+	changeStartFlg({ getters, commit }, flg) {
+		if (getters.startFlg != flg) commit("changeStartFlg");
 	},
 	calcScore({ getters, commit }, score) {
 		commit("addLaughedRecords", getters.scoreArray.slice(-1)[0] - score);
@@ -165,8 +168,7 @@ export const actions = {
 		// ポインタをインクリメント
 		commit("incrementItemsPointer");
 		// 更新したポインタに合わせてCurrentItemを変更
-		const target = getters.items[getters.itemsPointer];
-		commit("changeCurrentItem", target);
+		commit("changeCurrentItem", getters.items[getters.itemsPointer]);
 	},
 	sendResult({ getters, commit }) {
 		// game_results
@@ -219,9 +221,9 @@ export const actions = {
 			: confirm("このビデオを今後表示させないようにします。よろしいですか？");
 		if (res) commit("changeHiddenFlg");
 	},
-	enableGameFinFlg({ commit }) {
+	enableGameFinFlg({ commit, dispatch }) {
 		commit("enableGameFinFlg");
-		commit("changeStartFlg");
+		dispatch("changeStartFlg", true);
 	},
 	enableGameOverFlg({ commit }) {
 		commit("enableGameOverFlg");

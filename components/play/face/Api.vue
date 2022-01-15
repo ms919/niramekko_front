@@ -85,7 +85,7 @@ export default {
 					!this.startFlg &&
 					!this.gameOverFlg
 				)
-					this.$store.dispatch("changeStartFlg");
+					this.$store.dispatch("changeStartFlg", true);
 			}, 500);
 		},
 		updateData(expressions) {

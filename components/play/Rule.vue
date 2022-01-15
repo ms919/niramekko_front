@@ -14,7 +14,7 @@
 		</div>
 		<a
 			v-if="ruleFlg"
-			@click="$store.dispatch('gotoNext')"
+			@click="$emit('gotoNext')"
 			class="btn sm-button btn-pink"
 			>START</a
 		>
