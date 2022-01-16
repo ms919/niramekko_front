@@ -111,21 +111,21 @@ h2 {
 	box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .lg-button {
-	width: 30rem;
+	min-width: 30rem;
 	border-radius: 70px;
 	padding: 0.5rem 3rem;
 	margin: 1rem;
 	font-size: 2.5rem;
 }
 .sm-button {
-	width: 15rem;
+	min-width: 15rem;
 	border-radius: 50px;
 	padding: 0.5rem 1rem;
 	margin: 1rem;
 	font-size: 1.5rem;
 }
 .xs-button {
-	width: 5rem;
+	min-width: 5rem;
 	border-radius: 30px;
 	padding: 0.5rem 0.5rem;
 	margin: 0.5rem;
