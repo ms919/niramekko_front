@@ -16,8 +16,15 @@ export default {
 		meta: [
 			{ charset: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ name: "google-site-verification", content: process.env.SEARCH_CONSOLE_CONTENT },
-			{ hid: "description", name: "description", content: "おもしろTikTok動画とにらめっこするゲーム" },
+			{
+				name: "google-site-verification",
+				content: process.env.SEARCH_CONSOLE_CONTENT,
+			},
+			{
+				hid: "description",
+				name: "description",
+				content: "おもしろTikTok動画とにらめっこするゲーム",
+			},
 			{ name: "format-detection", content: "telephone=no,address=no,email=no" },
 			{ hid: "og:site_name", property: "og:site_name", content: "niramekko" },
 			{ hid: "og:type", property: "og:type", content: "website" },
@@ -40,7 +47,10 @@ export default {
 			{ name: "twitter:card", content: "summary_large_image" },
 			{ name: "twitter:creator", content: "@sakkkkup" },
 		],
-		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }, { rel: "canonical", href: process.env.DOMAIN }],
+		link: [
+			{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+			{ rel: "canonical", href: process.env.DOMAIN },
+		],
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
@@ -82,18 +92,10 @@ export default {
 		"@nuxtjs/proxy",
 		"nuxt-fontawesome",
 		"@nuxtjs/google-gtag",
+		"@nuxtjs/i18n",
 		// sitemapは必ずarrayの最後
-		"@nuxtjs/sitemap"
+		"@nuxtjs/sitemap",
 	],
-
-	"google-gtag": {
-		id: process.env.GA_ID,
-	},
-
-	sitemap: {
-		hostname: process.env.DOMAIN,
-		exclude: ['/admin', '/callback', '/user', '/video']
-	},
 
 	axios: {
 		proxy: true,
@@ -108,6 +110,33 @@ export default {
 
 	fontawesome: {
 		component: "fa",
+	},
+
+	"google-gtag": {
+		id: process.env.GA_ID,
+	},
+
+	i18n: {
+		locales: [
+			{
+				code: "ja",
+				file: "ja.js",
+				name: "日本語",
+			},
+			{
+				code: "en",
+				file: "en.js",
+				name: "English",
+			},
+		],
+		defaultLocale: "ja",
+		lazy: true,
+    langDir: 'lang/',
+	},
+
+	sitemap: {
+		hostname: process.env.DOMAIN,
+		exclude: ["/admin", "/callback", "/user", "/video"],
 	},
 
 	build: {
