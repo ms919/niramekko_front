@@ -4,8 +4,8 @@
     <a class="btn lg-button btn-green" @click="goToLink('google_oauth2')">LOGIN with <fa :icon="faGoogle"/></a>
     <a class="btn lg-button btn-pink" @click="goToLink('tiktok')">LOGIN with <fa :icon="faTiktok"/></a>
     <div class="terms-wrapper">
-      <NuxtLink to="terms">利用規約</NuxtLink>&nbsp;&nbsp;
-      <NuxtLink to="privacyPolicy">プライバシーポリシー</NuxtLink>
+      <NuxtLink to="terms">{{ $t("terms") }}</NuxtLink>&nbsp;&nbsp;
+      <NuxtLink to="privacyPolicy">{{ $t("privacy_policy") }}</NuxtLink>
     </div>
   </div>
 </template>

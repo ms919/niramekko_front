@@ -5,20 +5,32 @@
 				>niramekko</NuxtLink
 			>
 			<nav class="display-row">
-				<NuxtLink to="/guide" class="white-shadow">guide</NuxtLink>
+				<NuxtLink to="/guide" class="white-shadow bar-item">guide</NuxtLink>
 				<NuxtLink to="/contact" class="white-shadow bar-item">contact</NuxtLink>
+				<NuxtLink
+					v-for="locale in availableLocales"
+					:key="locale.code"
+					:to="switchLocalePath(locale.code)"
+					class="white-shadow bar-item"
+				>
+					{{ locale.name }}
+				</NuxtLink>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
 						<fa-layers v-else full-width class="user-icon-wrapper">
 							<fa :icon="faCircle" />
-							<fa :icon="faUser" class="user-icon"/>
+							<fa :icon="faUser" class="user-icon" />
 						</fa-layers>
 					</a>
 					<ul class="menu" v-show="menuFlg">
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
 						<li><NuxtLink to="/modeSelect">play game</NuxtLink></li>
-						<li><a @click="$store.dispatch('goToVideo', 'VideoNew')">share video</a></li>
+						<li>
+							<a @click="$store.dispatch('goToVideo', 'VideoNew')"
+								>share video</a
+							>
+						</li>
 						<li><a @click="$store.dispatch('session/logout')">logout</a></li>
 					</ul>
 				</div>
@@ -30,15 +42,17 @@
 			<FlashMessage :position="'right bottom'"></FlashMessage>
 		</div>
 		<footer v-if="footerFlg">
-			<NuxtLink to="/terms" class="footer-link white-shadow">利用規約</NuxtLink>
-			<NuxtLink to="/privacyPolicy" class="footer-link white-shadow">プライバシーポリシー</NuxtLink>
-			<div class="copyright"><span class="white-shadow">© 2021 niramekko</span></div>
+			<NuxtLink to="/terms" class="footer-link white-shadow">{{ $t("terms") }}</NuxtLink>
+			<NuxtLink to="/privacyPolicy" class="footer-link white-shadow">{{ $t("privacy_policy") }}</NuxtLink>
+			<div class="copyright">
+				<span class="white-shadow">© 2021 niramekko</span>
+			</div>
 		</footer>
 	</div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { faCircle,faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default {
 	data() {
@@ -46,6 +60,7 @@ export default {
 			menuFlg: false,
 		};
 	},
+	name: "LanguageSwitcher",
 	computed: {
 		...mapGetters(["footerFlg"]),
 		...mapGetters({
@@ -54,6 +69,9 @@ export default {
 		}),
 		faCircle: () => faCircle,
 		faUser: () => faUser,
+		availableLocales() {
+			return this.$i18n.locales.filter((x) => x.code !== this.$i18n.locale);
+		},
 	},
 	mounted() {
 		window.addEventListener(
@@ -93,7 +111,7 @@ header nav {
 	padding: 1rem;
 }
 .bar-item {
-	margin: 0 1.5rem;
+	margin-right: 1.5rem;
 }
 .img-circle {
 	width: 2rem;

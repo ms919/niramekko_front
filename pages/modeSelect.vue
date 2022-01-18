@@ -4,25 +4,25 @@
 			<a
 				@click="$store.dispatch('setMode', normal)"
 				class="btn lg-button btn-pink"
-				>normal mode</a
+				>{{ $t('modes.normal') }} mode</a
 			>
-			<p>5つの動画を見て最終スコアを競うモード</p>
+			<p>{{ $t('mode_texts.normal') }}</p>
 		</div>
 		<div>
 			<a
 				@click="$store.dispatch('setMode', dojyo)"
 				class="btn lg-button btn-pink"
-				>道場破りmode</a
+				>{{ $t('modes.dojyo') }}mode</a
 			>
-			<p>最新ベストに挑むモード</p>
+			<p>{{ $t('mode_texts.dojyo') }}</p>
 		</div>
 		<div v-if="revengeFlg">
 			<a
 				@click="$store.dispatch('setMode', revenge)"
 				class="btn lg-button btn-pink"
-				>リベンジmode</a
+				>{{ $t('modes.revenge') }}mode</a
 			>
-			<p>過去に笑ってしまった動画にリベンジするモード</p>
+			<p>{{ $t('mode_texts.revenge') }}</p>
 		</div>
 	</div>
 </template>

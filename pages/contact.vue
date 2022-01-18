@@ -1,15 +1,12 @@
 <template>
   <div class="display-col justify-center top-wrapper section-wrapper">
-    <h3>ご意見・ご要望等、お待ちしています。</h3>
+    <h3>{{ $t("contact.caption") }}</h3>
     <form class="display-col">
       <div class="form-group">
         <select v-model="type" class="color-grey">
-          <option value="request">ご要望</option>
-          <option value="bug">不具合報告</option>
-          <option value="thoughts">ご感想</option>
-          <option value="others">その他</option>
+          <option v-for="item in $t('contact.type')" :key="item.key" :value="item.key">{{ item.value }}</option>
         </select>
-        <p class="contact-font-size">10〜500文字で記載してください。</p>
+        <p class="contact-font-size">{{ $t("contact.text_area_caption") }}</p>
         <textarea id="message" rows="7" v-model.lazy.trim="message" class="contact-font-size color-grey" />
       </div>
       <a @click="sendMessage" class="btn sm-button btn-yellow-green text-center">send</a>

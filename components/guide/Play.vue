@@ -1,34 +1,34 @@
 <template>
   <div class="display-col justify-center text-center">
-    <h3>ゲームの遊び方</h3>
+    <h3>{{ $t("game_play.heading") }}</h3>
     <br>
     <div class="grid">
       <div>
-        <p>1. [PLAY]ボタンをクリック</p>
+        <p>{{ $t("game_play.caption_1") }}</p>
         <img src="guide/play/001_top.png">
       </div>
       <div>
-        <p>2. モードを選択</p>
+        <p>{{ $t("game_play.caption_2") }}</p>
         <img src="guide/play/002_modeSelect.png">
       </div>
       <div>
-        <p>3. 事前準備をして[次へ]をクリック</p>
+        <p>{{ $t("game_play.caption_3") }}</p>
         <img src="guide/play/003_prepare.png">
       </div>
       <div>
-        <p>4. ルールを確認したら[start]をクリック</p>
+        <p>{{ $t("game_play.caption_4") }}</p>
         <img src="guide/play/004_rule.png">
       </div>
       <div>
-        <p>5. TikTok動画が表示されたら再生ボタンをクリック</p>
+        <p>{{ $t("game_play.caption_5") }}</p>
         <img src="guide/play/005_play.png">
       </div>
       <div>
-        <p>6. ビデオの再生が終わったら→ボタンで次の動画へ</p>
+        <p>{{ $t("game_play.caption_6") }}</p>
         <img src="guide/play/006_play.png">
       </div>
       <div>
-        <p>7. 再生リストを全て見終えたら、スコアに応じた称号が付与されます。より高いスコアを目指して笑いを堪らえよう！</p>
+        <p>{{ $t("game_play.caption_7") }}</p>
         <img src="guide/play/007_score.png">
       </div>
     </div>

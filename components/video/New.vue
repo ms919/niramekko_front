@@ -6,7 +6,7 @@
 				<div class="form-group">
 					<label class="white-shadow"
 						>URL&nbsp;
-						<span>共有するtiktok動画のリンクを貼り付けてください。</span></label
+						<span>{{ $t("new_video.caption") }}</span></label
 					>
 					<input id="url" type="text" :value="url" @input="inputUrl" />
 				</div>

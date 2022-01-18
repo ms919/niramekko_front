@@ -5,14 +5,14 @@
 				<div class="content yellow-green display-col justify-center">
 					<template v-if="!gameOverFlg">
 						<p class="result-text">SCORE {{ score }}</p>
-						<p>称号</p>
+						<p>{{ $t("title") }}</p>
 						<p class="result-text">{{ title.name }}</p>
 					</template>
 					<template v-else>
 						<p class="result-text">GAME OVER</p>
 						<fa :icon="faSkull" /><fa :icon="faBone" />
 						<p>SCORE {{ score }}</p>
-						<p class="gameOver-title-text">称号 {{ title.name }}</p>
+						<p class="gameOver-title-text">{{ $t("title") }}&nbsp;{{ title.name }}</p>
 					</template>
 					<div class="icons-wrapper">
 						<NuxtLink to="/modeSelect">
@@ -59,7 +59,7 @@ export default {
 				this.score != null
 					? `%0a&text=SCORE:${this.score}【${this.title.name}】%0a${this.title.tweet_text}%0a%0a`
 					: "&text=";
-			const hashtags = "&hashtags=niramekko,tiktok,にらめっこ,お笑い";
+			const hashtags = `&hashtags=niramekko,tiktok,${this.$t("niramekko")},${this.$t("comedy")}`;
 			return `${url}${text}${hashtags}`;
 		},
 		faRedoAlt: () => faRedoAlt,

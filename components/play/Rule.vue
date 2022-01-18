@@ -1,15 +1,15 @@
 <template>
 	<div class="text-center rule-wrapper">
-		<h3>事前準備・ルール説明</h3>
+		<h3>{{ $t("rule.heading") }}</h3>
 		<div class="text-wrapper">
 			<p v-html="text"></p>
 			<br />
 			<p v-if="loginFlg">
 				<fa :icon="faEyeSlash" transform="left-2" class="orange" />
-				動画を非表示リストに登録
+				{{ $t("rule.hide_caption") }}
 			</p>
 			<p>
-				<fa :icon="faArrowCircleRight" class="orange" /> &nbsp;次の動画に進む
+				<fa :icon="faArrowCircleRight" class="orange" /> &nbsp;{{ $t("rule.next_caption") }}
 			</p>
 		</div>
 		<a
@@ -18,7 +18,7 @@
 			class="btn sm-button btn-pink"
 			>START</a
 		>
-		<a v-else @click="changeFlg" class="btn sm-button btn-pink">次へ</a>
+		<a v-else @click="changeFlg" class="btn sm-button btn-pink">{{ $t("next") }}</a>
 	</div>
 </template>
 
@@ -39,15 +39,15 @@ export default {
 		...mapGetters({ loginFlg: "session/loginFlg" }),
 		text() {
 			if (!this.ruleFlg) {
-				return "①カメラを許可してください<br/>②下部に自分の顔が写るようにカメラを調節します<br/>③自分の顔の輪郭、各パーツ上に線が表示されていることを確認します<br/>④表情を動かしたときに左下のグラフが動くことを確認してください";
+				return this.$t("rule.prepare_text");
 			}
 			switch (this.mode) {
 				case this.$fixed.MODE.NORMAL:
-					return `最初に${this.$fixed.PERFECT_SCORE}スコアが付与されます。<br/>tiktokのおもしろ動画を見て、笑いを堪えてください。5つの動画を再生後、最終スコアによって称号が決まります。<br/>高スコアを目指して笑いを堪らえよう！`;
+					return this.$t("rule.normal_text", { score: this.$fixed.PERFECT_SCORE });
 				case this.$fixed.MODE.DOJYO:
-					return `最も笑われている動画ベストを見て笑いを堪えるモードです。<br/>最初に${this.$fixed.ADDITIONAL_SCORE}スコアが付与され、その後は各動画クリア毎に${this.$fixed.ADDITIONAL_SCORE}スコアが付与されます。笑いを堪えきれないとゲームオーバーになります。ゲームクリアを目指して笑いを堪らえよう！`;
+					return this.$t("rule.dojyo_text", { score: this.$fixed.ADDITIONAL_SCORE });
 				case this.$fixed.MODE.REVENGE:
-					return `過去に笑ってしまった動画にリベンジするモードです。<br/>最初に${this.$fixed.ADDITIONAL_SCORE}スコアが付与され、その後は各動画クリア毎に${this.$fixed.ADDITIONAL_SCORE}スコアが付与されます。笑いを堪えきれないとゲームオーバーになります。ゲームクリアを目指して笑いを堪らえよう！`;
+					return this.$t("rule.revenge_text", { score: this.$fixed.ADDITIONAL_SCORE });
 				default:
 					"";
 			}

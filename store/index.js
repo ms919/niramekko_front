@@ -94,10 +94,10 @@ export const mutations = {
 	enableGameOverFlg(state) {
 		state.gameOverFlg = true;
 	},
-	changeTitle(state, title_id) {
+	changeTitle(state, key) {
 		state.title = {
-			name: this.$fixed.TITLE_NAMES[title_id],
-			tweet_text: this.$fixed.TWEET_TEXTS[title_id],
+			name: this.$i18n.t(`title_names.${key}`),
+			tweet_text: this.$i18n.t(`tweet_texts.${key}`),
 		};
 	},
 	changeFooterFlg(state) {

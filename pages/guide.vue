@@ -1,19 +1,19 @@
 <template>
   <div class="grid text-center">
     <a class="grid-item" @click="gotoGuide('GuidePlay')">
-      <p>にらめっこゲームの<br>遊び方</p>
+      <p v-html="$t('guide.game_play')"></p>
       <fa :icon="faPlayCircle" class="guide-icon pink"/>
     </a>
     <a class="grid-item disabled">
-      <p>ログインすると<br>できること</p>
+      <p v-html="$t('guide.login')"></p>
       <fa :icon="faUserCircle" class="guide-icon orange"/>
-      <p>準備中です</p>
+      <p>{{ $t("coming_soon") }}</p>
     </a>
     <a class="grid-item disabled">
-      <p>ビデオ登録</p>
+      <p v-html="$t('guide.new_video')"></p>
       <br>
       <fa :icon="faVideo" class="guide-icon yellow-green"/>
-      <p>準備中です</p>
+      <p>{{ $t("coming_soon") }}</p>
     </a>
   </div>
 </template>
