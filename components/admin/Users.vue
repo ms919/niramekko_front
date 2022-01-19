@@ -35,22 +35,22 @@ export default {
         this.currentPage = page;
 			})
 			.catch(() => {
-        this.showFlashMsg('error', 'アクセス権限がありません。');
+        this.showFlashMsg('error', this.$t("error.nothing", { value: this.$t("access_authority") }));
 				this.$router.push("/login");
 			});
     },
 		userDelete(id) {
-      if (confirm(`ユーザーid:${id}を削除してよろしいですか？`)) {
+      if (confirm(this.$t("confirm.delete", { value: this.$t("user_id") + id }))) {
         const page = document.getElementsByTagName("tr").length <= 2 ? this.currentPage - 1 : this.currentPage;
         this.$axios
           .delete(`api/v1/admin/users/${id}`)
           .then(() => {
             this.getPage(page);
-            this.showFlashMsg('success', 'ユーザーを削除しました。');
+            this.showFlashMsg('success', this.$t("success.delete", { value: this.$t("user") }));
           })
           .catch((e) => {
             console.log(e);
-            this.showFlashMsg('error', 'ユーザー削除に失敗しました。');
+            this.showFlashMsg('error', this.$t("error.delete", { value: this.$t("user") }));
           });
       }
 		},

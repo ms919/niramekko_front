@@ -41,7 +41,7 @@ export const actions = {
 							dispatch("changeStartFlg", true, { root: true });
 							this._vm.flashMessage.info({
 								html:
-									"<div class='flash-msg'><p>info</p><p>→ボタンをクリックしてください。</p></div>",
+									`<div class='flash-msg'><p>info</p><p>${this.$i18n.t("skip_video")}</p></div>`,
                 time: 3000,
 							});
 						})

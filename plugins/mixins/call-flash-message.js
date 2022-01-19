@@ -10,7 +10,7 @@ Vue.mixin({
 				});
     },
     needLoginMsg(){
-      this.showFlashMsg('error', 'ログインしてください。');
+      this.showFlashMsg('error', this.$t("error.unauthorized"));
       this.$router.push("/login");
     }
   }

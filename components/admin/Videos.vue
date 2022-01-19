@@ -21,7 +21,7 @@
       </table>
     </template>
     <template v-else>
-      <p class="nothing-wrapper">該当のビデオがありません。</p>
+      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("corresponding") + $t("video") }) }}</p>
     </template>
   </div>
 </template>
@@ -60,23 +60,23 @@ export default {
         console.log(this.videoData.length > 0);
 			})
 			.catch(() => {
-        this.showFlashMsg('error', 'アクセス権限がありません。');
+        this.showFlashMsg('error', this.$t("error.nothing", { value: this.$t("access_authority") }));
 				this.$router.push("/login");
 			});
     },
     videoDelete(id){
-      if (confirm(`ビデオid:${id}を削除してよろしいですか？`)) {
+      if (confirm(this.$t("confirm.delete", { value: this.$t("video_id") + id }))) {
         const page = document.getElementsByTagName("tr").length <= 2 ? this.currentPage - 1 : this.currentPage;
         this.$axios
           .delete(`api/v1/admin/videos/${id}`)
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.showFlashMsg('success', 'ビデオを削除しました。');
+            this.showFlashMsg('success', this.$t("success.delete", { value: this.$t("video") }));
           })
           .catch((e) => {
             console.log(e);
-            this.showFlashMsg('error', 'ビデオ削除に失敗しました。');
+            this.showFlashMsg('error', this.$t("error.delete", { value: this.$t("video") }));
           });
       }
     }
@@ -98,3 +98,5 @@ export default {
   font-size: 0.8rem;
 }
 </style>
+
+<style scoped src="@/assets/css/video.css"></style>

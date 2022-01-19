@@ -217,8 +217,8 @@ export const actions = {
 	},
 	changeHiddenFlg({ getters, commit }) {
 		const res = getters.hiddenFlg
-			? confirm("このビデオの非表示設定を解除します。よろしいですか？")
-			: confirm("このビデオを今後表示させないようにします。よろしいですか？");
+			? confirm(this.$i18n.t("confirm.video_unhidden", { value: this.$i18n.t("this") + this.$i18n.t("video")} ))
+			: confirm(this.$i18n.t("confirm.video_hidden", { value: this.$i18n.t("this") + this.$i18n.t("video")} ));
 		if (res) commit("changeHiddenFlg");
 	},
 	enableGameFinFlg({ commit, dispatch }) {

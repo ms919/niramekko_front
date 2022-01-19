@@ -16,7 +16,7 @@
       </table>
     </template>
     <div v-else class="text-center">
-      <p class="nothing-wrapper">投稿ビデオがありません。</p>
+      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("registered") + $t("video") }) }}</p>
     </div>
   </div>
 </template>
@@ -58,18 +58,18 @@ export default {
 			});
     },
     videoDelete(id){
-      if (confirm(`ビデオid:${id}を削除してよろしいですか？`)) {
+      if (confirm(this.$t("confirm.delete", { value: this.$t("video_id") + id }))) {
         const page = document.getElementsByTagName("tr").length <= 1 && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
         this.$axios
           .delete(`api/v1/videos/${id}`)
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.showFlashMsg('success', 'ビデオを削除しました。');
+            this.showFlashMsg('success', this.$t("success.delete", { value: this.$t("video") }));
           })
           .catch((e) => {
             console.log(e);
-            this.showFlashMsg('error', 'ビデオ削除に失敗しました。');
+            this.showFlashMsg('error', this.$t("error.delete", { value: this.$t("video") }));
           });
       }
     }

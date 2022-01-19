@@ -16,7 +16,7 @@
       </table>
     </template>
     <div v-else class="text-center">
-      <p class="nothing-wrapper">非表示設定のビデオがありません。</p>
+      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("hidden_video") }) }}</p>
     </div>
   </div>
 </template>
@@ -64,18 +64,18 @@ export default {
 			});
     },
     videoDelete(id){
-      if (confirm(`ビデオid:${id}の非表示設定を解除します。`)) {
+      if (confirm(this.$t("confirm.video_unhidden", { value: this.$t("video_id") + id} ))) {
         const page = document.getElementsByTagName("tr").length <= 1 && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
         this.$axios
           .delete(`api/v1/hidden_videos/${id}`)
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.showFlashMsg('success', '非表示設定を解除しました。');
+            this.showFlashMsg('success', this.$t("success.cancel", { value: this.$t("hidden_setting") }));
           })
           .catch((e) => {
             console.log(e);
-            this.showFlashMsg('error', '非表示設定解除に失敗しました。');
+            this.showFlashMsg('error', this.$t("error.cancel", { value: this.$t("cancel_hidden") }));
           });
       }
     }

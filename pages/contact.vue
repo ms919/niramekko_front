@@ -4,7 +4,7 @@
     <form class="display-col">
       <div class="form-group">
         <select v-model="type" class="color-grey">
-          <option v-for="item in $t('contact.type')" :key="item.key" :value="item.key">{{ item.value }}</option>
+          <option v-for="(value, key) in $t('contact.type')" :key="key" :value="key">{{ value }}</option>
         </select>
         <p class="contact-font-size">{{ $t("contact.text_area_caption") }}</p>
         <textarea id="message" rows="7" v-model.lazy.trim="message" class="contact-font-size color-grey" />
@@ -35,17 +35,17 @@ export default {
   methods: {
     sendMessage(){
       if (this.message.length < 10 || this.message.length > 500) {
-        this.showFlashMsg('error', 'メッセージは10文字以上、500文字未満で記載してください。');
+        this.showFlashMsg('error', this.$t("error.length", { value: this.$t("message"), min: "10", max: "500"}));
       } else {
         this.$axios
         .post("/api/v1/contacts", {contact_type: this.type, message: this.message})
 				.then(() => {
 					this.message = "";
-          this.showFlashMsg('success', 'メッセージを送信しました。');
+          this.showFlashMsg('success', this.$t("success.submit", this.$t("message")));
 				})
 				.catch((error) => {
 					console.log(error);
-          this.showFlashMsg('error', 'メッセージの送信に失敗しました。');
+          this.showFlashMsg('error', this.$t("error.submit", this.$t("message")));
 				});
       }
     }

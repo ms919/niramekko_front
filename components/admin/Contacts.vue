@@ -28,32 +28,17 @@ export default {
 	methods: {
     getPage(page){
       this.$axios
-			.get("api/v1/admin/contacts", {params: { page: page }})
+			.get("api/v1/admin/contacts", { params: { page: page } })
 			.then((res) => {
 				this.contact_data = res.data.contacts;
         this.totalPages = res.data.total_pages;
         this.currentPage = page;
 			})
 			.catch(() => {
-        this.showFlashMsg('error', 'アクセス権限がありません。');
+        this.showFlashMsg('error', this.$t("error.nothing", { value: this.$t("access_authority") }));
 				this.$router.push("/login");
 			});
     },
-		userDelete(id) {
-      if (confirm(`ユーザーid:${id}を削除してよろしいですか？`)) {
-        const page = document.getElementsByTagName("tr").length <= 2 ? this.currentPage - 1 : this.currentPage;
-        this.$axios
-          .delete(`api/v1/admin/users/${id}`)
-          .then(() => {
-            this.getPage(page);
-            this.showFlashMsg('success', 'ユーザーを削除しました。');
-          })
-          .catch((e) => {
-            console.log(e);
-            this.showFlashMsg('error', 'ユーザー削除に失敗しました。');
-          });
-      }
-		},
 	},
 	created() {
 		this.getPage(1);

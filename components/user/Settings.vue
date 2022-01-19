@@ -49,20 +49,20 @@ export default {
 			const len = this.name.length;
 			// 64はgoogleの最大値
 			if (len > 64) {
-				this.showFlashMsg('error', `nameが${len}文字です。64文字以内で設定してください。`);
+				this.showFlashMsg('error', this.$t("error.over_length", { value: "name", count: String(len), max: "64"}));
 			}
 		},
 		deleteAccount() {
-			if (confirm("アカウントを削除します。よろしいですか？")) {
+			if (confirm(this.$t("confirm.delete", { value: this.$t("account") }))) {
 				this.$axios
 					.delete("api/v1/user")
 					.then(() => {
 						this.$store.dispatch("session/clearUserInfo");
 						this.$router.push("/");
-						this.showFlashMsg('success', 'アカウントを削除しました。');
+						this.showFlashMsg('success', this.$t("success.delete", { value: this.$t("account") }));
 					})
 					.catch(() => {
-						this.showFlashMsg('error', 'アカウントの削除に失敗しました。');
+						this.showFlashMsg('error', this.$t("error.delete", { value: this.$t("account") }));
 					});
 			}
 		},
@@ -78,10 +78,10 @@ export default {
 						.then((res) => {
 							this.$store.dispatch("session/setUserInfo", res.data);
 						});
-					this.showFlashMsg('success', 'nameを更新しました。');
+					this.showFlashMsg('success', this.$t("success.update", { value: "name" }));
 				})
 				.catch(() => {
-					this.showFlashMsg('error', 'nameの更新に失敗しました。');
+					this.showFlashMsg('error', this.$t("error.update", { value: "name" }));
 				});
 		}
 	},

@@ -76,9 +76,9 @@ export default {
 			const sp_pattern = /https:\/\/vt.tiktok.com\/[0-9A-Za-z_.]*/;
 			if (!pattern.test(this.url)) {
 				if (sp_pattern.test(this.url)) {
-					this.showFlashMsg("error", "アプリ版URL未対応ですorz。");
+					this.showFlashMsg("error", this.$t("error.url_unsupported"));
 				} else {
-					this.showFlashMsg("error", "URLが間違っています(ToT)");
+					this.showFlashMsg("error", this.$t("error.wrong", { value: this.$t("url") }));
 				}
 				this.url = "";
 			} else {
@@ -92,11 +92,11 @@ export default {
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
 					this.url = "";
-					this.showFlashMsg("success", "ビデオを登録しました。");
+					this.showFlashMsg("success", this.$t("success.register", { value: this.$t("video") }));
 				})
 				.catch(() => {
 					this.url = "";
-					this.showFlashMsg("error", "このビデオは既に登録済みでした(>_<)");
+					this.showFlashMsg("error", this.$t("error.register", { value: this.$t("this") + this.$t("video") }));
 				});
 		},
 	},
@@ -113,7 +113,7 @@ export default {
 					this.$store.dispatch("session/removeLoginFlg");
 					this.showFlashMsg(
 						"error",
-						"セッションの有効期限が切れています。ログインしなおしてください。"
+						this.$t("error.session_expired")
 					);
 					this.$router.push("/login");
 				});

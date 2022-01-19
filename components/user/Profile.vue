@@ -122,7 +122,8 @@ export default {
 			.then((res) => {
 				this.$store.dispatch("session/setUserInfo", res.data);
 			})
-			.catch(() => {
+			.catch((e) => {
+				console.log(e);
 				this.needLoginMsg();
 			});
 	},

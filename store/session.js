@@ -52,7 +52,7 @@ export const actions = {
 					dispatch("removeLoginFlg");
 					this._vm.flashMessage.error({
 						html:
-							"<div class='flash-msg'><p>error</p><p>セッションの有効期限が切れています。ログインしなおしてください。</p></div>",
+							`<div class='flash-msg'><p>error</p><p>${this.$i18n.t("error.session_expired")}</p></div>`,
 					});
 				});
 		}
@@ -86,7 +86,7 @@ export const actions = {
 			notifications = null
 		} else {
 			notifications.map((item) => {
-				item.message = item.format == "latest_top" ? `あなたの投稿したビデオが最新ベスト入りしました！${item.message}スコアが付与されます。` : item.message;
+				item.message = item.format == "latest_top" ? this.$i18n.t("user_notification.latest_top", { score: item.message }) : item.message;
 			});
 		}
 		commit("setNotifications", notifications);
