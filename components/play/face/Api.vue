@@ -46,7 +46,7 @@ export default {
 		faAngry: () => faAngry,
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
-		...mapGetters(["currentComponent", "startFlg", "mode", "gameOverFlg"]),
+		...mapGetters(["currentComponent", "startFlg", "mode", "gameOverFlg", "gameFinFlg"]),
 	},
 	methods: {
 		onPlay() {
@@ -116,7 +116,7 @@ export default {
 					],
 				};
 			}
-			if (this.startFlg && this.currentComponent == "CommonTiktok") {
+			if (this.startFlg && this.currentComponent == "CommonTiktok" && !this.gameFinFlg) {
 				const diff = this.datacollection.datasets[0].data.reduce(
 					(sum, value) => sum + value
 				);
