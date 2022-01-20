@@ -16,7 +16,7 @@
       </table>
     </template>
     <div v-else class="text-center">
-      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("registered") + $t("video") }) }}</p>
+      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("posted") + $t("video") }) }}</p>
     </div>
   </div>
 </template>

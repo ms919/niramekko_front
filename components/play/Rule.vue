@@ -44,8 +44,8 @@ export default {
 			switch (this.mode) {
 				case this.$fixed.MODE.NORMAL:
 					return this.$t("rule.normal_text", { score: this.$fixed.PERFECT_SCORE });
-				case this.$fixed.MODE.DOJYO:
-					return this.$t("rule.dojyo_text", { score: this.$fixed.ADDITIONAL_SCORE });
+				case this.$fixed.MODE.DOJO:
+					return this.$t("rule.dojo_text", { score: this.$fixed.ADDITIONAL_SCORE });
 				case this.$fixed.MODE.REVENGE:
 					return this.$t("rule.revenge_text", { score: this.$fixed.ADDITIONAL_SCORE });
 				default:

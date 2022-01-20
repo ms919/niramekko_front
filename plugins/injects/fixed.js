@@ -6,7 +6,7 @@ const fixed = Object.freeze({
 	LAUGHED_DIFF: 7,
 	MODE: {
 		NORMAL: 0,
-		DOJYO: 1,
+		DOJO: 1,
 		REVENGE: 2,
 	},
 });

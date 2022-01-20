@@ -10,17 +10,17 @@
 		</div>
 		<div>
 			<a
-				@click="$store.dispatch('setMode', dojyo)"
+				@click="$store.dispatch('setMode', dojo)"
 				class="btn lg-button btn-pink"
-				>{{ $t('modes.dojyo') }}mode</a
+				>{{ $t('modes.dojo') }} mode</a
 			>
-			<p>{{ $t('mode_texts.dojyo') }}</p>
+			<p>{{ $t('mode_texts.dojo') }}</p>
 		</div>
 		<div v-if="revengeFlg">
 			<a
 				@click="$store.dispatch('setMode', revenge)"
 				class="btn lg-button btn-pink"
-				>{{ $t('modes.revenge') }}mode</a
+				>{{ $t('modes.revenge') }} mode</a
 			>
 			<p>{{ $t('mode_texts.revenge') }}</p>
 		</div>
@@ -37,7 +37,7 @@ export default {
 	},
 	mounted() {
 		this.normal = this.$fixed.MODE.NORMAL;
-		this.dojyo = this.$fixed.MODE.DOJYO;
+		this.dojo = this.$fixed.MODE.DOJO;
 		this.revenge = this.$fixed.MODE.REVENGE;
 		this.$store.dispatch("clearItem");
 	},

@@ -131,7 +131,8 @@ export default {
 		],
 		defaultLocale: "ja",
 		lazy: true,
-    langDir: 'lang/',
+    langDir: "lang/",
+		strategy: "no_prefix",
 	},
 
 	sitemap: {

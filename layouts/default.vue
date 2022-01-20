@@ -7,14 +7,14 @@
 			<nav class="display-row">
 				<NuxtLink to="/guide" class="white-shadow bar-item">guide</NuxtLink>
 				<NuxtLink to="/contact" class="white-shadow bar-item">contact</NuxtLink>
-				<NuxtLink
+				<a
 					v-for="locale in availableLocales"
 					:key="locale.code"
-					:to="switchLocalePath(locale.code)"
+					@click="changeLocale(locale.code)"
 					class="white-shadow bar-item"
 				>
 					{{ locale.name }}
-				</NuxtLink>
+				</a>
 				<div v-if="loginFlg" ref="elRoot">
 					<a @click="menuFlg = !menuFlg">
 						<img v-if="userImg" :src="`${userImg}`" class="img-circle" />
@@ -72,6 +72,12 @@ export default {
 		availableLocales() {
 			return this.$i18n.locales.filter((x) => x.code !== this.$i18n.locale);
 		},
+	},
+	methods: {
+		changeLocale(locale) {
+			this.$i18n.setLocaleCookie(locale);
+			this.$router.go(0);
+		}
 	},
 	mounted() {
 		window.addEventListener(
