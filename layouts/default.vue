@@ -27,7 +27,7 @@
 						<li><NuxtLink to="/user">profile</NuxtLink></li>
 						<li><NuxtLink to="/modeSelect">play game</NuxtLink></li>
 						<li>
-							<a @click="$store.dispatch('goToVideo', 'VideoNew')"
+							<a @click="$store.dispatch('video/goToVideo', 'VideoNew')"
 								>share video</a
 							>
 						</li>
@@ -60,7 +60,6 @@ export default {
 			menuFlg: false,
 		};
 	},
-	name: "LanguageSwitcher",
 	computed: {
 		...mapGetters(["footerFlg"]),
 		...mapGetters({

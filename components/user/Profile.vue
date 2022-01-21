@@ -49,12 +49,12 @@
 				<div class="display-row justify-between video-icons">
 					<fa
 						:icon="faListUl"
-						@click="$store.dispatch('goToVideo', 'Video')"
+						@click="$store.dispatch('video/goToVideo', 'Video')"
 						class="user-icon"
 					/>
 					<fa
 						:icon="faPlus"
-						@click="$store.dispatch('goToVideo', 'VideoNew')"
+						@click="$store.dispatch('video/goToVideo', 'VideoNew')"
 						class="user-icon"
 					/>
 				</div>

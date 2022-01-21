@@ -35,8 +35,10 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(["mode"]),
-		...mapGetters({ loginFlg: "session/loginFlg" }),
+		...mapGetters({
+			loginFlg: "session/loginFlg",
+			mode: "game/mode",
+		}),
 		text() {
 			if (!this.ruleFlg) {
 				return this.$t("rule.prepare_text");
@@ -61,7 +63,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.$store.dispatch("getItems");
+		this.$store.dispatch("game/getItems");
 	},
 };
 </script>

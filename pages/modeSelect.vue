@@ -2,7 +2,7 @@
 	<div class="text-center display-col justify-center wrapper-height">
 		<div>
 			<a
-				@click="$store.dispatch('setMode', normal)"
+				@click="$store.dispatch('game/setMode', $fixed.MODE.NORMAL)"
 				class="btn lg-button btn-pink"
 				>{{ $t('modes.normal') }} mode</a
 			>
@@ -10,7 +10,7 @@
 		</div>
 		<div>
 			<a
-				@click="$store.dispatch('setMode', dojo)"
+				@click="$store.dispatch('game/setMode', $fixed.MODE.DOJO)"
 				class="btn lg-button btn-pink"
 				>{{ $t('modes.dojo') }} mode</a
 			>
@@ -18,7 +18,7 @@
 		</div>
 		<div v-if="revengeFlg">
 			<a
-				@click="$store.dispatch('setMode', revenge)"
+				@click="$store.dispatch('game/setMode', $fixed.MODE.REVENGE)"
 				class="btn lg-button btn-pink"
 				>{{ $t('modes.revenge') }} mode</a
 			>
@@ -36,9 +36,6 @@ export default {
 		}),
 	},
 	mounted() {
-		this.normal = this.$fixed.MODE.NORMAL;
-		this.dojo = this.$fixed.MODE.DOJO;
-		this.revenge = this.$fixed.MODE.REVENGE;
 		this.$store.dispatch("clearItem");
 	},
 };

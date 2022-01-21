@@ -10,7 +10,7 @@
 					<template v-if="loginFlg">
 						<fa
 							:icon="faEyeSlash"
-							@click="$store.dispatch('changeHiddenFlg')"
+							@click="$store.dispatch('game/changeHiddenFlg')"
 							transform="right-2"
 							class="orange play-icon"
 						/>
@@ -53,17 +53,17 @@ export default {
 	computed: {
 		...mapGetters([
 			"currentComponent",
-			"itemsPointer",
-			"itemsLength",
-			"startFlg",
-			"modalFlg",
-			"gameFinFlg",
-			"gameOverFlg",
-			"hiddenFlg",
-			"mode",
 		]),
 		...mapGetters({
 			loginFlg: "session/loginFlg",
+			itemsPointer: "video/itemsPointer",
+			itemsLength: "video/itemsLength",
+			mode: "game/mode",
+			hiddenFlg: "game/hiddenFlg",
+			startFlg: "game/startFlg",
+			gameOverFlg: "game/gameOverFlg",
+			gameFinFlg: "game/gameFinFlg",
+			modalFlg: "game/modalFlg",
 		}),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,
@@ -74,22 +74,22 @@ export default {
 		gotoNext() {
 			if (this.mode != this.$fixed.MODE.NORMAL && !this.firstItemFlg && !this.lastItemFlg) {
 				if (this.gameOverFlg) {
-					this.$store.dispatch("changeModalFlg");
+					this.$store.dispatch("game/changeModalFlg");
 					return;
 				} else {
 					this.$refs.faceApi.AddScore();
 				}
 			}
 			if (!this.lastItemFlg) {
-				this.$store.dispatch("gotoNext", {
+				this.$store.dispatch("game/gotoNext", {
 					score: this.$refs.faceApi.score,
 					window: window,
 				});
 			} else {
 				if (!this.gameFinFlg) {
-					this.$store.dispatch("afterGame", this.$refs.faceApi.score);
+					this.$store.dispatch("game/afterGame", this.$refs.faceApi.score);
 				}
-				this.$store.dispatch("changeModalFlg");
+				this.$store.dispatch("game/changeModalFlg");
 			}
 		},
 	},

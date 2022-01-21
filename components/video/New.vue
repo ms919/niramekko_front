@@ -54,8 +54,8 @@ export default {
 				data_video_id: this.url.match(/[0-9]*$/)[0],
 			};
 		},
-		...mapGetters(["currentItem"]),
 		...mapGetters({
+			currentItem: "video/currentItem",
 			canPlayFlg: "video/canPlayFlg",
 		}),
 	},
@@ -67,7 +67,7 @@ export default {
 			this.checkUrl();
 			if (this.url != "") {
 				// currentItemにセット
-				this.$store.dispatch("updateVideoUrl", this.video_data);
+				this.$store.dispatch("video/updateVideoUrl", this.video_data);
 				this.$store.dispatch("video/checkVideo", window);
 			}
 		},

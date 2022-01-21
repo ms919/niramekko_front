@@ -19,7 +19,10 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters(["currentItem", "itemsPointer"]),
+		...mapGetters({
+			itemsPointer: "video/itemsPointer",
+			currentItem: "video/currentItem",
+		}),
 	},
 };
 </script>

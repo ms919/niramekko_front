@@ -68,11 +68,11 @@ export default {
 		faTwitter: () => faTwitter,
 		faSkull: () => faSkull,
 		faBone: () => faBone,
-		...mapGetters(["title", "gameOverFlg"]),
+		...mapGetters({ gameOverFlg: "game/gameOverFlg", title: "game/title" }),
 	},
 	methods: {
 		closeModal() {
-			this.$store.dispatch("changeModalFlg");
+			this.$store.dispatch("game/changeModalFlg");
 		},
 		openTweet() {
 			window.open(this.tweetContent, "_blank");

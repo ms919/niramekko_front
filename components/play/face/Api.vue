@@ -46,7 +46,13 @@ export default {
 		faAngry: () => faAngry,
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
-		...mapGetters(["currentComponent", "startFlg", "mode", "gameOverFlg", "gameFinFlg"]),
+		...mapGetters(["currentComponent"]),
+		...mapGetters({
+			mode: "game/mode",
+			startFlg: "game/startFlg",
+			gameOverFlg: "game/gameOverFlg",
+			gameFinFlg: "game/gameFinFlg",
+		}),
 	},
 	methods: {
 		onPlay() {
@@ -85,7 +91,7 @@ export default {
 					!this.startFlg &&
 					!this.gameOverFlg
 				)
-					this.$store.dispatch("changeStartFlg", true);
+					this.$store.dispatch("game/changeStartFlg", true);
 			}, 500);
 		},
 		updateData(expressions) {
@@ -128,9 +134,9 @@ export default {
 					this.mode != this.$fixed.MODE.NORMAL &&
 					diff >= this.$fixed.LAUGHED_DIFF
 				) {
-					this.$store.dispatch("afterGame", this.score);
-					this.$store.dispatch("changeModalFlg");
-					this.$store.dispatch("enableGameOverFlg");
+					this.$store.dispatch("game/afterGame", this.score);
+					this.$store.dispatch("game/changeModalFlg");
+					this.$store.dispatch("game/enableGameOverFlg");
 				}
 			}
 		},
