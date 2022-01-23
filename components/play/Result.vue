@@ -72,7 +72,7 @@ export default {
 	},
 	methods: {
 		closeModal() {
-			this.$store.dispatch("game/changeModalFlg");
+			this.$store.dispatch("changeFlg", { target: "game/modalFlg", flg: false });
 		},
 		openTweet() {
 			window.open(this.tweetContent, "_blank");

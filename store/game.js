@@ -53,21 +53,6 @@ export const mutations = {
 	addHiddenVideos(state, videoObj) {
 		state.hiddenVideos.push(videoObj);
 	},
-	changeStartFlg(state) {
-		state.startFlg = !state.startFlg;
-	},
-	changeModalFlg(state) {
-		state.modalFlg = !state.modalFlg;
-	},
-	changeHiddenFlg(state) {
-		state.hiddenFlg = !state.hiddenFlg;
-	},
-	enableGameFinFlg(state) {
-		state.gameFinFlg = true;
-	},
-	enableGameOverFlg(state) {
-		state.gameOverFlg = true;
-	},
 	changeTitle(state, key) {
 		state.title = {
 			name: this.$i18n.t(`title_names.${key}`),
@@ -115,13 +100,10 @@ export const actions = {
 			dispatch("calcScore", score);
 			dispatch("processHiddenVideos");
 			dispatch("setNextContents");
-			dispatch("changeStartFlg", false);
-			dispatch("video/changeCanPlayFlg", false, { root: true });
+      dispatch("changeFlg", { target: "game/startFlg", flg: false }, { root: true });
+      dispatch("changeFlg", { target: "video/canPlayFlg", flg: false }, { root: true });
 		}
 		dispatch("video/checkVideo", window, { root: true });
-	},
-	changeStartFlg({ getters, commit }, flg) {
-		if (getters.startFlg != flg) commit("changeStartFlg");
 	},
 	calcScore({ getters, commit, rootGetters }, score) {
 		commit("addLaughedRecords", { diff: getters.scoreArray.slice(-1)[0] - score, pointer: rootGetters["video/itemsPointer"]});
@@ -130,7 +112,7 @@ export const actions = {
 	processHiddenVideos({ getters, commit, rootGetters }) {
 		if (getters.hiddenFlg) {
 			commit("addHiddenVideos", getters.laughedRecords[rootGetters["video/itemsPointer"]]);
-			commit("changeHiddenFlg");
+			commit("changeFlg", ["game", "hiddenFlg"], { root: true });
 		}
 	},
 	setNextContents({ commit, rootGetters }) {
@@ -167,7 +149,7 @@ export const actions = {
 			this.$axios
 				.post("/api/v1/laughed_videos", laughed_videos)
 				.then((res) => {
-					commit("session/setRevengeFlg", res.data.revenge_flg);
+          dispatch("changeFlg", { target: "session/revengeFlg", flg: res.data.revenge_flg }, { root: true });
 				})
 				.catch((error) => {
 					console.log(error);
@@ -181,21 +163,15 @@ export const actions = {
 				});
 		}
 	},
-	changeModalFlg({ commit }) {
-		commit("changeModalFlg");
+	enableGameFinFlg({ dispatch }) {
+    dispatch("changeFlg", { target: "game/gameFinFlg", flg: true }, { root: true });
+    dispatch("changeFlg", { target: "game/startFlg", flg: true }, { root: true });
 	},
-	changeHiddenFlg({ getters, commit }) {
+  changeHiddenFlg({ getters, commit }) {
 		const res = getters.hiddenFlg
 			? confirm(this.$i18n.t("confirm.video_unhidden", { value: this.$i18n.t("this") + this.$i18n.t("video")} ))
 			: confirm(this.$i18n.t("confirm.video_hidden", { value: this.$i18n.t("this") + this.$i18n.t("video")} ));
-		if (res) commit("changeHiddenFlg");
-	},
-	enableGameFinFlg({ commit, dispatch }) {
-		commit("enableGameFinFlg");
-		dispatch("changeStartFlg", true);
-	},
-	enableGameOverFlg({ commit }) {
-		commit("enableGameOverFlg");
+    if (res) commit("changeFlg", ["game", "hiddenFlg"], { root: true });
 	},
 	afterGame({ dispatch }, score) {
 		dispatch("calcScore", score);

@@ -15,9 +15,10 @@ export const mutations = {
 	clearItem(state) {
 		state.currentComponent = "PlayRule";
 	},
-	changeFooterFlg(state) {
-		state.footerFlg = !state.footerFlg;
-	},
+	changeFlg(rootState, target){
+		if (target.length == 1) rootState[target[0]] = !rootState[target[0]];
+		if (target.length == 2) rootState[target[0]][target[1]] = !rootState[target[0]][target[1]];
+	}
 };
 
 export const actions = {
@@ -29,7 +30,8 @@ export const actions = {
 	changeCurrentComponent({ commit }, component) {
 		commit("changeCurrentComponent", component);
 	},
-	changeFooterFlg({ commit }) {
-		commit("changeFooterFlg");
+	changeFlg({ commit, rootGetters}, { target, flg }) {
+		const setFlg = flg ? true : false;
+		if (rootGetters[target] != setFlg) commit("changeFlg", target.split("/"));
 	},
 };

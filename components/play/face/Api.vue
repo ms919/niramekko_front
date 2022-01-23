@@ -91,7 +91,7 @@ export default {
 					!this.startFlg &&
 					!this.gameOverFlg
 				)
-					this.$store.dispatch("game/changeStartFlg", true);
+					this.$store.dispatch("changeFlg", {target: "game/startFlg", flg: true});
 			}, 500);
 		},
 		updateData(expressions) {
@@ -135,8 +135,8 @@ export default {
 					diff >= this.$fixed.LAUGHED_DIFF
 				) {
 					this.$store.dispatch("game/afterGame", this.score);
-					this.$store.dispatch("game/changeModalFlg");
-					this.$store.dispatch("game/enableGameOverFlg");
+					this.$store.dispatch("changeFlg", { target: "game/modalFlg", flg: true });
+					this.$store.dispatch("changeFlg", { target: "game/gameOverFlg", flg: true });
 				}
 			}
 		},

@@ -74,7 +74,7 @@ export default {
 		gotoNext() {
 			if (this.mode != this.$fixed.MODE.NORMAL && !this.firstItemFlg && !this.lastItemFlg) {
 				if (this.gameOverFlg) {
-					this.$store.dispatch("game/changeModalFlg");
+					this.$store.dispatch("changeFlg", { target: "game/modalFlg", flg: true });
 					return;
 				} else {
 					this.$refs.faceApi.AddScore();
@@ -89,7 +89,7 @@ export default {
 				if (!this.gameFinFlg) {
 					this.$store.dispatch("game/afterGame", this.$refs.faceApi.score);
 				}
-				this.$store.dispatch("game/changeModalFlg");
+				this.$store.dispatch("changeFlg", { target: "game/modalFlg", flg: true });
 			}
 		},
 	},

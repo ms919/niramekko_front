@@ -61,7 +61,7 @@ export default {
 	},
 	methods: {
 		inputUrl() {
-			this.$store.dispatch("video/changeCanPlayFlg", false);
+			this.$store.dispatch("changeFlg", { target: "video/canPlayFlg", flg: false });
 			this.url = document.getElementById("url").value;
 			// urlチェック
 			this.checkUrl();
@@ -87,7 +87,7 @@ export default {
 			document.getElementById("url").value = this.url;
 		},
 		submit() {
-			this.$store.dispatch("video/changeCanPlayFlg", false);
+			this.$store.dispatch("changeFlg", { target: "video/canPlayFlg", flg: false });
 			this.$axios
 				.post("/api/v1/videos", this.video_data)
 				.then(() => {
@@ -118,10 +118,10 @@ export default {
 					this.$router.push("/login");
 				});
 		}
-		this.$store.dispatch("video/changeNewVideoFlg", true);
+		this.$store.dispatch("changeFlg", { target: "video/newVideoFlg", flg: true });
 	},
 	beforeDestroy(){
-		this.$store.dispatch("video/changeNewVideoFlg", false);
+		this.$store.dispatch("changeFlg", { target: "video/newVideoFlg", flg: false });
 	}
 };
 </script>

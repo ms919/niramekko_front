@@ -19,12 +19,6 @@ export const getters = {
 };
 
 export const mutations = {
-	reloadLoginFlg(state, value) {
-		state.loginFlg = value;
-	},
-	setRevengeFlg(state, value) {
-		state.revengeFlg = value;
-	},
 	setUser(state, userData) {
 		state.user = userData;
 	},
@@ -40,9 +34,9 @@ export const mutations = {
 };
 
 export const actions = {
-	init({ commit, dispatch }) {
+	init({ dispatch }) {
 		if (localStorage.getItem("loginFlg")) {
-			commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
+			dispatch("changeFlg", { target: "session/loginFlg", flg: localStorage.getItem("loginFlg") }, { root: true });
 			this.$axios
 				.get("api/v1/user")
 				.then((res) => {
@@ -57,13 +51,13 @@ export const actions = {
 				});
 		}
 	},
-	removeLoginFlg({ commit }) {
+	removeLoginFlg({ dispatch }) {
 		localStorage.removeItem("loginFlg");
-		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
+		dispatch("changeFlg", { target: "session/loginFlg", flg: localStorage.getItem("loginFlg") }, { root: true });
 	},
-	setLoginFlg({ commit }) {
+	setLoginFlg({ dispatch }) {
 		localStorage.setItem("loginFlg", true);
-		commit("reloadLoginFlg", localStorage.getItem("loginFlg"));
+		dispatch("changeFlg", { target: "session/loginFlg", flg: localStorage.getItem("loginFlg") }, { root: true });
 	},
 	setUserInfo({ commit, dispatch }, data) {
 		commit("setUser", data.user);
@@ -71,7 +65,7 @@ export const actions = {
 		commit("setTotalScore", data.total_score);
 		dispatch("setNotifications", data.notifications);
 		dispatch("setLoginFlg");
-		commit("setRevengeFlg", data.revenge_flg);
+		dispatch("changeFlg", { target: "session/revengeFlg", flg: data.revenge_flg }, { root: true });
 	},
 	clearUserInfo({ commit, dispatch }) {
 		commit("setUser", {});
@@ -79,7 +73,7 @@ export const actions = {
 		commit("setTotalScore", 0);
 		commit("setNotifications", null);
 		dispatch("removeLoginFlg");
-		commit("setRevengeFlg", false);
+		dispatch("changeFlg", { target: "session/revengeFlg", flg: false }, { root: true });
 	},
 	setNotifications({ commit }, notifications) {
 		if (notifications.length == 0) {

@@ -25,12 +25,6 @@ export const mutations = {
 	changeCurrentItem(state, target) {
 		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/@${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
-	changeCanPlayFlg(state) {
-		state.canPlayFlg = !state.canPlayFlg;
-	},
-  changeNewVideoFlg(state) {
-		state.newVideoFlg = !state.newVideoFlg;
-	},
 	clearItem(state) {
 		state.itemsPointer = -1;
 		state.items = [];
@@ -56,12 +50,12 @@ export const actions = {
 			flg = height > 700;
 			if (flg || (height > 1 && height < 300) || count == 10) {
 				clearInterval(timerId);
-				dispatch("changeCanPlayFlg", flg);
+				dispatch("changeFlg", { target: "video/canPlayFlg", flg: flg }, { root: true });
 				if (!getters.canPlayFlg && !getters.newVideoFlg) {
 					this.$axios
 						.patch(`/api/v1/videos/${rootGetters["game/videoIds"][getters.itemsPointer]}`)
 						.then(() => {
-							dispatch("game/changeStartFlg", true, { root: true });
+							dispatch("changeFlg", { target: "game/startFlg", flg: true }, { root: true });
 							this._vm.flashMessage.info({
 								html:
 									`<div class='flash-msg'><p>info</p><p>${this.$i18n.t("skip_video")}</p></div>`,
@@ -74,12 +68,6 @@ export const actions = {
 				}
 			}
 		}, 1000);
-	},
-	changeCanPlayFlg({ getters, commit }, flg) {
-		if (getters.canPlayFlg != flg) commit("changeCanPlayFlg");
-	},
-  changeNewVideoFlg({ getters, commit }, flg) {
-		if (getters.newVideoFlg != flg) commit("changeNewVideoFlg");
 	},
 	updateVideoUrl({ commit }, target) {
 		commit("changeCurrentItem", target);

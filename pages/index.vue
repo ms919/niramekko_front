@@ -17,10 +17,10 @@
 <script>
 export default {
 	mounted(){
-		this.$store.dispatch("changeFooterFlg");
+		this.$store.dispatch("changeFlg", {target: "footerFlg", flg: true});
 	},
 	beforeDestroy(){
-		this.$store.dispatch("changeFooterFlg");
+		this.$store.dispatch("changeFlg", {target: "footerFlg", flg: false});
 	}
 }
 </script>
