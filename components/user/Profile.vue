@@ -2,7 +2,7 @@
 	<div class="user-wrapper">
 		<div class="display-row record user-div-style">
 			<p class="record-left pink text-center">
-				<span class="score-font">{{ total_score }}</span><br />score
+				<span class="score-font">{{ totalScore }}</span><br />score
 			</p>
 			<div class="display-col justify-center record-right pink">
 				<div class="record-right-width display-row justify-space-around">
@@ -102,7 +102,7 @@ export default {
 		...mapGetters({
 			user: "session/user",
 			records: "session/records",
-			total_score: "session/total_score",
+			totalScore: "session/totalScore",
 			notifications: "session/notifications",
 		}),
 	},

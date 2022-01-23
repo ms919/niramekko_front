@@ -1,7 +1,11 @@
-export const state = () => ({
-	currentComponent: "PlayRule",
-	footerFlg: false,
-});
+const initialState = () => {
+	return {
+		currentComponent: "PlayRule",
+		footerFlg: false,
+	}
+};
+
+export const state = () => initialState();
 
 export const getters = {
 	currentComponent: (state) => state.currentComponent,
@@ -9,16 +13,17 @@ export const getters = {
 };
 
 export const mutations = {
-	changeCurrentComponent(state, nextComponent) {
-		state.currentComponent = nextComponent;
-	},
 	clearItem(state) {
 		state.currentComponent = "PlayRule";
 	},
 	changeFlg(rootState, target){
 		if (target.length == 1) rootState[target[0]] = !rootState[target[0]];
 		if (target.length == 2) rootState[target[0]][target[1]] = !rootState[target[0]][target[1]];
-	}
+	},
+	setValue(rootState, { target, value }){
+		if (target.length == 1) rootState[target[0]] = value;
+		if (target.length == 2) rootState[target[0]][target[1]] = value;
+	},
 };
 
 export const actions = {
@@ -28,7 +33,7 @@ export const actions = {
 		commit("game/clearItem");
 	},
 	changeCurrentComponent({ commit }, component) {
-		commit("changeCurrentComponent", component);
+		commit("setValue", { target: ["currentComponent"], value: component });
 	},
 	changeFlg({ commit, rootGetters}, { target, flg }) {
 		const setFlg = flg ? true : false;

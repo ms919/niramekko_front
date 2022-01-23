@@ -1,10 +1,14 @@
-export const state = () => ({
-	itemsPointer: -1,
-	items: [],
-	currentItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
-	canPlayFlg: false,
-  newVideoFlg: false,
-});
+const initialState = () => {
+	return {
+		itemsPointer: -1,
+		items: [],
+		currentItem: "<div class='default-item'><p>NO<br/>VIDEO</p></div>",
+		canPlayFlg: false,
+		newVideoFlg: false,
+	}
+};
+
+export const state = () => initialState();
 
 export const getters = {
 	itemsPointer: (state) => state.itemsPointer,
@@ -19,18 +23,11 @@ export const mutations = {
 	incrementItemsPointer(state) {
 		++state.itemsPointer;
 	},
-	setItems(state, items) {
-		state.items = items;
-	},
 	changeCurrentItem(state, target) {
 		state.currentItem = `<blockquote class='tiktok-embed item' cite='https://www.tiktok.com/@${target.video_user}/video/${target.data_video_id}' data-video-id=${target.data_video_id}><section></section></blockquote>`;
 	},
 	clearItem(state) {
-		state.itemsPointer = -1;
-		state.items = [];
-		state.currentItem = "<div class='default-item'><p>NO<br/>VIDEO</p></div>";
-		state.canPlayFlg = false;
-		state.newVideoFlg = false;
+		Object.assign(state, initialState());
 	}
 };
 
@@ -73,8 +70,8 @@ export const actions = {
 		commit("changeCurrentItem", target);
 		commit("incrementItemsPointer");
 	},
-	goToVideo({ commit }, component) {
-		commit("changeCurrentComponent", component, { root: true });
+	goToVideo({ dispatch }, component) {
+		dispatch("changeCurrentComponent", component, { root: true });
 		this.$router.push("/video");
 	},
 };

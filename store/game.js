@@ -1,15 +1,19 @@
-export const state = () => ({
-	scoreArray: [],
-	laughedRecords: [],
-	hiddenVideos: [],
-	startFlg: false,
-	modalFlg: false,
-	gameFinFlg: false,
-	gameOverFlg: false,
-	hiddenFlg: false,
-	mode: null,
-	title: {},
-});
+const initialState = () => {
+	return {
+		scoreArray: [],
+    laughedRecords: [],
+    hiddenVideos: [],
+    startFlg: false,
+    modalFlg: false,
+    gameFinFlg: false,
+    gameOverFlg: false,
+    hiddenFlg: false,
+    mode: null,
+    title: {},
+	}
+};
+
+export const state = () => initialState();
 
 export const getters = {
 	scoreArray: (state) => state.scoreArray,
@@ -26,23 +30,8 @@ export const getters = {
 };
 
 export const mutations = {
-	setMode(state, mode) {
-		state.mode = mode;
-	},
-  setLaughedRecords(state, videoIds) {
-		state.laughedRecords = videoIds;
-	},
 	clearItem(state) {
-		state.scoreArray = [];
-		state.laughedRecords = [];
-		state.hiddenVideos = [];
-		state.startFlg = false;
-		state.modalFlg = false;
-		state.gameFinFlg = false;
-		state.gameOverFlg = false;
-		state.hiddenFlg = false;
-    state.mode = null;
-		state.title = {};
+		Object.assign(state, initialState());
 	},
 	addScoreArray(state, score) {
 		state.scoreArray.push(score);
@@ -63,7 +52,7 @@ export const mutations = {
 
 export const actions = {
 	setMode({ commit }, mode) {
-		commit("setMode", mode);
+    commit("setValue", { target: ["game", "mode"], value: mode }, { root: true });
 		const score =
 			mode == this.$fixed.MODE.NORMAL
 				? this.$fixed.PERFECT_SCORE
@@ -77,24 +66,24 @@ export const actions = {
 			.get("/api/v1/playlists", { params: { mode: getters.mode } })
 			.then((res) => {
 				// プレイリストセット
-				commit("video/setItems", res.data, { root: true });
+        commit("setValue", { target: ["video", "items"], value: res.data }, { root: true });
 				// laughed_videos/hidden_videos用配列準備
 				const arr = res.data.map((obj) => obj.id);
 				const new_arr = arr.reduce((new_arr, data, i) => {
 					new_arr[i] = { video_id: data };
 					return new_arr;
 				}, []);
-				commit("setLaughedRecords", new_arr);
+        commit("setValue", { target: ["game", "laughedRecords"], value: new_arr }, { root: true });
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	},
-	gotoNext({ commit, dispatch, rootGetters }, { score, window }) {
+	gotoNext({ dispatch, rootGetters }, { score, window }) {
 		// PlayRule画面ならTiktokコンポーネントに変更
 		if (rootGetters["currentComponent"] == "PlayRule") {
 			dispatch("setNextContents");
-			commit("changeCurrentComponent", "CommonTiktok", { root: true });
+			dispatch("changeCurrentComponent", "CommonTiktok", { root: true });
 			// play中ならスコア処理後に次コンテンツをセット
 		} else {
 			dispatch("calcScore", score);
