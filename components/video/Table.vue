@@ -10,21 +10,26 @@
             <blockquote class='tiktok-embed item' :cite="`https://www.tiktok.com/@${item.video_user}/video/${item.data_video_id}`" :data-video-id="`${item.data_video_id}`">
               <section></section>
             </blockquote>
-            <a @click="videoDelete(item.id)" class="btn xs-button btn-grey"><fa :icon="faEye" class="eye-icon"/></a>
+            <a @click="videoDelete(item.id)" class="btn xs-button btn-grey">
+              <p v-if="indexFlg">delete</p>
+              <fa v-else :icon="faEye" class="eye-icon"/>
+            </a>
           </td>
         </tr>
       </table>
     </template>
     <div v-else class="text-center">
-      <p class="nothing-wrapper">{{ $t("error.nothing", { value: $t("hidden_video") }) }}</p>
+      <p v-if="indexFlg" class="nothing-wrapper">{{ $t("error.nothing", { value: $t("posted") + $t("video") }) }}</p>
+      <p v-else class="nothing-wrapper">{{ $t("error.nothing", { value: $t("hidden_video") }) }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import {faEyeSlash, faEye} from "@fortawesome/free-solid-svg-icons";
+import {faEye} from "@fortawesome/free-solid-svg-icons";
 
 export default {
+  props: ["showMode", "updateFlg"],
   head() {
 		return {
 			script: [
@@ -46,13 +51,23 @@ export default {
     }
   },
   computed: {
-    faEyeSlash: () => faEyeSlash,
+    indexFlg() { return this.showMode == this.$fixed.VIDEO_SHOW_MODE.INDEX; },
+    getUrl() { return this.indexFlg ? "api/v1/videos" : "api/v1/hidden_videos"; },
+    deleteUrl() { return this.indexFlg ? "api/v1/videos/" : "api/v1/hidden_videos/"; },
+    confirmText() {
+      return (id) => {
+        return this.indexFlg ? this.$t("confirm.delete", { value: this.$t("video_id") + id }) : this.$t("confirm.video_unhidden", { value: this.$t("video_id") + id} )
+      }
+    },
+    deleteSuccessText() { this.indexFlg ? this.$t("success.delete", { value: this.$t("video") }) : this.$t("success.cancel", { value: this.$t("hidden_setting") }) },
+    deleteErrorText() { this.indexFlg ? this.$t("error.delete", { value: this.$t("video") }) : this.$t("error.cancel", { value: this.$t("cancel_hidden") }) },
     faEye: () => faEye,
   },
   methods: {
     getPage(page){
+      console.log("hoge");
       this.$axios
-			.get("api/v1/hidden_videos", {params: { page: page }})
+			.get(this.getUrl, {params: { page: page }})
 			.then((res) => {
 				this.videoData = res.data.videos;
         this.totalPages = res.data.total_pages;
@@ -64,24 +79,27 @@ export default {
 			});
     },
     videoDelete(id){
-      if (confirm(this.$t("confirm.video_unhidden", { value: this.$t("video_id") + id} ))) {
+      if (confirm(this.confirmText(id))) {
         const page = document.getElementsByTagName("tr").length <= 1 && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
         this.$axios
-          .delete(`api/v1/hidden_videos/${id}`)
+          .delete(this.deleteUrl + id)
           .then(() => {
             this.getPage(page);
             this.scriptFlg = !this.scriptFlg;
-            this.showFlashMsg('success', this.$t("success.cancel", { value: this.$t("hidden_setting") }));
+            this.showFlashMsg('success', this.deleteSuccessText);
           })
           .catch((e) => {
             console.log(e);
-            this.showFlashMsg('error', this.$t("error.cancel", { value: this.$t("cancel_hidden") }));
+            this.showFlashMsg('error', this.deleteErrorText);
           });
       }
     }
   },
-  created(){
-    this.getPage(1);
+  updated(){
+    if (this.updateFlg) {
+      this.getPage(1);
+      this.$emit("update:updateFlg", false);
+    }
   }
 }
 </script>

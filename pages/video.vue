@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<component :is="currentComponent"></component>
+		<component :is="currentComponent" :show-mode="showMode" :update-flg.sync="updateFlg"></component>
 		<div class="video-icon-wrapper">
 			<fa
 				:icon="faEyeSlash"
-				@click="$store.dispatch('changeCurrentComponent', 'VideoHidden')"
+				@click="changeComponent($fixed.VIDEO_SHOW_MODE.HIDDEN)"
 				class="video-icon btn btn-yellow-green"
 			/>
 			<fa
 				:icon="faListUl"
-				@click="$store.dispatch('changeCurrentComponent', 'Video')"
+				@click="changeComponent($fixed.VIDEO_SHOW_MODE.INDEX)"
 				class="video-icon btn btn-yellow-green"
 			/>
 			<fa
@@ -28,12 +28,26 @@ import {
 	faPlus,
 	faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+
 export default {
+	data(){
+		return {
+			showMode: null,
+			updateFlg: false,
+		}
+	},
 	computed: {
 		faListUl: () => faListUl,
 		faPlus: () => faPlus,
 		faEyeSlash: () => faEyeSlash,
 		...mapGetters(["currentComponent"]),
+	},
+	methods: {
+		changeComponent(mode){
+			this.updateFlg = this.showMode != mode;
+			this.showMode = mode;
+			this.$store.dispatch('changeCurrentComponent', 'VideoTable');
+		}
 	},
 	mounted() {
 		if (!localStorage.getItem("loginFlg")) {

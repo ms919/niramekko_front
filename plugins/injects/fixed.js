@@ -9,6 +9,10 @@ const fixed = Object.freeze({
 		DOJO: 1,
 		REVENGE: 2,
 	},
+	VIDEO_SHOW_MODE: {
+		INDEX: 0,
+		HIDDEN: 1,
+	},
 });
 
 export default(context, inject) => {
