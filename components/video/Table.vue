@@ -64,8 +64,13 @@ export default {
     faEye: () => faEye,
   },
   methods: {
+    pageUpdate(){
+      if (this.updateFlg) {
+        this.getPage(1);
+        this.$emit("update:updateFlg", false);
+      }
+    },
     getPage(page){
-      console.log("hoge");
       this.$axios
 			.get(this.getUrl, {params: { page: page }})
 			.then((res) => {
@@ -95,11 +100,11 @@ export default {
       }
     }
   },
+  mounted(){
+    this.pageUpdate();
+  },
   updated(){
-    if (this.updateFlg) {
-      this.getPage(1);
-      this.$emit("update:updateFlg", false);
-    }
+    this.pageUpdate();
   }
 }
 </script>

@@ -44,7 +44,7 @@ export default {
 	},
 	methods: {
 		changeComponent(mode){
-			this.updateFlg = this.showMode != mode;
+			this.updateFlg = this.showMode != mode || this.currentComponent == "VideoNew";
 			this.showMode = mode;
 			this.$store.dispatch('changeCurrentComponent', 'VideoTable');
 		}
