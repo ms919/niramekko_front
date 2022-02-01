@@ -61,7 +61,7 @@ export const actions = {
 		this.$router.push("/play");
 	},
 	getItems({ getters, commit }) {
-		// rails側のdbから動画を取ってきてセットする
+		// dbから動画を取ってきてセットする
 		this.$axios
 			.get("/api/v1/playlists", { params: { mode: getters.mode } })
 			.then((res) => {
