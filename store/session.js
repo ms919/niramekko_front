@@ -71,7 +71,7 @@ export const actions = {
 			notifications = null
 		} else {
 			notifications.map((item) => {
-				item.message = item.format == "latest_top" ? this.$i18n.t("user_notification.latest_top", { score: item.message }) : item.message;
+				if (item.format == "latest_top") item.message = this.$i18n.t("user_notification.latest_top", { score: item.message });
 			});
 		}
 		commit("setValue", { target: ["session", "notifications"], value: notifications }, { root: true });

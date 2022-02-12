@@ -36,7 +36,6 @@ export const actions = {
 		commit("setValue", { target: ["currentComponent"], value: component });
 	},
 	changeFlg({ commit, rootGetters}, { target, flg }) {
-		const setFlg = flg ? true : false;
-		if (rootGetters[target] != setFlg) commit("changeFlg", target.split("/"));
+		if (rootGetters[target] != flg) commit("changeFlg", target.split("/"));
 	},
 };
