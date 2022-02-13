@@ -68,7 +68,7 @@ export default {
 		faTwitter: () => faTwitter,
 		faSkull: () => faSkull,
 		faBone: () => faBone,
-		...mapGetters({ gameOverFlg: "game/gameOverFlg", title: "game/title" }),
+		...mapGetters('game', { gameOverFlg: "gameOverFlg", title: "title" }),
 	},
 	methods: {
 		closeModal() {

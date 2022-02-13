@@ -51,19 +51,19 @@ import {
 
 export default {
 	computed: {
-		...mapGetters([
-			"currentComponent",
-		]),
-		...mapGetters({
-			loginFlg: "session/loginFlg",
-			itemsPointer: "video/itemsPointer",
-			itemsLength: "video/itemsLength",
-			mode: "game/mode",
-			hiddenFlg: "game/hiddenFlg",
-			startFlg: "game/startFlg",
-			gameOverFlg: "game/gameOverFlg",
-			gameFinFlg: "game/gameFinFlg",
-			modalFlg: "game/modalFlg",
+		...mapGetters(["currentComponent"]),
+		...mapGetters('session', { loginFlg: "loginFlg" }),
+		...mapGetters('video', {
+			itemsPointer: "itemsPointer",
+			itemsLength: "itemsLength",
+		}),
+		...mapGetters('game', {
+			mode: "mode",
+			hiddenFlg: "hiddenFlg",
+			startFlg: "startFlg",
+			gameOverFlg: "gameOverFlg",
+			gameFinFlg: "gameFinFlg",
+			modalFlg: "modalFlg",
 		}),
 		faEyeSlash: () => faEyeSlash,
 		faArrowCircleRight: () => faArrowCircleRight,

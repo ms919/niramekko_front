@@ -54,9 +54,9 @@ export default {
 				data_video_id: this.url.match(/[0-9]*$/)[0],
 			};
 		},
-		...mapGetters({
-			currentItem: "video/currentItem",
-			canPlayFlg: "video/canPlayFlg",
+		...mapGetters('video', {
+			currentItem: "currentItem",
+			canPlayFlg: "canPlayFlg",
 		}),
 	},
 	methods: {

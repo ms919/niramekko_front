@@ -47,11 +47,11 @@ export default {
 		faSurprise: () => faSurprise,
 		faDizzy: () => faDizzy,
 		...mapGetters(["currentComponent"]),
-		...mapGetters({
-			mode: "game/mode",
-			startFlg: "game/startFlg",
-			gameOverFlg: "game/gameOverFlg",
-			gameFinFlg: "game/gameFinFlg",
+		...mapGetters('game', {
+			mode: "mode",
+			startFlg: "startFlg",
+			gameOverFlg: "gameOverFlg",
+			gameFinFlg: "gameFinFlg",
 		}),
 	},
 	methods: {

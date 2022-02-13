@@ -31,9 +31,7 @@
 import { mapGetters } from "vuex";
 export default {
 	computed: {
-		...mapGetters({
-			revengeFlg: "session/revengeFlg",
-		}),
+		...mapGetters('session', { revengeFlg: "revengeFlg" }),
 	},
 	mounted() {
 		this.$store.dispatch("clearItem");

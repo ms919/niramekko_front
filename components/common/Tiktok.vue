@@ -19,9 +19,9 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters({
-			itemsPointer: "video/itemsPointer",
-			currentItem: "video/currentItem",
+		...mapGetters('video', {
+			itemsPointer: "itemsPointer",
+			currentItem: "currentItem",
 		}),
 	},
 };

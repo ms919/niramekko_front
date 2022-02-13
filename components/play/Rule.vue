@@ -35,10 +35,8 @@ export default {
 		};
 	},
 	computed: {
-		...mapGetters({
-			loginFlg: "session/loginFlg",
-			mode: "game/mode",
-		}),
+		...mapGetters('session', { loginFlg: "loginFlg" }),
+		...mapGetters('game', { mode: "mode" }),
 		text() {
 			if (!this.ruleFlg) {
 				return this.$t("rule.prepare_text");

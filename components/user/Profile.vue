@@ -99,11 +99,11 @@ export default {
 		faCog: () => faCog,
 		faListUl: () => faListUl,
 		faPlus: () => faPlus,
-		...mapGetters({
-			user: "session/user",
-			records: "session/records",
-			totalScore: "session/totalScore",
-			notifications: "session/notifications",
+		...mapGetters('session', {
+			user: "user",
+			records: "records",
+			totalScore: "totalScore",
+			notifications: "notifications",
 		}),
 	},
 	methods: {

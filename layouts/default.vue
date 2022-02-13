@@ -62,9 +62,9 @@ export default {
 	},
 	computed: {
 		...mapGetters(["footerFlg"]),
-		...mapGetters({
-			loginFlg: "session/loginFlg",
-			userImg: "session/userImg",
+		...mapGetters('session', {
+			loginFlg: "loginFlg",
+			userImg: "userImg",
 		}),
 		faCircle: () => faCircle,
 		faUser: () => faUser,
