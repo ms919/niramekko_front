@@ -76,17 +76,22 @@ export default {
 		changeLocale(locale) {
 			this.$i18n.setLocaleCookie(locale);
 			this.$router.go(0);
-		}
+		},
+		addMenuClose(){
+			if (this.$refs.elRoot) {
+				window.addEventListener("click",
+					(this._onBlurHandler = (event) => {
+						if (!this.$refs.elRoot.contains(event.target)) this.menuFlg = false;
+					})
+				);
+			}
+		},
 	},
 	mounted() {
-		window.addEventListener(
-			"click",
-			(this._onBlurHandler = (event) => {
-				if (!this.$refs.elRoot.contains(event.target)) {
-					this.menuFlg = false;
-				}
-			})
-		);
+		this.addMenuClose();
+	},
+	updated() {
+		this.addMenuClose();
 	},
 	beforeDestroy() {
 		window.removeEventListener("click", this._onBlurHandler);
